@@ -11,15 +11,22 @@ public class ItemManager : MonoBehaviour
     {
         for (int i = 0; i < 5; i++)
         {
-            SpawnItem(new Vector2(Random.Range(-50, 50), -5));
+            SpawnItem();
         }
     }
 
-    public void SpawnItem(Vector2 position)
+    public void SpawnItem()
     {
         GameObject g = Instantiate(itemPrefab) as GameObject;
-        g.transform.position = position;
+        g.transform.position = FindRandomPointOnGround();
+
+        // Check if item is touching another item, and if so move this one somewhere else 
 
         g.transform.SetParent(transform.Find("Items"));
+    }
+
+    public Vector2 FindRandomPointOnGround()
+    {
+        return new Vector2(Random.Range(-50, 50), -5);
     }
 }
