@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Player2
   - Ground
+  - Car
+  - Car2
   layers:
   - Default
   - TransparentFX
@@ -18,8 +20,8 @@ TagManager:
   - Player
   - Player2
   - Item
-  - 
-  - 
+  - Car
+  - Car2
   - 
   - 
   - 
