@@ -31,8 +31,10 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         speed = new Vector2();
+
         // Update the player tag to correspond with p1 or p2
         transform.tag = player.ToString();
+        gameObject.layer = LayerMask.NameToLayer(player.ToString());
 
         // Set the player key controls
         if (player == PlayerTag.Player)
