@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Car_Movement : MonoBehaviour
 {
+    public enum KeyMovement { up, left, right};
+    public KeyMovement key;
+
+    KeyCode right;
+    KeyCode left;
+    KeyCode up;
+
     public float speed = 3.0f;
     public float jump = 80.0f;
     public float MaxSpeed = 15.0f;
@@ -14,11 +21,7 @@ public class Car_Movement : MonoBehaviour
     private Vector2 velocity;
     private Collider2D carCollider;
     bool touchingGround = false;
-    bool personInCar = true;
-
-    KeyCode left;
-    KeyCode right;
-    KeyCode up;
+    public bool personInCar = true;
     // Start is called before the first frame update
     void Start()
     {
