@@ -54,7 +54,8 @@ public class CarStateListener : MonoBehaviour
                 // Set engine to off
 
                 player.SetActive(true);
-                player.GetComponent<PlayerMovement>().GetOutOfCar();
+                player.transform.position = car.transform.position;
+                player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 isInsideCar = false;
             }
         }
@@ -65,30 +66,20 @@ public class CarStateListener : MonoBehaviour
             {
                 // Set engine to on
 
-                player.SetActive(false);
-                isInsideCar = true;
+
             }
         }
     }
 
 
-
+    public void GetIntoCar()
+    {
+        player.SetActive(false);
+        isInsideCar = true;
+    }
 
     public void UpgradeCar()
     {
-        // Check player and car collision first
-        if(player.GetComponent<BoxCollider2D>().IsTouching(car.GetComponent<CapsuleCollider2D>()))
-        {
-            // TODO
-            print("press to upgrade");
-
-            if (Input.GetKeyDown(player.GetComponent<CarStateListener>().interact))
-            {
-                print("CAr should be upgraded");
-
-            }
-
-        }
-
+        print("car should be upgrded");
     }
 }
