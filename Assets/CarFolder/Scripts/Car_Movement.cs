@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class Car_Movement : MonoBehaviour
 {
-    public float speed = 3.0f;
-    public float jump = 80.0f;
+    public float acceleration = 3.0f;
+    public float jump = 40.0f;
     public float MaxSpeed = 15.0f;
-    public bool player2;
-
-    private int jumpHeight = 0;
+    private float jumpHeight = 0.0f;
     private Rigidbody2D rigidBody;
     private Vector2 velocity;
     private Collider2D carCollider;
@@ -23,7 +21,7 @@ public class Car_Movement : MonoBehaviour
     void Start()
     {
         rigidBody = gameObject.GetComponent<Rigidbody2D>();
-        carCollider = gameObject.GetComponent<Collider2D>();
+        carCollider = gameObject.GetComponent<CircleCollider2D>();
         velocity = rigidBody.velocity;
 
         if (player2)
@@ -46,13 +44,10 @@ public class Car_Movement : MonoBehaviour
         if (carCollider.IsTouching(GameObject.FindGameObjectWithTag("Ground").GetComponent<EdgeCollider2D>()))
         {
             touchingGround = true;
-            Debug.Log("TOUCHING GROUND");
         }
         else
         {
             touchingGround = false;
-            Debug.Log("NOT TOUCHING GROUND");
-
         }
 
         if (personInCar)
@@ -71,34 +66,36 @@ public class Car_Movement : MonoBehaviour
             if (Input.GetKey(right) && !Input.GetKey(left) && horizontalVelocity <= MaxSpeed)
             {
                 Vector2 horizontalForce = new Vector2(2.0f, 0.0f);
-                rigidBody.AddForce(horizontalForce * speed);
+                rigidBody.AddForce(horizontalForce * acceleration);
             }
 
             if (!Input.GetKey(right) && Input.GetKey(left) && horizontalVelocity >= -MaxSpeed)
             {
                 Vector2 horizontalForce = new Vector2(-2.0f, 0.0f);
-                rigidBody.AddForce(horizontalForce * speed);
+                rigidBody.AddForce(horizontalForce * acceleration);
             }
         }
     }
 
     void keyJump()
     {
-        if (touchingGround)
-        {
-            jumpHeight = 0;
-
-        }
-        else if(jumpHeight <= 21)
+        float verticalVelocity = velocity.y;
+        if (Input.GetKey(KeyCode.UpArrow) && touchingGround)
         {
             jumpHeight++;
+            if (jumpHeight >= 80)
+            {
+                jumpHeight = 80;
+            }
         }
-
-        float verticalVelocity = velocity.y;
-        if (Input.GetKey(up) && verticalVelocity <= 7*jump && jumpHeight <= 20 )
+        else if (Input.GetKeyUp(KeyCode.UpArrow) && touchingGround)
         {
-            Vector2 horizontalForce = new Vector2(0.0f, jump);
+            Vector2 horizontalForce = new Vector2(0.0f, (jump + (jump*0.2f*jumpHeight)));
             rigidBody.AddForce(horizontalForce);
+        }
+        else if (touchingGround)
+        {
+            jumpHeight = 0;
         }
     }
 }
