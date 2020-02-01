@@ -25,10 +25,7 @@ public class PlayerMovement : MonoBehaviour
     public int BOOST_UPGRADE = 20;
     */
 
-    private Item.ItemType item = Item.ItemType.None;
-
-    [Space(12)]
-    public string playerName;
+    private Item.ItemType item = Item.ItemType.Speed;
 
     // Start is called before the first frame update
     private void Start()
@@ -64,6 +61,14 @@ public class PlayerMovement : MonoBehaviour
             Vector2 direction = new Vector2();
             direction.x += speed.x * Time.deltaTime;
             transform.Translate(direction);
+
+            if (item != Item.ItemType.None)
+            {
+
+                player.GetComponent<CarStateListener>().UpgradeCar();
+
+            }
+
         }
     }
 

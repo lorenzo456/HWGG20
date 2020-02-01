@@ -70,4 +70,25 @@ public class CarStateListener : MonoBehaviour
             }
         }
     }
+
+
+
+
+    public void UpgradeCar()
+    {
+        // Check player and car collision first
+        if(player.GetComponent<BoxCollider2D>().IsTouching(car.GetComponent<CapsuleCollider2D>()))
+        {
+            // TODO
+            print("press to upgrade");
+
+            if (Input.GetKeyDown(player.GetComponent<CarStateListener>().interact))
+            {
+                print("CAr should be upgraded");
+
+            }
+
+        }
+
+    }
 }
