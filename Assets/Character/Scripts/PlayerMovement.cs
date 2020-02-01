@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     {
         speed = new Vector2();
 
-        // Update the player tag to correspond with p1 or p2
+        // Update the player tag and layer to correspond with Player or Player2
         transform.tag = player.ToString();
         gameObject.layer = LayerMask.NameToLayer(player.ToString());
 
@@ -50,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
             jump = KeyCode.UpArrow;
         }
 
+        // Starting values for the boost
         speedBoost = 100;
         durabilityBoost = 100;
         jumpBoost = 100;
@@ -61,13 +62,17 @@ public class PlayerMovement : MonoBehaviour
         // Player has pressed jump
         if (Input.GetKeyDown(jump))
         {
-            // TODO Need to check that the player is on the ground 
-
-            transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, JUMP_POWER * ((float)jumpBoost / (float)MAX_BOOST)), ForceMode2D.Impulse);
+            // Check that the player is on the ground 
+            if (GetComponent<Rigidbody2D>().IsTouching(GameObject.FindGameObjectWithTag("Ground").GetComponent<Collider2D>()))
+            {
+                // Apply upward force (percentage of boost)
+                transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, JUMP_POWER * ((float)jumpBoost / (float)MAX_BOOST)), ForceMode2D.Impulse);
+            }
         }
 
         UpdatePlayerSpeed();
 
+        // Apply the direction
         Vector2 direction = new Vector2();
         direction.x += speed.x * Time.deltaTime;
         transform.Translate(direction);
@@ -101,8 +106,10 @@ public class PlayerMovement : MonoBehaviour
 
     public void CollectedItem(Item.ItemType type)
     {
-        Debug.Log(playerName + " Has collided with item " + type);
+        // Called when an item has collided with this player
+        Debug.Log(playerName + " " + player + " has collided with item " + type);
 
+        // Upgrade stats
         if (type == Item.ItemType.Speed)
         {
             speedBoost += BOOST_UPGRADE;

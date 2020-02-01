@@ -10,8 +10,9 @@ public class Item : MonoBehaviour
     {
         // Randomly choose an item type
         int t = Mathf.FloorToInt(Random.Range(0, 3));
-        Color c;
 
+        // Set colour (just for now)
+        Color c;
         if (t == 0)
         {
             itemType = ItemType.Speed;
@@ -29,7 +30,6 @@ public class Item : MonoBehaviour
         }
 
         GetComponent<SpriteRenderer>().material.color = c;
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -40,7 +40,7 @@ public class Item : MonoBehaviour
             // Tell the player that it has collided with this object
             collision.GetComponent<PlayerMovement>().CollectedItem(itemType);
             // Remove this object
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 

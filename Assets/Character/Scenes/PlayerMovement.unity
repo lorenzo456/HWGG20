@@ -220,8 +220,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25059574ddcc70247bdb2398d033990f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DEFAULT_SPEED: 10
-  JUMP_POWER: 7
+  DEFAULT_SPEED: 16
+  JUMP_POWER: 12
   speedBoost: 0
   durabilityBoost: 0
   jumpBoost: 0
@@ -444,7 +444,7 @@ GameObject:
   - component: {fileID: 1803796708}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
