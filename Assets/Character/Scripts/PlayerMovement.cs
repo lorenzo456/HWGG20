@@ -61,6 +61,10 @@ public class PlayerMovement : MonoBehaviour
             interact = KeyCode.O;
         }
 
+        Debug.Log("Player 1: move with wad, toggle car q, interact e");
+        Debug.Log("Player 2: move with up down left, toggle car i, interact o");
+
+
         // Starting values for the boost
         /*
         speedBoost = 100;

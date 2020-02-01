@@ -395,7 +395,7 @@ PrefabInstance:
     - target: {fileID: 1911548236569411285, guid: 7b3ebd84a4fbfd84cbfc86ea26b02878,
         type: 3}
       propertyPath: m_Name
-      value: Player (1)
+      value: Player2
       objectReference: {fileID: 0}
     - target: {fileID: 1911548236569411285, guid: 7b3ebd84a4fbfd84cbfc86ea26b02878,
         type: 3}
@@ -477,7 +477,7 @@ GameObject:
   - component: {fileID: 1382327939}
   - component: {fileID: 1382327940}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: Finish
   m_TagString: Finish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -545,7 +545,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1382327939
 BoxCollider2D:
