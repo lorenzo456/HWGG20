@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Car_Movement : MonoBehaviour
 {
+    public enum KeyMovement { up, left, right};
+    public KeyMovement key;
+
+    KeyCode right;
+    KeyCode left;
+    KeyCode up;
+
     public float speed = 3.0f;
     public float jump = 80.0f;
     public float MaxSpeed = 15.0f;
