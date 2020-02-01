@@ -98,6 +98,10 @@ public class Car_Movement_Plus : MonoBehaviour
             wheelMotor1.motor = NewMotor((0.5f * speed) + (statSpeed * speed));
             wheelMotor2.motor = NewMotor((0.5f * speed) + (statSpeed * speed));
             statSpeed = statSpeed - 0.05f * Time.deltaTime;
+            if (statSpeed < 0)
+            {
+                statSpeed = 0;
+            }
         }
         else
         {
