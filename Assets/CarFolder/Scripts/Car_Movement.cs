@@ -24,7 +24,7 @@ public class Car_Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (carCollider.IsTouching(GameObject.Find("groundofGOD").GetComponent<Collider2D>()))
+        if (carCollider.IsTouching(GameObject.FindGameObjectWithTag("Ground").GetComponent<Collider2D>()))
         {
             touchingGround = true;
         }

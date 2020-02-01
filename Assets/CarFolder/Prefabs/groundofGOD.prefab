@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3649337214617899373}
   m_Layer: 0
   m_Name: groundofGOD
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3649337214617899369}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.19, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.8010156, y: 1.1005359, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -114,13 +114,18 @@ EdgeCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
   - {x: -10, y: 0}
-  - {x: -3.6420345, y: 0.59363747}
-  - {x: 3.7291286, y: -0.48350602}
-  - {x: 9.978988, y: -0.35924578}
+  - {x: -4.354699, y: 0.68948853}
+  - {x: 0.044328213, y: 0.05588962}
+  - {x: 3.268836, y: -0.4017015}
+  - {x: 10, y: 0}
+  - {x: 16.53, y: 10}
+  - {x: 20.01, y: 10.3}
+  - {x: 34.9, y: -5.14}
+  - {x: 155.9, y: -5.14}
