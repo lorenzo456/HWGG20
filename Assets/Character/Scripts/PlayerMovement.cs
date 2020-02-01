@@ -180,13 +180,36 @@ public class PlayerMovement : MonoBehaviour
         return false;
     }
 
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        // Collides with this players vehicle
+        if (collision.gameObject.tag.Contains("Car"))
+        {
+            // Check the correct vehicle
+            if (collision.gameObject.tag.Equals("Car") && transform.tag.Equals("Player"))
+            {
+                UpgradeCar();
+            }
+            else if (collision.gameObject.tag.Equals("Car2") && transform.tag.Equals("Player2"))
+            {
+                UpgradeCar();
+            }
+            else
+            {
+                Debug.Log("This is not the correct car!!!");
+            }
+
+        }
+    }
+
 
     public void GetIntoCar()
     {
         isOutsideOfCar = false;
+    }
 
-        // Send item to the car
-
+    public void UpgradeCar()
+    {
         // Set the selected item to none
         item = Item.ItemType.None;
     }
