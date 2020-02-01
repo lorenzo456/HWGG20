@@ -125,7 +125,7 @@ public class Car_Movement_Plus : MonoBehaviour
             rigidBody.AddForce(horizontalForce);
             if (jumpHeight == 1)
             {
-                statJump = statJump - 0.5f;
+                statJump = statJump - 0.05f;
             }
             if(statJump <= 0.0f)
             {
