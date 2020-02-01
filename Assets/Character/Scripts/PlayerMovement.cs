@@ -12,32 +12,12 @@ public class PlayerMovement : MonoBehaviour
     // Reference to the correct car
     public GameObject player;
 
-
-    /*
-    [Space(16)]
-    public const int MAX_BOOST = 200;
-    [Range(0, MAX_BOOST)]
-    public int speedBoost;
-    [Range(0, MAX_BOOST)]
-    public int durabilityBoost;
-    [Range(0, MAX_BOOST)]
-    public int jumpBoost;
-    public int BOOST_UPGRADE = 20;
-    */
-
     private Item.ItemType item = Item.ItemType.Speed;
 
     // Start is called before the first frame update
     private void Start()
     {
         speed = new Vector2();
-
-        // Starting values for the boost
-        /*
-        speedBoost = 100;
-        durabilityBoost = 100;
-        jumpBoost = 100;
-        */
     }
 
     // Update is called once per frame
@@ -118,18 +98,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+
         // Collides with this players vehicle
         if (collision.gameObject.tag.Contains("Car"))
         {
             // Check the correct vehicle
-            if (collision.gameObject.tag.Equals("Car") && transform.tag.Equals("Player") || collision.gameObject.tag.Equals("Car2") && transform.tag.Equals("Player2"))
+            if ((collision.gameObject.tag.Equals("Car") && transform.tag.Equals("Player")) || (collision.gameObject.tag.Equals("Car2") && transform.tag.Equals("Player2")))
             {
-                //print("collidong with car");
-
                 if (item != Item.ItemType.None)
                 {
                     // DIsplay car to upgrade message here
                     //print("car can be upgraded");
+                    print(player.GetComponent<CarStateListener>().interact);
 
                     if (Input.GetKeyDown(player.GetComponent<CarStateListener>().interact))
                     {
@@ -142,7 +122,6 @@ public class PlayerMovement : MonoBehaviour
                     // display get into car message
                     //print("get into car");
                 }
-
 
 
                 // Get into it

@@ -43,7 +43,7 @@ public class Car_Movement_Plus : MonoBehaviour
         wheelCollider = gameObject.GetComponentInChildren<CircleCollider2D>();
         velocity = rigidBody.velocity;
 
-        if (player2)
+        if (!player2)
         {
             left = KeyCode.A;
             right = KeyCode.D;
@@ -63,7 +63,6 @@ public class Car_Movement_Plus : MonoBehaviour
         if (wheelCollider.IsTouching(GameObject.Find("collider").GetComponent<Collider2D>()))
         {
             touchingGround = true;
-            Debug.Log("touching");
         }
         else
         {

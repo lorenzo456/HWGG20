@@ -14,6 +14,8 @@ public class CarStateListener : MonoBehaviour
     public enum PlayerTag { Player, Player2 };
     public PlayerTag playerType;
 
+    bool ignoreGetInCar = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,18 +50,26 @@ public class CarStateListener : MonoBehaviour
     {
         if (isInsideCar)
         {
-            // Get out of car
-            if (Input.GetKeyDown(toggleCar))
+            if(!ignoreGetInCar)
             {
-                print("getting out of car");
-                // Set engine to off
+                // Get out of car
+                if (Input.GetKeyDown(toggleCar))
+                {
+                    print("getting out of car");
+                    // Set engine to off
 
-                player.SetActive(true);
-                player.transform.position = car.transform.position;
-                player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                isInsideCar = false;
+                    player.SetActive(true);
+                    player.transform.position = car.transform.GetChild(0).position;
+                    player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                    isInsideCar = false;
+
+                    car.GetComponent<Car_Movement_Plus>().personInCar = false;
+                }
+
             }
+
         }
+        ignoreGetInCar = false;
     }
 
 
@@ -68,6 +78,8 @@ public class CarStateListener : MonoBehaviour
         print("getting into car");
         player.SetActive(false);
         isInsideCar = true;
+        car.GetComponent<Car_Movement_Plus>().personInCar = true;
+        ignoreGetInCar = true;
     }
 
     public void UpgradeCar()
