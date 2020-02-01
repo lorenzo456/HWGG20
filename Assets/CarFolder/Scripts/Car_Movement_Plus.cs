@@ -60,9 +60,10 @@ public class Car_Movement_Plus : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (wheelCollider.IsTouching(GameObject.FindGameObjectWithTag("Ground").GetComponent<EdgeCollider2D>()))
+        if (wheelCollider.IsTouching(GameObject.Find("collider").GetComponent<Collider2D>()))
         {
             touchingGround = true;
+            Debug.Log("touching");
         }
         else
         {
