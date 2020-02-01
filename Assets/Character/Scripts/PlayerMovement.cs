@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     private KeyCode accelerate, decelerate, jump;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         speed = new Vector2();
         // Update the player tag to correspond with p1 or p2
@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         // Player has pressed jump
         if (Input.GetKeyDown(jump))
@@ -97,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    public void collectedItem(Item.ItemType type)
+    public void CollectedItem(Item.ItemType type)
     {
         Debug.Log(playerName + " Has collided with item " + type);
 
