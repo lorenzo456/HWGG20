@@ -326,7 +326,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &122674913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,9 +339,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25059574ddcc70247bdb2398d033990f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DEFAULT_SPEED: 16
-  JUMP_POWER: 12
+  DEFAULT_SPEED: 10
+  JUMP_POWER: 8
   player: {fileID: 1039179585}
+  faceLeft: {fileID: 21300000, guid: 720a7ec2068de074598fbb31e6348ea5, type: 3}
+  faceRight: {fileID: 21300000, guid: 01cb23aa3fe93ff43ac16a8fa1dafb2e, type: 3}
+  jmp: {fileID: 21300000, guid: 7dd4bf8ab4ab92b4c81640542bb2cc81, type: 3}
+  left1: {fileID: 21300000, guid: 0511479c9a2b014468c8b9001375c08c, type: 3}
+  left2: {fileID: 21300000, guid: 615b9c74d9337c4468b6e0b40b152dd1, type: 3}
+  right1: {fileID: 21300000, guid: 61a9af24d6777134db41a71a10365425, type: 3}
+  right2: {fileID: 21300000, guid: f996a9d49c31a134994c48d36d4c4cac, type: 3}
+  secondsForSprite: 0.3
+  isFacingRight: 1
 --- !u!4 &122674914
 Transform:
   m_ObjectHideFlags: 0
@@ -645,7 +654,7 @@ GameObject:
   - component: {fileID: 874591162}
   m_Layer: 13
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1002,7 +1011,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1603512921
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1448,7 +1457,7 @@ GameObject:
   - component: {fileID: 520602925734653108}
   m_Layer: 13
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1558,9 +1567,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25059574ddcc70247bdb2398d033990f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DEFAULT_SPEED: 16
-  JUMP_POWER: 12
+  DEFAULT_SPEED: 10
+  JUMP_POWER: 8
   player: {fileID: 520602924997425566}
+  faceLeft: {fileID: 21300000, guid: a020fdbef2272c144856f9b3969b6be6, type: 3}
+  faceRight: {fileID: 21300000, guid: c636a8bb3d824794a892ff3b2c3bbe8f, type: 3}
+  jmp: {fileID: 21300000, guid: e12e02a2e7366334bbec9afc14938e2f, type: 3}
+  left1: {fileID: 21300000, guid: e584df6ee170c9c45886b7599dea7e3f, type: 3}
+  left2: {fileID: 21300000, guid: 20b063370ef9614488540323f2bdef9f, type: 3}
+  right1: {fileID: 21300000, guid: 931660a40e90e684e9ebdf9fff62c63a, type: 3}
+  right2: {fileID: 21300000, guid: 2f0c41a41f7a43442982d330dad94edf, type: 3}
+  secondsForSprite: 0.3
+  isFacingRight: 1
 --- !u!114 &2889311374530598303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1661,7 +1679,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!4 &6394198072098876564
 Transform:
   m_ObjectHideFlags: 0
