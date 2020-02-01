@@ -1,7 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/LevelStuff/Scenes.meta
 guid: 4675f1c6d59b6be4991874c980c3a27b
 folderAsset: yes
 DefaultImporter:
+=======
+guid: 5023252a211fb5148840de916391568f
+PrefabImporter:
+>>>>>>> CarMovement:Assets/CarFolder/Prefabs/CAR.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

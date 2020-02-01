@@ -7,7 +7,7 @@ public class Car_Movement_Plus : MonoBehaviour
 
     float statDurability = 1.0f;
     float statSpeed = 1.0f;
-    float statJump = 0.5f;
+    float statJump = 1.0f;
     
 
 
@@ -74,6 +74,13 @@ public class Car_Movement_Plus : MonoBehaviour
             Movement();
             Jump();
         }
+        else
+        {
+            wheelMotor1.motor = NewMotor(0);
+            wheelMotor2.motor = NewMotor(0);
+        }
+
+        ResetPosition();
     }
 
     void Movement()
@@ -83,12 +90,18 @@ public class Car_Movement_Plus : MonoBehaviour
         {
             wheelMotor1.motor = NewMotor((-0.5f * speed) + -(statSpeed * speed));
             wheelMotor2.motor = NewMotor((-0.5f * speed) + -(statSpeed * speed));
+            statSpeed = statSpeed - 0.05f*Time.deltaTime;
         }
 
         else if (!Input.GetKey(right) && Input.GetKey(left))
         {
             wheelMotor1.motor = NewMotor((0.5f * speed) + (statSpeed * speed));
             wheelMotor2.motor = NewMotor((0.5f * speed) + (statSpeed * speed));
+            statSpeed = statSpeed - 0.05f * Time.deltaTime;
+            if (statSpeed < 0)
+            {
+                statSpeed = 0;
+            }
         }
         else
         {
@@ -114,6 +127,14 @@ public class Car_Movement_Plus : MonoBehaviour
         {
             Vector2 horizontalForce = new Vector2(0.0f, (statJump * maxJumpHeight));
             rigidBody.AddForce(horizontalForce);
+            if (jumpHeight == 1)
+            {
+                statJump = statJump - 0.05f;
+            }
+            if(statJump <= 0.0f)
+            {
+                statJump = 0.0f;
+            }
         }
     }
 
@@ -124,5 +145,45 @@ public class Car_Movement_Plus : MonoBehaviour
         MyNewMotor.maxMotorTorque = 10000;
 
         return MyNewMotor;
+    }
+
+    void repairJump(int value)
+    {
+        statJump = statJump + value;
+        if (statJump > 100)
+        {
+            statJump = 100.0f;
+        }
+    }
+
+    void repairDurabilty(int value)
+    {
+        statDurability = statDurability + value;
+        if (statDurability > 100)
+        {
+            statDurability = 100.0f;
+        }
+    }
+
+    void repairSpeed(int value)
+    {
+        statSpeed = statSpeed + value;
+        if (statSpeed > 100)
+        {
+            statSpeed = 100.0f;
+        }
+    }
+
+    void ResetPosition()
+    {
+        GameObject body = gameObject.transform.GetChild(0).gameObject;
+        if (body.transform.eulerAngles.z >= 45 && body.transform.eulerAngles.z <= 90)
+        {
+            body.transform.eulerAngles = new Vector3(body.transform.eulerAngles.x, body.transform.eulerAngles.y, 45.0f);
+        }
+        /*else if (body.transform.eulerAngles.z >= 315 && body.transform.eulerAngles.z <= 360)
+        {
+            body.transform.eulerAngles = new Vector3(body.transform.eulerAngles.x, body.transform.eulerAngles.y, 315.0f);
+        }*/
     }
 }
