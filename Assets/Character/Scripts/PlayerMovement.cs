@@ -61,14 +61,6 @@ public class PlayerMovement : MonoBehaviour
             Vector2 direction = new Vector2();
             direction.x += speed.x * Time.deltaTime;
             transform.Translate(direction);
-
-            if (item != Item.ItemType.None)
-            {
-
-                player.GetComponent<CarStateListener>().UpgradeCar();
-
-            }
-
         }
     }
 
@@ -126,49 +118,43 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log(collision.transform.tag);
-
         // Collides with this players vehicle
         if (collision.gameObject.tag.Contains("Car"))
         {
-            Debug.Log(collision.transform.tag);
-
             // Check the correct vehicle
             if (collision.gameObject.tag.Equals("Car") && transform.tag.Equals("Player") || collision.gameObject.tag.Equals("Car2") && transform.tag.Equals("Player2"))
             {
-                Debug.Log("Colliding with car!!");
+                print("collidong with car");
 
-                if (Input.GetKey(player.GetComponent<CarStateListener>().interact))
+                if (item != Item.ItemType.None)
                 {
-                    if (item != Item.ItemType.None)
+                    // DIsplay car to upgrade message here
+                    print("car can be upgraded");
+
+                    if (Input.GetKey(player.GetComponent<CarStateListener>().interact))
                     {
-                        UpgradeCar();
+                        item = Item.ItemType.None;
+                        player.GetComponent<CarStateListener>().UpgradeCar();
                     }
                 }
-                else if (Input.GetKeyDown(player.GetComponent<CarStateListener>().toggleCar))
+                else
                 {
-                    // TODO
+                    // display get into car message
+                    print("get into car");
+
+                    // Get into it
+                    if (Input.GetKeyDown(player.GetComponent<CarStateListener>().toggleCar))
+                    {
+                        player.GetComponent<CarStateListener>().GetIntoCar();
+                    }
                 }
             }
-            else
-            {
-                Debug.Log("This is not the correct car!!!");
-            }
-
         }
     }
 
 
-    public void UpgradeCar()
-    {
-        // Set the selected item to none
-        item = Item.ItemType.None;
-    }
 
-    public void GetOutOfCar()
-    {
-        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        transform.position = player.transform.position;
-    }
+
+
 
 }

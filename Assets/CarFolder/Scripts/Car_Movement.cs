@@ -46,6 +46,7 @@ public class Car_Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if (carCollider.IsTouching(GameObject.FindGameObjectWithTag("Ground").GetComponent<EdgeCollider2D>()))
         {
             touchingGround = true;
@@ -63,6 +64,7 @@ public class Car_Movement : MonoBehaviour
             keyMovement();
             keyJump();
         }
+        */
     }
 
     void keyMovement()
