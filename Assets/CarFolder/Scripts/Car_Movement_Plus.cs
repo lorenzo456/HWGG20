@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Car_Movement_Plus : MonoBehaviour
 {
+
+    float statDurability = 1.0f;
+    float statSpeed = 1.0f;
+    float statJump = 0.5f;
+    
+
+
     public enum KeyMovement { up, left, right };
     public KeyMovement key;
 
@@ -12,7 +19,7 @@ public class Car_Movement_Plus : MonoBehaviour
     KeyCode up;
 
     public float speed = 500.0f;
-    public float maxJumpHeight = 20.0f;
+    public float maxJumpHeight = 40.0f;
     public bool player2;
     private int jumpHeight = 0;
 
@@ -64,43 +71,33 @@ public class Car_Movement_Plus : MonoBehaviour
 
         if (personInCar)
         {
-            keyMovement();
-            keyJump();
+            Movement();
+            Jump();
         }
     }
 
-    void keyMovement()
+    void Movement()
     {
-        if (touchingGround)
+
+        if (Input.GetKey(right) && !Input.GetKey(left))
         {
+            wheelMotor1.motor = NewMotor((-0.5f * speed) + -(statSpeed * speed));
+            wheelMotor2.motor = NewMotor((-0.5f * speed) + -(statSpeed * speed));
+        }
 
-            if (Input.GetKey(right) && !Input.GetKey(left))
-            {
-                wheelMotor1.useMotor = true;
-                wheelMotor2.useMotor = true;
-                JointMotor2D MyNewMotor = new JointMotor2D();
-                MyNewMotor.motorSpeed = -speed;
-                MyNewMotor.maxMotorTorque = 10000;
-
-                wheelMotor1.motor = MyNewMotor;
-                wheelMotor2.motor = MyNewMotor;
-            }
-
-            if (!Input.GetKey(right) && Input.GetKey(left))
-            {
-                wheelMotor1.useMotor = true;
-                wheelMotor2.useMotor = true;
-                JointMotor2D MyNewMotor = new JointMotor2D();
-                MyNewMotor.motorSpeed = speed;
-                MyNewMotor.maxMotorTorque = 10000;
-
-                wheelMotor1.motor = MyNewMotor;
-                wheelMotor2.motor = MyNewMotor;
-            }
+        else if (!Input.GetKey(right) && Input.GetKey(left))
+        {
+            wheelMotor1.motor = NewMotor((0.5f * speed) + (statSpeed * speed));
+            wheelMotor2.motor = NewMotor((0.5f * speed) + (statSpeed * speed));
+        }
+        else
+        {
+            wheelMotor1.motor = NewMotor(0);
+            wheelMotor2.motor = NewMotor(0);
         }
     }
 
-    void keyJump()
+    void Jump()
     {
         if (touchingGround)
         {
@@ -113,10 +110,19 @@ public class Car_Movement_Plus : MonoBehaviour
         }
 
         float verticalVelocity = velocity.y;
-        if (Input.GetKey(up) && verticalVelocity <= 7 * maxJumpHeight && jumpHeight <= 20)
+        if (Input.GetKey(up) && verticalVelocity <= (7 * (statJump*maxJumpHeight)) && jumpHeight <= 20)
         {
-            Vector2 horizontalForce = new Vector2(0.0f, maxJumpHeight);
+            Vector2 horizontalForce = new Vector2(0.0f, (statJump * maxJumpHeight));
             rigidBody.AddForce(horizontalForce);
         }
+    }
+
+    JointMotor2D NewMotor(float mSpeed)
+    {
+        JointMotor2D MyNewMotor = new JointMotor2D();
+        MyNewMotor.motorSpeed = mSpeed;
+        MyNewMotor.maxMotorTorque = 10000;
+
+        return MyNewMotor;
     }
 }

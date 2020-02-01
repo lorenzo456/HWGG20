@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1486624285589188068}
   - component: {fileID: 2598370625178601518}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,8 +69,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5007b6b06d5cd3c4f9bd5261a413c412, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 540240141c96ccf4082a5bc98e8ac943, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 243904093992437728}
   - component: {fileID: 243904093992437731}
   m_Layer: 0
-  m_Name: CARofGOD(Wheel) (1)
+  m_Name: CAR(Wheel) (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107,7 +107,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 243904093992437533}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.312494, y: -1.4994321, z: 38.679493}
+  m_LocalPosition: {x: 0.66, y: -1.1, z: 38.679493}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children:
   - {fileID: 8812873768589829754}
@@ -148,9 +148,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.09, y: 0.4}
+  m_Offset: {x: 0.03, y: -0.04}
   serializedVersion: 2
-  m_Radius: 1.44
+  m_Radius: 1.7
 --- !u!1 &243904094198844616
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 243904094198844620}
   - component: {fileID: 243904094198844622}
   m_Layer: 0
-  m_Name: CARofGOD(Wheel)
+  m_Name: CAR(Wheel)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -177,7 +177,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 243904094198844616}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.747506, y: -1.6094321, z: 38.679493}
+  m_LocalPosition: {x: -2.13, y: -1.1, z: 38.679493}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children:
   - {fileID: 1486624285589188068}
@@ -218,9 +218,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.09, y: 0.4}
+  m_Offset: {x: -0, y: -0.0012274086}
   serializedVersion: 2
-  m_Radius: 1.44
+  m_Radius: 1.7
 --- !u!1 &243904095068641738
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,7 +278,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 16
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -314,11 +314,11 @@ GameObject:
   m_Component:
   - component: {fileID: 243904095100416060}
   - component: {fileID: 243904095100416062}
-  - component: {fileID: 243904095100416057}
   - component: {fileID: 305650968}
   - component: {fileID: 305650967}
+  - component: {fileID: 34260667}
   m_Layer: 0
-  m_Name: CARofGOD(body)
+  m_Name: CAR(body)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -360,22 +360,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!70 &243904095100416057
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 243904095100416056}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 4.1, y: 1.35}
-  m_Direction: 1
 --- !u!235 &305650968
 WheelJoint2D:
   m_ObjectHideFlags: 0
@@ -390,8 +374,8 @@ WheelJoint2D:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
-  m_Anchor: {x: 2.09, y: -2}
-  m_ConnectedAnchor: {x: 0, y: 0.42}
+  m_Anchor: {x: 1.2575059, y: -1.4314513}
+  m_ConnectedAnchor: {x: -0.00000023841858, y: 0.13914129}
   m_Suspension:
     m_DampingRatio: 0.7
     m_Frequency: 2
@@ -414,8 +398,8 @@ WheelJoint2D:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
-  m_Anchor: {x: -2.3, y: -2.17}
-  m_ConnectedAnchor: {x: 0, y: 0.49}
+  m_Anchor: {x: -1.5324943, y: -1.4836969}
+  m_ConnectedAnchor: {x: 0.00000011920929, y: 0.008527547}
   m_Suspension:
     m_DampingRatio: 0.7
     m_Frequency: 2
@@ -424,6 +408,44 @@ WheelJoint2D:
   m_Motor:
     m_MotorSpeed: 0
     m_MaximumMotorForce: 10000
+--- !u!60 &34260667
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243904095100416056}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 1.1334589, y: 0.40501285}
+      - {x: 0.44925976, y: 1.1444421}
+      - {x: -1.079416, y: 1.0793724}
+      - {x: -1.520191, y: 0.5081613}
+      - {x: -2.1874247, y: 0.419353}
+      - {x: -2.2087815, y: -0.18466091}
+      - {x: -1.1814497, y: -0.15100503}
+      - {x: -0.7988516, y: -0.71880484}
+      - {x: 0.57174015, y: -0.63247716}
+      - {x: 1.1330483, y: -0.13559628}
+      - {x: 1.7856569, y: -0.49172997}
+      - {x: 2.3220773, y: -0.48349726}
+      - {x: 2.2667456, y: 0.26086998}
 --- !u!1 &3653823170907289213
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,7 +457,7 @@ GameObject:
   - component: {fileID: 381980989550822196}
   - component: {fileID: 4388257270175586179}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -449,8 +471,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3653823170907289213}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.21, y: -0.13, z: 0}
+  m_LocalScale: {x: 0.38931984, y: 0.38931984, z: 0.38931984}
   m_Children: []
   m_Father: {fileID: 243904095100416060}
   m_RootOrder: 0
@@ -494,7 +516,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 803df607af5521948bed067d28f802ea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c9125545280cfa942a4a3d756b85e54e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -554,7 +576,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: 0
   speed: 500
-  maxJumpHeight: 20
+  maxJumpHeight: 40
   player2: 0
   personInCar: 1
 --- !u!1 &6267578292382169207
@@ -568,7 +590,7 @@ GameObject:
   - component: {fileID: 8812873768589829754}
   - component: {fileID: 8796967342632957125}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -626,8 +648,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5007b6b06d5cd3c4f9bd5261a413c412, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 540240141c96ccf4082a5bc98e8ac943, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
