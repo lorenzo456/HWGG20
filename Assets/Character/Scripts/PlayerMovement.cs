@@ -124,14 +124,14 @@ public class PlayerMovement : MonoBehaviour
             // Check the correct vehicle
             if (collision.gameObject.tag.Equals("Car") && transform.tag.Equals("Player") || collision.gameObject.tag.Equals("Car2") && transform.tag.Equals("Player2"))
             {
-                print("collidong with car");
+                //print("collidong with car");
 
                 if (item != Item.ItemType.None)
                 {
                     // DIsplay car to upgrade message here
-                    print("car can be upgraded");
+                    //print("car can be upgraded");
 
-                    if (Input.GetKey(player.GetComponent<CarStateListener>().interact))
+                    if (Input.GetKeyDown(player.GetComponent<CarStateListener>().interact))
                     {
                         item = Item.ItemType.None;
                         player.GetComponent<CarStateListener>().UpgradeCar();
@@ -140,19 +140,19 @@ public class PlayerMovement : MonoBehaviour
                 else
                 {
                     // display get into car message
-                    print("get into car");
+                    //print("get into car");
+                }
 
-                    // Get into it
-                    if (Input.GetKeyDown(player.GetComponent<CarStateListener>().toggleCar))
-                    {
-                        player.GetComponent<CarStateListener>().GetIntoCar();
-                    }
+
+
+                // Get into it
+                if (Input.GetKeyDown(player.GetComponent<CarStateListener>().toggleCar))
+                {
+                    player.GetComponent<CarStateListener>().GetIntoCar();
                 }
             }
         }
     }
-
-
 
 
 

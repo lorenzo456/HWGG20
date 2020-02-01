@@ -51,6 +51,7 @@ public class CarStateListener : MonoBehaviour
             // Get out of car
             if (Input.GetKeyDown(toggleCar))
             {
+                print("getting out of car");
                 // Set engine to off
 
                 player.SetActive(true);
@@ -59,21 +60,12 @@ public class CarStateListener : MonoBehaviour
                 isInsideCar = false;
             }
         }
-        else
-        {
-            // Get in car
-            if (Input.GetKeyDown(toggleCar))
-            {
-                // Set engine to on
-
-
-            }
-        }
     }
 
 
     public void GetIntoCar()
     {
+        print("getting into car");
         player.SetActive(false);
         isInsideCar = true;
     }
