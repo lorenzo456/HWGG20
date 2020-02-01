@@ -128,9 +128,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 305650966, guid: 5023252a211fb5148840de916391568f, type: 3}
-      propertyPath: acceleration
-      value: 500
+    - target: {fileID: 243904093992437728, guid: 5023252a211fb5148840de916391568f,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 243904094198844620, guid: 5023252a211fb5148840de916391568f,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 609096397125862218, guid: 5023252a211fb5148840de916391568f,
         type: 3}
