@@ -19,7 +19,7 @@ public class Car_Movement_Plus : MonoBehaviour
     KeyCode up;
 
     public float speed = 500.0f;
-    public float maxJumpHeight = 150.0f;
+    public float maxJumpHeight = 7000.0f;
     public bool player2;
     private float jumpHeight = 0;
 
