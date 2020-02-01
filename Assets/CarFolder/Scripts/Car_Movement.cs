@@ -11,8 +11,8 @@ public class Car_Movement : MonoBehaviour
     KeyCode left;
     KeyCode up;
 
-    public float speed = 3.0f;
-    public float jump = 80.0f;
+    public float acceleration = 3.0f;
+    public float maxJumpHeight = 80.0f;
     public float MaxSpeed = 15.0f;
     public bool player2;
 
@@ -50,13 +50,20 @@ public class Car_Movement : MonoBehaviour
         if (carCollider.IsTouching(GameObject.FindGameObjectWithTag("Ground").GetComponent<EdgeCollider2D>()))
         {
             touchingGround = true;
+<<<<<<< HEAD
             //Debug.Log("TOUCHING GROUND");
+=======
+            Debug.Log("Touching Ground!");
+>>>>>>> origin/CarMovement
         }
         else
         {
             touchingGround = false;
+<<<<<<< HEAD
             //Debug.Log("NOT TOUCHING GROUND");
 
+=======
+>>>>>>> origin/CarMovement
         }
 
         if (personInCar)
@@ -76,13 +83,13 @@ public class Car_Movement : MonoBehaviour
             if (Input.GetKey(right) && !Input.GetKey(left) && horizontalVelocity <= MaxSpeed)
             {
                 Vector2 horizontalForce = new Vector2(2.0f, 0.0f);
-                rigidBody.AddForce(horizontalForce * speed);
+                rigidBody.AddForce(horizontalForce * acceleration);
             }
 
             if (!Input.GetKey(right) && Input.GetKey(left) && horizontalVelocity >= -MaxSpeed)
             {
                 Vector2 horizontalForce = new Vector2(-2.0f, 0.0f);
-                rigidBody.AddForce(horizontalForce * speed);
+                rigidBody.AddForce(horizontalForce * acceleration);
             }
         }
     }
@@ -100,9 +107,9 @@ public class Car_Movement : MonoBehaviour
         }
 
         float verticalVelocity = velocity.y;
-        if (Input.GetKey(up) && verticalVelocity <= 7*jump && jumpHeight <= 20 )
+        if (Input.GetKey(up) && verticalVelocity <= 7*maxJumpHeight && jumpHeight <= 20 )
         {
-            Vector2 horizontalForce = new Vector2(0.0f, jump);
+            Vector2 horizontalForce = new Vector2(0.0f, maxJumpHeight);
             rigidBody.AddForce(horizontalForce);
         }
     }
