@@ -12,7 +12,7 @@ public class Car_Movement : MonoBehaviour
     private Vector2 velocity;
     private Collider2D carCollider;
     bool touchingGround = false;
-    bool personInCar = true;
+    public bool personInCar = true;
     // Start is called before the first frame update
     void Start()
     {
