@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float JUMP_POWER = 12;
     private Vector2 speed;
 
+    [Space(12)]
     public bool isOutsideOfCar;
 
     /*
@@ -25,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Item.ItemType item = Item.ItemType.None;
 
-    [Space(16)]
+    [Space(12)]
     public string playerName;
 
     public enum PlayerTag { Player, Player2 };
