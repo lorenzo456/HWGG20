@@ -5,18 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class WinCondition : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.tag == "Finish")
+        
+        if(other.gameObject.tag == "Player")
         {
-            if(this.tag == "Player1")
-            {
-                SceneManager.LoadScene(2);
-            }
-            if(this.tag == "Player2")
-            {
-                SceneManager.LoadScene(3);
-            }
+            SceneManager.LoadScene(2);
         }
+        if(other.gameObject.tag == "Player2")
+        {
+            SceneManager.LoadScene(3);
+        }
+        
     }
 }

@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/LevelStuff/Scenes/Start.unity
     guid: 2d6221c11c1e63d47b6f3a47ee34f590
   - enabled: 1
-    path: Assets/LevelStuff/Scenes/Level01.unity
-    guid: 108078a7cf257db4c919ea39a5eee631
+    path: Assets/Character/Scenes/PlayerMovement.unity
+    guid: 0f7ba40de93527b4eb293dfa5fb9f7c9
   - enabled: 1
     path: Assets/LevelStuff/Scenes/TopWin.unity
     guid: 1970887de54dc8d4f8fff45a23828cab

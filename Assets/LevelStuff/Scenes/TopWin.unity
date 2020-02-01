@@ -232,7 +232,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 244315241}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a2a37c6ce5a8664ea13c7adceb02387, type: 3}
+  m_Script: {fileID: 11500000, guid: b7f95299d3d5e654f9c482e28610f84e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &763329348
@@ -782,7 +782,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 244315246}
-        m_MethodName: GoBack
+        m_MethodName: EndBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
