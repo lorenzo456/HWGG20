@@ -8,12 +8,9 @@ public class LoadHUD : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        SceneManager.LoadSceneAsync(1);
+        //SceneManager.LoadSceneAsync(4, LoadSceneMode.Additive);
+        //SceneManager.GetSceneByName("CameraStuff/Cameras").buildIndex
     }
 
-    private void OnDestroy()
-    {
-        SceneManager.UnloadSceneAsync(1);
-    }
 
 }

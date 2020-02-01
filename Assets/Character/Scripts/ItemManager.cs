@@ -27,6 +27,6 @@ public class ItemManager : MonoBehaviour
 
     public Vector2 FindRandomPointOnGround()
     {
-        return new Vector2(Random.Range(-50, 50), -5);
+        return new Vector2(Random.Range(0, 50), 10);
     }
 }

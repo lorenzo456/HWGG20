@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/LevelStuff/Scenes/BotWin.unity
     guid: d86f5a5abbc973b4c92b33b0502f3ef9
+  - enabled: 1
+    path: Assets/CameraStuff/Cameras.unity
+    guid: 6112bcb2e123b7447abf893a807db2f8
   m_configObjects: {}

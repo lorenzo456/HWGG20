@@ -29,7 +29,7 @@ public class Item : MonoBehaviour
             c = Color.blue;
         }
 
-        GetComponent<SpriteRenderer>().material.color = c;
+        transform.GetChild(0).GetComponent<SpriteRenderer>().material.color = c;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
