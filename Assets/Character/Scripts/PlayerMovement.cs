@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     public float JUMP_POWER = 12;
     private Vector2 speed;
 
+    public bool isOutsideOfCar;
+
     [Space(16)]
     public const int MAX_BOOST = 200;
     [Range(0, MAX_BOOST)]
@@ -25,12 +27,13 @@ public class PlayerMovement : MonoBehaviour
     public enum PlayerTag { Player, Player2 };
     public PlayerTag player;
 
-    private KeyCode accelerate, decelerate, jump;
+    private KeyCode accelerate, decelerate, jump, swapState;
 
     // Start is called before the first frame update
     private void Start()
     {
         speed = new Vector2();
+        isOutsideOfCar = false;
 
         // Update the player tag and layer to correspond with Player or Player2
         transform.tag = player.ToString();
@@ -42,12 +45,14 @@ public class PlayerMovement : MonoBehaviour
             accelerate = KeyCode.D;
             decelerate = KeyCode.A;
             jump = KeyCode.W;
+            swapState = KeyCode.Q;
         }
         else
         {
             accelerate = KeyCode.RightArrow;
             decelerate = KeyCode.LeftArrow;
             jump = KeyCode.UpArrow;
+            swapState = KeyCode.I;
         }
 
         // Starting values for the boost
@@ -59,23 +64,38 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        // Player has pressed jump
-        if (Input.GetKeyDown(jump))
+        if (isOutsideOfCar)
         {
-            // Check that the player is on the ground 
-            if (GetComponent<Rigidbody2D>().IsTouching(GameObject.FindGameObjectWithTag("Ground").GetComponent<Collider2D>()))
+            if(Input.GetKeyDown(swapState))
             {
-                // Apply upward force (percentage of boost)
-                transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, JUMP_POWER * ((float)jumpBoost / (float)MAX_BOOST)), ForceMode2D.Impulse);
+                isOutsideOfCar = false;
+            }
+
+            // Player has pressed jump
+            if (Input.GetKeyDown(jump))
+            {
+                // Check that the player is on the ground 
+                if (GetComponent<Rigidbody2D>().IsTouching(GameObject.FindGameObjectWithTag("Ground").GetComponent<Collider2D>()))
+                {
+                    // Apply upward force (percentage of boost)
+                    transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, JUMP_POWER * ((float)jumpBoost / (float)MAX_BOOST)), ForceMode2D.Impulse);
+                }
+            }
+
+            UpdatePlayerSpeed();
+
+            // Apply the direction
+            Vector2 direction = new Vector2();
+            direction.x += speed.x * Time.deltaTime;
+            transform.Translate(direction);
+        }
+        else
+        {
+            if (Input.GetKeyDown(swapState))
+            {
+                isOutsideOfCar = true;
             }
         }
-
-        UpdatePlayerSpeed();
-
-        // Apply the direction
-        Vector2 direction = new Vector2();
-        direction.x += speed.x * Time.deltaTime;
-        transform.Translate(direction);
     }
 
 
