@@ -4,6 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Player2
   - Ground
   layers:
   - Default
@@ -15,7 +16,7 @@ TagManager:
   - 
   - 
   - Player
-  - 
+  - Player2
   - 
   - 
   - 
