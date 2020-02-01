@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool isOutsideOfCar;
 
+    /*
     [Space(16)]
     public const int MAX_BOOST = 200;
     [Range(0, MAX_BOOST)]
@@ -20,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
     [Range(0, MAX_BOOST)]
     public int jumpBoost;
     public int BOOST_UPGRADE = 20;
+    */
+
+    private Item.ItemType item = Item.ItemType.None;
 
     [Space(16)]
     public string playerName;
@@ -27,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     public enum PlayerTag { Player, Player2 };
     public PlayerTag player;
 
-    private KeyCode accelerate, decelerate, jump, swapState;
+    private KeyCode accelerate, decelerate, jump, toggleCar, interact;
 
     // Start is called before the first frame update
     private void Start()
@@ -45,20 +49,24 @@ public class PlayerMovement : MonoBehaviour
             accelerate = KeyCode.D;
             decelerate = KeyCode.A;
             jump = KeyCode.W;
-            swapState = KeyCode.Q;
+            toggleCar = KeyCode.Q;
+            interact = KeyCode.E;
         }
         else
         {
             accelerate = KeyCode.RightArrow;
             decelerate = KeyCode.LeftArrow;
             jump = KeyCode.UpArrow;
-            swapState = KeyCode.I;
+            toggleCar = KeyCode.I;
+            interact = KeyCode.O;
         }
 
         // Starting values for the boost
+        /*
         speedBoost = 100;
         durabilityBoost = 100;
         jumpBoost = 100;
+        */
     }
 
     // Update is called once per frame
@@ -66,9 +74,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isOutsideOfCar)
         {
-            if(Input.GetKeyDown(swapState))
+            if (Input.GetKeyDown(toggleCar))
             {
-                isOutsideOfCar = false;
+                GetIntoCar();
             }
 
             // Player has pressed jump
@@ -78,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
                 if (GetComponent<Rigidbody2D>().IsTouching(GameObject.FindGameObjectWithTag("Ground").GetComponent<Collider2D>()))
                 {
                     // Apply upward force (percentage of boost)
-                    transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, JUMP_POWER * ((float)jumpBoost / (float)MAX_BOOST)), ForceMode2D.Impulse);
+                    transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, JUMP_POWER), ForceMode2D.Impulse);
                 }
             }
 
@@ -91,9 +99,9 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(swapState))
+            if (Input.GetKeyDown(toggleCar))
             {
-                isOutsideOfCar = true;
+                GetOutOfCar();
             }
         }
     }
@@ -107,12 +115,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey(accelerate))
         {
-            speed.x = DEFAULT_SPEED * ((float)speedBoost / (float)MAX_BOOST);
+            speed.x = DEFAULT_SPEED;
             movedRight = true;
         }
         if (Input.GetKey(decelerate))
         {
-            speed.x = -DEFAULT_SPEED * ((float)speedBoost / (float)MAX_BOOST);
+            speed.x = -DEFAULT_SPEED;
             movedLeft = true;
         }
 
@@ -124,14 +132,32 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    public void CollectedItem(Item.ItemType type)
+    public bool CollectedItem(Item.ItemType type)
     {
-        if(isOutsideOfCar)
+        if (isOutsideOfCar)
         {
             // Called when an item has collided with this player
             //Debug.Log(playerName + " " + player + " has collided with item " + type);
 
+            if (item == Item.ItemType.None)
+            {
+                // TODO set hud display visible here
+                //Debug.Log("Press " + interact + " to pick up the scrap");
+
+                if (Input.GetKey(interact))
+                {
+                    item = type;
+                    return true;
+                }
+            }
+            else
+            {
+                // TODO set hud display visible here
+                //Debug.Log("You can't pick this up");
+            }
+
             // Upgrade stats
+            /*
             if (type == Item.ItemType.Speed)
             {
                 speedBoost += BOOST_UPGRADE;
@@ -144,10 +170,25 @@ public class PlayerMovement : MonoBehaviour
             {
                 jumpBoost += BOOST_UPGRADE;
             }
+            */
         }
-
+        return false;
     }
 
 
+    public void GetIntoCar()
+    {
+        isOutsideOfCar = false;
+
+        // Send item to the car
+
+        // Set the selected item to none
+        item = Item.ItemType.None;
+    }
+
+    public void GetOutOfCar()
+    {
+        isOutsideOfCar = true;
+    }
 
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    public enum ItemType { Speed, Durability, Jump };
+    public enum ItemType { Speed, Durability, Jump, None };
     public ItemType itemType = ItemType.Speed;
     void Start()
     {
@@ -32,15 +32,18 @@ public class Item : MonoBehaviour
         GetComponent<SpriteRenderer>().material.color = c;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         // Collides with either Player or Player2
         if (collision.gameObject.tag.Contains("Player"))
         {
-            // Tell the player that it has collided with this object
-            collision.GetComponent<PlayerMovement>().CollectedItem(itemType);
-            // Remove this object
-            Destroy(gameObject);
+            // Check if the player that it has collided with this object and if the player has space to pick it up
+            if (collision.GetComponent<PlayerMovement>().CollectedItem(itemType))
+            {
+                // Remove this object
+                Destroy(gameObject);
+            }
+
         }
     }
 
