@@ -43,17 +43,20 @@ public class Car_Movement : MonoBehaviour
     void keyMovement()
     {
         float horizontalVelocity = velocity.x;
-
-        if (Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow) && horizontalVelocity <= MaxSpeed)
+        if (touchingGround)
         {
-            Vector2 horizontalForce = new Vector2(2.0f, 0.0f);
-            rigidBody.AddForce(horizontalForce * speed);
-        }
 
-        if (!Input.GetKey(KeyCode.RightArrow) && Input.GetKey(KeyCode.LeftArrow) && horizontalVelocity >= -MaxSpeed)
-        {
-            Vector2 horizontalForce = new Vector2(-2.0f, 0.0f);
-            rigidBody.AddForce(horizontalForce * speed);
+            if (Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow) && horizontalVelocity <= MaxSpeed)
+            {
+                Vector2 horizontalForce = new Vector2(2.0f, 0.0f);
+                rigidBody.AddForce(horizontalForce * speed);
+            }
+
+            if (!Input.GetKey(KeyCode.RightArrow) && Input.GetKey(KeyCode.LeftArrow) && horizontalVelocity >= -MaxSpeed)
+            {
+                Vector2 horizontalForce = new Vector2(-2.0f, 0.0f);
+                rigidBody.AddForce(horizontalForce * speed);
+            }
         }
     }
 

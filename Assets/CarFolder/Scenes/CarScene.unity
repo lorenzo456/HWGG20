@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a518d720b81ddbd4586631987884f975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 5
   jump: 10
   MaxSpeed: 15
 --- !u!1 &2138149979
@@ -403,7 +403,7 @@ PrefabInstance:
     - target: {fileID: 3649337214617899373, guid: 462fe8b785c24da49ad03c18ae15a01b,
         type: 3}
       propertyPath: m_Points.Array.size
-      value: 5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3649337214617899373, guid: 462fe8b785c24da49ad03c18ae15a01b,
         type: 3}
@@ -444,6 +444,46 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Points.Array.data[4].x
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3649337214617899373, guid: 462fe8b785c24da49ad03c18ae15a01b,
+        type: 3}
+      propertyPath: m_Points.Array.data[5].x
+      value: 16.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 3649337214617899373, guid: 462fe8b785c24da49ad03c18ae15a01b,
+        type: 3}
+      propertyPath: m_Points.Array.data[5].y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3649337214617899373, guid: 462fe8b785c24da49ad03c18ae15a01b,
+        type: 3}
+      propertyPath: m_Points.Array.data[6].x
+      value: 20.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3649337214617899373, guid: 462fe8b785c24da49ad03c18ae15a01b,
+        type: 3}
+      propertyPath: m_Points.Array.data[6].y
+      value: 10.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3649337214617899373, guid: 462fe8b785c24da49ad03c18ae15a01b,
+        type: 3}
+      propertyPath: m_Points.Array.data[7].x
+      value: 34.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3649337214617899373, guid: 462fe8b785c24da49ad03c18ae15a01b,
+        type: 3}
+      propertyPath: m_Points.Array.data[7].y
+      value: -5.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 3649337214617899373, guid: 462fe8b785c24da49ad03c18ae15a01b,
+        type: 3}
+      propertyPath: m_Points.Array.data[8].x
+      value: 155.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3649337214617899373, guid: 462fe8b785c24da49ad03c18ae15a01b,
+        type: 3}
+      propertyPath: m_Points.Array.data[8].y
+      value: -5.14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 462fe8b785c24da49ad03c18ae15a01b, type: 3}
