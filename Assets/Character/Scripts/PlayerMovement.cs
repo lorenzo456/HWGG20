@@ -74,21 +74,21 @@ public class PlayerMovement : MonoBehaviour
 
         if (speed.x > 0)
         {
-            if (nextFrame <  secondsForSprite)
+            if (nextFrame < secondsForSprite)
             {
                 s = right1;
-                
+
             }
             else
             {
                 s = right2;
-                if(nextFrame > 2* secondsForSprite)
+                if (nextFrame > 2 * secondsForSprite)
                 {
                     nextFrame = 0;
                 }
             }
         }
-        if(speed.x < 0)
+        if (speed.x < 0)
         {
             if (nextFrame < secondsForSprite)
             {
@@ -103,9 +103,9 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-        if(speed.x == 0)
+        if (speed.x == 0)
         {
-            if(isFacingRight)
+            if (isFacingRight)
             {
                 s = faceRight;
                 nextFrame = 0;
@@ -117,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if(!GetComponent<Rigidbody2D>().IsTouching(GameObject.FindGameObjectWithTag("Ground").GetComponent<Collider2D>()))
+        if (!GetComponent<Rigidbody2D>().IsTouching(GameObject.FindGameObjectWithTag("Ground").GetComponent<Collider2D>()))
         {
             s = jmp;
         }
@@ -171,7 +171,6 @@ public class PlayerMovement : MonoBehaviour
                 {
                     // DIsplay car to upgrade message here
                     //print("car can be upgraded");
-                    
 
                     if (Input.GetKeyDown(player.GetComponent<CarStateListener>().interact))
                     {
@@ -185,7 +184,6 @@ public class PlayerMovement : MonoBehaviour
                     //print("get into car");
                 }
 
-
                 // Get into it
                 if (Input.GetKeyDown(player.GetComponent<CarStateListener>().toggleCar))
                 {
@@ -194,7 +192,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-
 
 
 

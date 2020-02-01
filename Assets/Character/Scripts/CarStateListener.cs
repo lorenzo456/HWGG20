@@ -50,7 +50,7 @@ public class CarStateListener : MonoBehaviour
     {
         if (isInsideCar)
         {
-            if(!ignoreGetInCar)
+            if (!ignoreGetInCar)
             {
                 // Get out of car
                 if (Input.GetKeyDown(toggleCar))
@@ -65,7 +65,6 @@ public class CarStateListener : MonoBehaviour
 
                     car.GetComponent<Car_Movement_Plus>().personInCar = false;
                 }
-
             }
 
         }
