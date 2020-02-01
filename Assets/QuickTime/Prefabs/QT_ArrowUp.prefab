@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7067486893433905839}
   m_Layer: 0
   m_Name: QT_ArrowUp
-  m_TagString: Untagged
+  m_TagString: up
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
