@@ -4,36 +4,40 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    public enum ItemType { Speed, Durability, Jump};
+    public enum ItemType { Speed, Durability, Jump };
     public ItemType itemType = ItemType.Speed;
     string value;
     void Start()
     {
-        if(itemType == ItemType.Speed)
+        // Randomly choose an item type
+        int t = Mathf.FloorToInt(Random.Range(0, 3));
+        if (t == 0)
         {
-            value = "Speed";
-        }else if(itemType == ItemType.Jump)
-        {
-            value = "Jump";
-        }else if(itemType == ItemType.Durability)
-        {
-            value = "Durability";
+            itemType = ItemType.Speed;
         }
+        else if (t == 1)
+        {
+            itemType = ItemType.Durability;
+        }
+        else
+        {
+            itemType = ItemType.Jump;
+        }
+
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        // Collides with either Player or Player2
+        if (collision.gameObject.tag.Contains("Player"))
         {
-            //Debug.Log("Collided with " + this );
-            collision.GetComponent<PlayerMovement>().collectedItem(value);
+            // Tell the player that it has collided with this object
+            collision.GetComponent<PlayerMovement>().collectedItem(itemType);
+            // Remove this object
             Destroy(this.gameObject);
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }
