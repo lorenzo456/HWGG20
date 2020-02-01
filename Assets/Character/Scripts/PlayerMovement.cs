@@ -126,22 +126,26 @@ public class PlayerMovement : MonoBehaviour
 
     public void CollectedItem(Item.ItemType type)
     {
-        // Called when an item has collided with this player
-        Debug.Log(playerName + " " + player + " has collided with item " + type);
+        if(isOutsideOfCar)
+        {
+            // Called when an item has collided with this player
+            //Debug.Log(playerName + " " + player + " has collided with item " + type);
 
-        // Upgrade stats
-        if (type == Item.ItemType.Speed)
-        {
-            speedBoost += BOOST_UPGRADE;
+            // Upgrade stats
+            if (type == Item.ItemType.Speed)
+            {
+                speedBoost += BOOST_UPGRADE;
+            }
+            else if (type == Item.ItemType.Durability)
+            {
+                durabilityBoost += BOOST_UPGRADE;
+            }
+            else
+            {
+                jumpBoost += BOOST_UPGRADE;
+            }
         }
-        else if (type == Item.ItemType.Durability)
-        {
-            durabilityBoost += BOOST_UPGRADE;
-        }
-        else
-        {
-            jumpBoost += BOOST_UPGRADE;
-        }
+
     }
 
 
