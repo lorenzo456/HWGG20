@@ -49,12 +49,12 @@ public class Car_Movement : MonoBehaviour
         if (carCollider.IsTouching(GameObject.FindGameObjectWithTag("Ground").GetComponent<EdgeCollider2D>()))
         {
             touchingGround = true;
-            Debug.Log("TOUCHING GROUND");
+            //Debug.Log("TOUCHING GROUND");
         }
         else
         {
             touchingGround = false;
-            Debug.Log("NOT TOUCHING GROUND");
+            //Debug.Log("NOT TOUCHING GROUND");
 
         }
 

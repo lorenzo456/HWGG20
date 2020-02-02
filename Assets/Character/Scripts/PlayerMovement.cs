@@ -9,7 +9,11 @@ public class PlayerMovement : MonoBehaviour
     public float JUMP_POWER = 12;
     private Vector2 speed;
 
-    public bool isOutsideOfCar;
+    [Space(12)]
+    public bool isOutsideOfCar = false;
+
+    // Reference to the correct car
+    public GameObject car;
 
     /*
     [Space(16)]
@@ -25,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Item.ItemType item = Item.ItemType.None;
 
-    [Space(16)]
+    [Space(12)]
     public string playerName;
 
     public enum PlayerTag { Player, Player2 };
@@ -37,7 +41,6 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         speed = new Vector2();
-        isOutsideOfCar = false;
 
         // Update the player tag and layer to correspond with Player or Player2
         transform.tag = player.ToString();
@@ -65,6 +68,8 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Player 2: move with up down left, toggle car i, interact o");
 
 
+        GetIntoCar();
+
         // Starting values for the boost
         /*
         speedBoost = 100;
@@ -78,11 +83,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isOutsideOfCar)
         {
-            if (Input.GetKeyDown(toggleCar))
-            {
-                GetIntoCar();
-            }
-
             // Player has pressed jump
             if (Input.GetKeyDown(jump))
             {
@@ -179,20 +179,66 @@ public class PlayerMovement : MonoBehaviour
         return false;
     }
 
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        //Debug.Log(collision.transform.tag);
+
+        // Collides with this players vehicle
+        if (collision.gameObject.tag.Contains("Car"))
+        {
+            //Debug.Log(collision.transform.tag);
+
+            // Check the correct vehicle
+            if (collision.gameObject.tag.Equals("Car") && transform.tag.Equals("Player") || collision.gameObject.tag.Equals("Car2") && transform.tag.Equals("Player2"))
+            {
+                Debug.Log("Colliding with car!!");
+
+                if(Input.GetKey(interact))
+                {
+                    if(item != Item.ItemType.None)
+                    {
+                        UpgradeCar();
+                    }
+                    
+                }
+                else if(Input.GetKeyDown(toggleCar))
+                {
+                    GetIntoCar();
+                }
+
+            }
+            else
+            {
+                Debug.Log("This is not the correct car!!!");
+            }
+
+        }
+    }
+
 
     public void GetIntoCar()
     {
+        Debug.Log("toggle get in");
+
         isOutsideOfCar = false;
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<Rigidbody2D>().Sleep();
+    }
 
-        // Send item to the car
-
+    public void UpgradeCar()
+    {
         // Set the selected item to none
         item = Item.ItemType.None;
     }
 
     public void GetOutOfCar()
     {
+        Debug.Log("toggle get out");
+
         isOutsideOfCar = true;
+        GetComponent<SpriteRenderer>().enabled = true;
+        GetComponent<Rigidbody2D>().WakeUp();
+        transform.position = car.transform.position;
     }
 
 }
