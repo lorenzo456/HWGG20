@@ -418,7 +418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25059574ddcc70247bdb2398d033990f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DEFAULT_SPEED: 10
+  DEFAULT_SPEED: 6
   JUMP_POWER: 8
   player: {fileID: 1039179585}
   item: 0
@@ -1615,6 +1615,16 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 520602924997425566}
+    - target: {fileID: 4030031460178800868, guid: e8be2c06e837f9f41ad1ea459908ea95,
+        type: 3}
+      propertyPath: DEFAULT_SPEED
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4030031460178800868, guid: e8be2c06e837f9f41ad1ea459908ea95,
+        type: 3}
+      propertyPath: JUMP_POWER
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5413614941852201767, guid: e8be2c06e837f9f41ad1ea459908ea95,
         type: 3}
       propertyPath: m_LocalPosition.x
