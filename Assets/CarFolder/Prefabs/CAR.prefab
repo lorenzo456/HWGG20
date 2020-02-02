@@ -655,7 +655,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smoke: {fileID: 8141631502225634755, guid: 218842bb9dc20084897f1d130c968b32, type: 3}
-  degradibilityStatDurability: 0.35
+  degradibilityStatDurability: 1
   degradibilityStatSpeed: 0.03
   degradibilityStatJump: 0.2
   key: 0
