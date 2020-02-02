@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 269776331155945744}
   - component: {fileID: 269776331155945745}
   - component: {fileID: 269776331155945746}
+  - component: {fileID: 1127262195807724851}
   m_Layer: 0
   m_Name: tank trap
-  m_TagString: Untagged
+  m_TagString: Hazard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,9 +26,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 269776331155945747}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -247,3 +248,15 @@ PolygonCollider2D:
       - {x: -0.515, y: -3.0449998}
       - {x: 0.325, y: -3.0449998}
       - {x: 0.565, y: -3.0249999}
+--- !u!114 &1127262195807724851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269776331155945747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d2c30223e4614d45a5eb5cb599bb67e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

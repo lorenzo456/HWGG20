@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -134,7 +134,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 305650966, guid: ce5c955a23799c34cbbc19049e9a8a8f, type: 3}
       propertyPath: maxJumpHeight
-      value: 60
+      value: 7000
       objectReference: {fileID: 0}
     - target: {fileID: 30858432823149461, guid: ce5c955a23799c34cbbc19049e9a8a8f,
         type: 3}
@@ -376,6 +376,7 @@ MonoBehaviour:
   DEFAULT_SPEED: 10
   JUMP_POWER: 8
   player: {fileID: 1039179585}
+  item: 3
   faceLeft: {fileID: 21300000, guid: 720a7ec2068de074598fbb31e6348ea5, type: 3}
   faceRight: {fileID: 21300000, guid: 01cb23aa3fe93ff43ac16a8fa1dafb2e, type: 3}
   jmp: {fileID: 21300000, guid: 7dd4bf8ab4ab92b4c81640542bb2cc81, type: 3}
@@ -1190,7 +1191,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 305650966, guid: ce5c955a23799c34cbbc19049e9a8a8f, type: 3}
       propertyPath: maxJumpHeight
-      value: 60
+      value: 7000
       objectReference: {fileID: 0}
     - target: {fileID: 30858432823149461, guid: ce5c955a23799c34cbbc19049e9a8a8f,
         type: 3}
@@ -1650,6 +1651,7 @@ MonoBehaviour:
   DEFAULT_SPEED: 10
   JUMP_POWER: 8
   player: {fileID: 520602924997425566}
+  item: 3
   faceLeft: {fileID: 21300000, guid: a020fdbef2272c144856f9b3969b6be6, type: 3}
   faceRight: {fileID: 21300000, guid: c636a8bb3d824794a892ff3b2c3bbe8f, type: 3}
   jmp: {fileID: 21300000, guid: e12e02a2e7366334bbec9afc14938e2f, type: 3}

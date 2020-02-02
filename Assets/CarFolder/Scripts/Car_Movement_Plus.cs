@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Car_Movement_Plus : MonoBehaviour
 {
@@ -20,13 +21,14 @@ public class Car_Movement_Plus : MonoBehaviour
 
     public float speed = 500.0f;
     public float maxJumpHeight = 7000.0f;
-    public float damageTaken = 0.20f;
+    public float hazardDamage = 0.20f;
     public bool player2;
     private float jumpHeight = 0;
 
     private Rigidbody2D rigidBody;
     private Vector2 velocity;
-    private Collider2D wheelCollider;
+    private CircleCollider2D wheelCollider;
+    private PolygonCollider2D bodyCollider;
     private WheelJoint2D[] jointMotors;
     private WheelJoint2D wheelMotor1;
     private WheelJoint2D wheelMotor2;
@@ -42,6 +44,7 @@ public class Car_Movement_Plus : MonoBehaviour
         jointMotors = gameObject.GetComponentsInChildren<WheelJoint2D>();
         wheelMotor1 = jointMotors[0];
         wheelMotor2 = jointMotors[1];
+        bodyCollider = gameObject.GetComponentInChildren<PolygonCollider2D>();
         wheelCollider = gameObject.GetComponentInChildren<CircleCollider2D>();
         velocity = rigidBody.velocity;
 
@@ -62,6 +65,18 @@ public class Car_Movement_Plus : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        try
+        {
+            if (bodyCollider.IsTouching(GameObject.FindGameObjectWithTag("Hazard").GetComponent<Collider2D>()))
+            {
+                DurabilityDamage();
+            }
+        }
+        catch (NullReferenceException ex)
+        {
+
+        }
+
         if (wheelCollider.IsTouching(GameObject.Find("collider").GetComponent<Collider2D>()))
         {
             touchingGround = true;
@@ -157,43 +172,34 @@ public class Car_Movement_Plus : MonoBehaviour
     void repairJump(int value)
     {
         statJump = statJump + value;
-        if (statJump > 100)
+        if (statJump > 1)
         {
-            statJump = 100.0f;
+            statJump = 1.0f;
         }
     }
 
     void repairDurabilty(int value)
     {
         statDurability = statDurability + value;
-        if (statDurability > 100)
+        if (statDurability > 1)
         {
-            statDurability = 100.0f;
+            statDurability = 1.0f;
         }
     }
 
     void repairSpeed(int value)
     {
         statSpeed = statSpeed + value;
-        if (statSpeed > 100)
+        if (statSpeed > 1)
         {
-            statSpeed = 100.0f;
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.tag == "Hazard")
-        {
-            DurabilityDamage();
-            Destroy(collision.gameObject);
+            statSpeed = 1.0f;
         }
     }
 
 
-    void DurabilityDamage()
+    public void DurabilityDamage()
     {
-        statDurability -= damageTaken;
+        statDurability -= hazardDamage;
         if (statDurability < 0)
         {
             statDurability = 0.0f;

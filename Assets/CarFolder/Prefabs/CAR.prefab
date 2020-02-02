@@ -567,7 +567,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: 0
   speed: 500
-  maxJumpHeight: 40
+  maxJumpHeight: 7000
+  damageTaken: 0.2
   player2: 0
   personInCar: 1
 --- !u!1 &6267578292382169207
