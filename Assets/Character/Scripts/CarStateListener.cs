@@ -18,6 +18,10 @@ public class CarStateListener : MonoBehaviour
 
     bool ignoreGetInCar = false;
 
+    private Car_Movement_Plus c;
+    private QuickTime q;
+    private Item.ItemType item;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +33,9 @@ public class CarStateListener : MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer(playerType.ToString());
 
         SetKeys();
+
+        Car_Movement_Plus c = car.GetComponent<Car_Movement_Plus>();
+        QuickTime q = quickTime.GetComponent<QuickTime>();
     }
 
     private void SetKeys()
@@ -88,9 +95,7 @@ public class CarStateListener : MonoBehaviour
 
     public void UpgradeCar(Item.ItemType item)
     {
-        Car_Movement_Plus c = car.GetComponent<Car_Movement_Plus>();
-        QuickTime q = quickTime.GetComponent<QuickTime>();
-
+        this.item = item;
         // Remove keys
         accelerate = KeyCode.None; decelerate = KeyCode.None; jump = KeyCode.None; toggleCar = KeyCode.None; interact = KeyCode.None;
 
@@ -99,8 +104,12 @@ public class CarStateListener : MonoBehaviour
         quickTime.transform.position = transform.position;
         quickTime.SetActive(true);
         q.StartGame();
-        int score = 50;
+    }
+
+    public void QuickTimeFinished()
+    {
         quickTime.SetActive(false);
+        int score = 50;
 
         if (item.Equals(Item.ItemType.Speed))
         {
@@ -119,6 +128,7 @@ public class CarStateListener : MonoBehaviour
             Debug.Log("Trying to upgrade a car with no item.");
         }
         Debug.Log("Upgraded " + item + " for " + score + " points.");
+        item = Item.ItemType.None;
         SetKeys();
     }
 }
