@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class HazardCollision : MonoBehaviour
 {
+    public Sprite Boom;
+    bool enabled = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,19 +20,30 @@ public class HazardCollision : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
-        if (collision.gameObject.tag == "Car" || collision.gameObject.tag == "Car2")
+        if (enabled)
         {
-            if (collision.gameObject.GetComponent<PolygonCollider2D>().IsTouching(gameObject.GetComponent<Collider2D>()))
+            if (collision.gameObject.tag == "Car" || collision.gameObject.tag == "Car2")
             {
-                collision.gameObject.transform.parent.GetComponent<Car_Movement_Plus>().DurabilityDamage();
-                explosion();
+                if (collision.gameObject.GetComponent<PolygonCollider2D>().IsTouching(gameObject.GetComponent<Collider2D>()))
+                {
+                    collision.gameObject.transform.parent.GetComponent<Car_Movement_Plus>().DurabilityDamage();
+                    explosion();
+                }
             }
         }
     }
 
     void explosion()
     {
+        enabled = false;
+        StartCoroutine(wait());
+    }
+
+    IEnumerator wait()
+    {
+        gameObject.GetComponent<SpriteRenderer>().sprite = Boom;
+        yield return new WaitForSeconds(0.3f);
         Destroy(gameObject);
+
     }
 }
