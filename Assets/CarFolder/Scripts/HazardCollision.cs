@@ -23,7 +23,7 @@ public class HazardCollision : MonoBehaviour
         {
             if (collision.gameObject.GetComponent<PolygonCollider2D>().IsTouching(gameObject.GetComponent<Collider2D>()))
             {
-                //collision.gameObject.GetComponent<Car_Movement_Plus>().DurabilityDamage();
+                collision.gameObject.transform.parent.GetComponent<Car_Movement_Plus>().DurabilityDamage();
                 explosion();
             }
         }
