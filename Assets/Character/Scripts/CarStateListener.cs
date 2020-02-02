@@ -35,8 +35,8 @@ public class CarStateListener : MonoBehaviour
 
         SetKeys();
 
-        Car_Movement_Plus c = car.GetComponent<Car_Movement_Plus>();
-        QuickTime q = quickTime.GetComponent<QuickTime>();
+        c = car.GetComponent<Car_Movement_Plus>();
+        q = quickTime.GetComponent<QuickTime>();
 
         q.OnQuickTimeFinished += QuickTimeFinished;
     }
@@ -109,9 +109,11 @@ public class CarStateListener : MonoBehaviour
 
 
         Debug.Log("Starting quick time!");
-        quickTime.transform.position = transform.position;
+        //quickTime.transform.position = transform.position;
         //quickTime.SetActive(true);
         //q.StartGame();
+
+        QuickTimeFinished();
     }
 
     public void QuickTimeFinished()
