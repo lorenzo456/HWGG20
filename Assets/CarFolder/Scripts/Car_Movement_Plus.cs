@@ -67,6 +67,7 @@ public class Car_Movement_Plus : MonoBehaviour
             right = KeyCode.RightArrow;
             up = KeyCode.UpArrow;
         }
+        BlueBarFill();
     }
     //Fill the UI bars for speed jump & durability
 
@@ -93,17 +94,6 @@ public class Car_Movement_Plus : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        try
-        {
-            if (bodyCollider.IsTouching(GameObject.FindGameObjectWithTag("Hazard").GetComponent<Collider2D>()))
-            {
-                DurabilityDamage();
-            }
-        }
-        catch (NullReferenceException ex)
-        {
-
-        }
 
         if (wheelCollider.IsTouching(GameObject.Find("collider").GetComponent<Collider2D>()))
         {
@@ -237,6 +227,7 @@ public class Car_Movement_Plus : MonoBehaviour
         {
             statDurability = 0.0f;
         }
+        BlueBarFill();
     }
 
     void ResetPosition()
