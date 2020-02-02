@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -8,6 +9,17 @@ public class PlayerMovement : MonoBehaviour
     public float DEFAULT_SPEED = 16;
     public float JUMP_POWER = 12;
     private Vector2 speed;
+
+    //AnalBrra's shitty code
+    public Text text;
+    public bool DisplayUpgradeText = true;
+    public bool DisplayPickupText;
+    public bool DisplayFullInvText;
+    public bool DisplayRepairCarEnterCarText;
+    private Color invis;
+    private Color show;
+    public string interact ="E";
+    public string vehicleInteract = "Q";
 
     // Reference to the correct car
     public GameObject player;
@@ -18,6 +30,10 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         speed = new Vector2();
+
+        //shows and hides text
+        invis.a = 0f;
+        show = new Color(0.7f, 0.3f, 0f, 255f);
     }
 
     // Update is called once per frame
@@ -81,6 +97,9 @@ public class PlayerMovement : MonoBehaviour
                 // TODO set hud display visible here
                 //Debug.Log("Press " + interact + " to pick up the scrap");
 
+                text.color = show;
+                text.text = "Press " + interact + " to pick up the scrap";
+
                 if (Input.GetKey(player.GetComponent<CarStateListener>().interact))
                 {
                     item = type;
@@ -91,6 +110,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 // TODO set hud display visible here
                 //Debug.Log("You can't pick this up");
+                text.color = show;
+                text.text = "Inventory full, can't pick up scrap";
+
             }
         }
         return false;
@@ -109,6 +131,9 @@ public class PlayerMovement : MonoBehaviour
                 {
                     // DIsplay car to upgrade message here
                     //print("car can be upgraded");
+                    text.color = show;
+                    text.text = "Press E to repair car or Q to enter car";
+
                     print(player.GetComponent<CarStateListener>().interact);
 
                     if (Input.GetKeyDown(player.GetComponent<CarStateListener>().interact))
@@ -121,6 +146,8 @@ public class PlayerMovement : MonoBehaviour
                 {
                     // display get into car message
                     //print("get into car");
+                    text.color = show;
+                    text.text = "Press " + vehicleInteract + " to enter car";
                 }
 
 
