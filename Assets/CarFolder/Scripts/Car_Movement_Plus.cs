@@ -169,7 +169,7 @@ public class Car_Movement_Plus : MonoBehaviour
         return MyNewMotor;
     }
 
-    void repairJump(int value)
+    public void repairJump(int value)
     {
         statJump = statJump + value;
         if (statJump > 1)
@@ -178,7 +178,7 @@ public class Car_Movement_Plus : MonoBehaviour
         }
     }
 
-    void repairDurabilty(int value)
+    public void repairDurabilty(int value)
     {
         statDurability = statDurability + value;
         if (statDurability > 1)
@@ -187,7 +187,7 @@ public class Car_Movement_Plus : MonoBehaviour
         }
     }
 
-    void repairSpeed(int value)
+    public void repairSpeed(int value)
     {
         statSpeed = statSpeed + value;
         if (statSpeed > 1)

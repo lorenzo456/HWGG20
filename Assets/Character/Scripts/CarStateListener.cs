@@ -80,8 +80,25 @@ public class CarStateListener : MonoBehaviour
         ignoreGetInCar = true;
     }
 
-    public void UpgradeCar()
+    public void UpgradeCar(Item.ItemType item)
     {
-        print("car should be upgrded");
+        Car_Movement_Plus c = car.GetComponent<Car_Movement_Plus>();
+
+        if(item.Equals(Item.ItemType.Speed))
+        {
+            c.repairSpeed(50);
+        }
+        else if (item.Equals(Item.ItemType.Durability))
+        {
+            c.repairDurabilty(50);
+        }
+        else if (item.Equals(Item.ItemType.Jump))
+        {
+            c.repairJump(50);
+        }
+        else
+        {
+            Debug.Log("Trying to upgrade a car with no item.");
+        }
     }
 }
