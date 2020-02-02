@@ -37,6 +37,13 @@ public class CarStateListener : MonoBehaviour
 
         Car_Movement_Plus c = car.GetComponent<Car_Movement_Plus>();
         QuickTime q = quickTime.GetComponent<QuickTime>();
+
+        q.OnQuickTimeFinished += QuickTimeFinished;
+    }
+
+    private void OnDestroy()
+    {
+        q.OnQuickTimeFinished -= QuickTimeFinished;
     }
 
     private void SetKeys()
@@ -98,13 +105,13 @@ public class CarStateListener : MonoBehaviour
     {
         this.item = item;
         // Remove keys
-        accelerate = KeyCode.None; decelerate = KeyCode.None; jump = KeyCode.None; toggleCar = KeyCode.None; interact = KeyCode.None;
+        //accelerate = KeyCode.None; decelerate = KeyCode.None; jump = KeyCode.None; toggleCar = KeyCode.None; interact = KeyCode.None;
 
 
         Debug.Log("Starting quick time!");
         quickTime.transform.position = transform.position;
-        quickTime.SetActive(true);
-        q.StartGame();
+        //quickTime.SetActive(true);
+        //q.StartGame();
     }
 
     public void QuickTimeFinished()
