@@ -13,12 +13,13 @@ public class Car_Movement_Plus : MonoBehaviour
 
 
 
-    public enum KeyMovement { up, left, right };
+    public enum KeyMovement { up, left, right, down };
     public KeyMovement key;
 
     KeyCode right;
     KeyCode left;
     KeyCode up;
+    KeyCode down;
 
     public float speed = 500.0f;
     public float maxJumpHeight = 7000.0f;
@@ -60,12 +61,14 @@ public class Car_Movement_Plus : MonoBehaviour
             left = KeyCode.A;
             right = KeyCode.D;
             up = KeyCode.W;
+            down = KeyCode.S;
         }
         else
         {
             left = KeyCode.LeftArrow;
             right = KeyCode.RightArrow;
             up = KeyCode.UpArrow;
+            down = KeyCode.DownArrow;
         }
         BlueBarFill();
     }
@@ -94,10 +97,18 @@ public class Car_Movement_Plus : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (transform.GetChild(0).GetComponent<PolygonCollider2D>().IsTouching(GameObject.Find("collider").GetComponent<Collider2D>()))
+        {
+            if (Input.GetKeyDown(down) && !personInCar)
+            {
+                FlipCar();
+            }
+        }
 
         if (wheelCollider.IsTouching(GameObject.Find("collider").GetComponent<Collider2D>()))
         {
             touchingGround = true;
+
         }
         else
         {
@@ -233,7 +244,7 @@ public class Car_Movement_Plus : MonoBehaviour
     void ResetPosition()
     {
         GameObject body = gameObject.transform.GetChild(0).gameObject;
-        if (body.transform.eulerAngles.z >= 45 && body.transform.eulerAngles.z <= 90)
+        if (body.transform.eulerAngles.z >= 45 && body.transform.eulerAngles.z <= 60)
         {
             body.transform.eulerAngles = new Vector3(body.transform.eulerAngles.x, body.transform.eulerAngles.y, 45.0f);
         }
@@ -241,5 +252,11 @@ public class Car_Movement_Plus : MonoBehaviour
         {
             body.transform.eulerAngles = new Vector3(body.transform.eulerAngles.x, body.transform.eulerAngles.y, 315.0f);
         }*/
+    }
+    void FlipCar()
+    {
+        GameObject body = gameObject.transform.GetChild(0).gameObject;
+        transform.GetChild(0).transform.position += new Vector3(0, 5,0);
+        body.transform.eulerAngles = new Vector3(0,0,0);
     }
 }
