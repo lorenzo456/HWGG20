@@ -41,7 +41,14 @@ public class HazardCollision : MonoBehaviour
 
     IEnumerator wait()
     {
-        gameObject.GetComponent<SpriteRenderer>().sprite = Boom;
+        if(gameObject.name == "Collision_Car(body)")
+        {
+            gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = Boom;
+        }
+        else
+        {
+            gameObject.GetComponent<SpriteRenderer>().sprite = Boom;
+        }
         yield return new WaitForSeconds(0.3f);
         Destroy(gameObject);
 
