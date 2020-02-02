@@ -9,6 +9,7 @@ TagManager:
   - Car
   - Car2
   - Item
+  - Hazard
   layers:
   - Default
   - TransparentFX
