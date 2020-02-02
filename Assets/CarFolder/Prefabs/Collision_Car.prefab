@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2947082936828678720}
   - component: {fileID: 2935962808597545215}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 5957059093336795437}
   - component: {fileID: 5957059093069083265}
   - component: {fileID: 7759705543450413798}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Collision_Car(body)
   m_TagString: Hazard
   m_Icon: {fileID: 0}
@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 5893308476466280691}
   - component: {fileID: 5893308476466280694}
   - component: {fileID: 5893308476466280692}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: CAR(Wheel)
   m_TagString: Hazard
   m_Icon: {fileID: 0}
@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 5893308476670653400}
   - component: {fileID: 5893308476670653402}
   - component: {fileID: 5893308476670653401}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: CAR(Wheel) (1)
   m_TagString: Hazard
   m_Icon: {fileID: 0}
@@ -392,7 +392,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5046904914289973726}
   - component: {fileID: 8549237268391066644}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -473,7 +473,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6333934649388005134}
   - component: {fileID: 7948150833126384569}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -553,7 +553,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6546061622094739312}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Collision_Car
   m_TagString: Hazard
   m_Icon: {fileID: 0}
