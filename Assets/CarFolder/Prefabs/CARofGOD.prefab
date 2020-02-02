@@ -133,6 +133,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a518d720b81ddbd4586631987884f975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  jump: 10
+  key: 0
+  acceleration: 3
+  maxJumpHeight: 80
   MaxSpeed: 15
+  player2: 0
+  personInCar: 1

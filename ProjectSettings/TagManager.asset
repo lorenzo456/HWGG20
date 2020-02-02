@@ -6,10 +6,10 @@ TagManager:
   tags:
   - Player2
   - Ground
-  - down
-  - up
-  - left
-  - right
+  - Car
+  - Car2
+  - Item
+  - Hazard
   layers:
   - Default
   - TransparentFX
@@ -22,9 +22,9 @@ TagManager:
   - Player
   - Player2
   - Item
-  - 
-  - 
-  - 
+  - Car
+  - Car2
+  - OnlyGround
   - 
   - 
   - 

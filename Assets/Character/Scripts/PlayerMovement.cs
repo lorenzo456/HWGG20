@@ -5,86 +5,34 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     // Movement variables
-    public float DEFAULT_SPEED = 16;
-    public float JUMP_POWER = 12;
+    public float DEFAULT_SPEED = 10;
+    public float JUMP_POWER = 8;
     private Vector2 speed;
 
-    [Space(12)]
-    public bool isOutsideOfCar = false;
-
     // Reference to the correct car
-    public GameObject car;
+    public GameObject player;
 
-    /*
-    [Space(16)]
-    public const int MAX_BOOST = 200;
-    [Range(0, MAX_BOOST)]
-    public int speedBoost;
-    [Range(0, MAX_BOOST)]
-    public int durabilityBoost;
-    [Range(0, MAX_BOOST)]
-    public int jumpBoost;
-    public int BOOST_UPGRADE = 20;
-    */
+    public Item.ItemType item = Item.ItemType.None;
 
-    private Item.ItemType item = Item.ItemType.None;
+    public Sprite faceLeft, faceRight, jmp, left1, left2, right1, right2;
+    private float nextFrame = 0;
+    public float secondsForSprite = 0.3f;
 
-    [Space(12)]
-    public string playerName;
-
-    public enum PlayerTag { Player, Player2 };
-    public PlayerTag player;
-
-    private KeyCode accelerate, decelerate, jump, toggleCar, interact;
+    public bool isFacingRight = true;
 
     // Start is called before the first frame update
     private void Start()
     {
         speed = new Vector2();
-
-        // Update the player tag and layer to correspond with Player or Player2
-        transform.tag = player.ToString();
-        gameObject.layer = LayerMask.NameToLayer(player.ToString());
-
-        // Set the player key controls
-        if (player == PlayerTag.Player)
-        {
-            accelerate = KeyCode.D;
-            decelerate = KeyCode.A;
-            jump = KeyCode.W;
-            toggleCar = KeyCode.Q;
-            interact = KeyCode.E;
-        }
-        else
-        {
-            accelerate = KeyCode.RightArrow;
-            decelerate = KeyCode.LeftArrow;
-            jump = KeyCode.UpArrow;
-            toggleCar = KeyCode.I;
-            interact = KeyCode.O;
-        }
-
-        Debug.Log("Player 1: move with wad, toggle car q, interact e");
-        Debug.Log("Player 2: move with up down left, toggle car i, interact o");
-
-
-        GetIntoCar();
-
-        // Starting values for the boost
-        /*
-        speedBoost = 100;
-        durabilityBoost = 100;
-        jumpBoost = 100;
-        */
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if (isOutsideOfCar)
+        if (!player.GetComponent<CarStateListener>().isInsideCar)
         {
             // Player has pressed jump
-            if (Input.GetKeyDown(jump))
+            if (Input.GetKeyDown(player.GetComponent<CarStateListener>().jump))
             {
                 // Check that the player is on the ground 
                 if (GetComponent<Rigidbody2D>().IsTouching(GameObject.FindGameObjectWithTag("Ground").GetComponent<Collider2D>()))
@@ -93,7 +41,6 @@ public class PlayerMovement : MonoBehaviour
                     transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, JUMP_POWER), ForceMode2D.Impulse);
                 }
             }
-
             UpdatePlayerSpeed();
 
             // Apply the direction
@@ -101,15 +48,7 @@ public class PlayerMovement : MonoBehaviour
             direction.x += speed.x * Time.deltaTime;
             transform.Translate(direction);
         }
-        else
-        {
-            if (Input.GetKeyDown(toggleCar))
-            {
-                GetOutOfCar();
-            }
-        }
     }
-
 
 
     private void UpdatePlayerSpeed()
@@ -117,16 +56,82 @@ public class PlayerMovement : MonoBehaviour
         // Function that updates the players speed from user input
         bool movedRight = false, movedLeft = false;
 
-        if (Input.GetKey(accelerate))
+        if (Input.GetKey(player.GetComponent<CarStateListener>().accelerate))
         {
             speed.x = DEFAULT_SPEED;
             movedRight = true;
+            isFacingRight = true;
         }
-        if (Input.GetKey(decelerate))
+        if (Input.GetKey(player.GetComponent<CarStateListener>().decelerate))
         {
             speed.x = -DEFAULT_SPEED;
             movedLeft = true;
+            isFacingRight = false;
         }
+
+        /*
+        Sprite s = faceRight;
+        nextFrame += 1 * Time.deltaTime;
+
+        if (speed.x > 0)
+        {
+            if (nextFrame < secondsForSprite)
+            {
+                s = right1;
+
+            }
+            else
+            {
+                s = right2;
+                if (nextFrame > 2 * secondsForSprite)
+                {
+                    nextFrame = 0;
+                }
+            }
+        }
+        if (speed.x < 0)
+        {
+            if (nextFrame < secondsForSprite)
+            {
+                s = left1;
+            }
+            else
+            {
+                s = left2;
+                if (nextFrame > 2 * secondsForSprite)
+                {
+                    nextFrame = 0;
+                }
+            }
+        }
+        if (speed.x == 0)
+        {
+            if (isFacingRight)
+            {
+                s = faceRight;
+                nextFrame = 0;
+            }
+            else
+            {
+                s = faceLeft;
+                nextFrame = 0;
+            }
+        }
+        
+
+        if (!GetComponent<Rigidbody2D>().IsTouching(GameObject.FindGameObjectWithTag("Ground").GetComponent<Collider2D>()))
+        {
+            s = jmp;
+        }
+        
+
+        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = s;
+        */
+
+        GetComponentInChildren<Animator>().SetBool("inAir", !GetComponent<Rigidbody2D>().IsTouching(GameObject.FindGameObjectWithTag("Ground").GetComponent<Collider2D>()));
+        GetComponentInChildren<Animator>().SetBool("isLeft", movedLeft);
+        GetComponentInChildren<Animator>().SetBool("isRight", movedRight);
+        GetComponentInChildren<Animator>().SetBool("hasItem", item != Item.ItemType.None);
 
         // Reset speed when not moving
         if (!(movedLeft || movedRight))
@@ -136,109 +141,64 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    public bool CollectedItem(Item.ItemType type)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (isOutsideOfCar)
-        {
-            // Called when an item has collided with this player
-            //Debug.Log(playerName + " " + player + " has collided with item " + type);
-
-            if (item == Item.ItemType.None)
-            {
-                // TODO set hud display visible here
-                //Debug.Log("Press " + interact + " to pick up the scrap");
-
-                if (Input.GetKey(interact))
-                {
-                    item = type;
-                    return true;
-                }
-            }
-            else
-            {
-                // TODO set hud display visible here
-                //Debug.Log("You can't pick this up");
-            }
-
-            // Upgrade stats
-            /*
-            if (type == Item.ItemType.Speed)
-            {
-                speedBoost += BOOST_UPGRADE;
-            }
-            else if (type == Item.ItemType.Durability)
-            {
-                durabilityBoost += BOOST_UPGRADE;
-            }
-            else
-            {
-                jumpBoost += BOOST_UPGRADE;
-            }
-            */
-        }
-        return false;
-    }
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        //Debug.Log(collision.transform.tag);
-
         // Collides with this players vehicle
         if (collision.gameObject.tag.Contains("Car"))
         {
-            //Debug.Log(collision.transform.tag);
-
             // Check the correct vehicle
-            if (collision.gameObject.tag.Equals("Car") && transform.tag.Equals("Player") || collision.gameObject.tag.Equals("Car2") && transform.tag.Equals("Player2"))
+            if ((collision.gameObject.tag.Equals("Car") && transform.tag.Equals("Player")) || (collision.gameObject.tag.Equals("Car2") && transform.tag.Equals("Player2")))
             {
-                Debug.Log("Colliding with car!!");
-
-                if(Input.GetKey(interact))
+                if (item != Item.ItemType.None)
                 {
-                    if(item != Item.ItemType.None)
+                    // Display car to upgrade message here
+                    //print("car can be upgraded");
+
+                    if (Input.GetKeyDown(player.GetComponent<CarStateListener>().interact))
                     {
-                        UpgradeCar();
+                        player.GetComponent<CarStateListener>().UpgradeCar(item);
+                        item = Item.ItemType.None;
                     }
-                    
                 }
-                else if(Input.GetKeyDown(toggleCar))
+                else
                 {
-                    GetIntoCar();
+                    // display get into car message
+                    //print("get into car");
                 }
 
+                // Get into it
+                if (Input.GetKeyDown(player.GetComponent<CarStateListener>().toggleCar))
+                {
+                    player.GetComponent<CarStateListener>().GetIntoCar();
+                }
+            }
+        }
+        if (collision.gameObject.CompareTag("Item"))
+        {
+            if (item == Item.ItemType.None)
+            {
+                // TODO set hud display visible here
+                //Debug.Log("Press " + player.GetComponent<CarStateListener>().interact + " to pick up the scrap");
+
+                if (Input.GetKey(player.GetComponent<CarStateListener>().interact))
+                {
+                    // Set item
+                    GameObject g = collision.gameObject;
+                    //print("Picked up item " + g.GetComponent<Item>());
+                    item = g.GetComponent<Item>().itemType;
+
+                    Destroy(collision.gameObject);
+                }
             }
             else
             {
-                Debug.Log("This is not the correct car!!!");
+                // TODO set hud display visible here
+                // Debug.Log("You can't pick this up");
             }
-
         }
+
     }
 
 
-    public void GetIntoCar()
-    {
-        Debug.Log("toggle get in");
-
-        isOutsideOfCar = false;
-        GetComponent<SpriteRenderer>().enabled = false;
-        GetComponent<Rigidbody2D>().Sleep();
-    }
-
-    public void UpgradeCar()
-    {
-        // Set the selected item to none
-        item = Item.ItemType.None;
-    }
-
-    public void GetOutOfCar()
-    {
-        Debug.Log("toggle get out");
-
-        isOutsideOfCar = true;
-        GetComponent<SpriteRenderer>().enabled = true;
-        GetComponent<Rigidbody2D>().WakeUp();
-        transform.position = car.transform.position;
-    }
 
 }
