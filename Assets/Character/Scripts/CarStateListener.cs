@@ -7,6 +7,8 @@ public class CarStateListener : MonoBehaviour
     public GameObject car;
     public GameObject player;
 
+    public GameObject quickTime;
+
     public bool isInsideCar;
 
     public KeyCode accelerate, decelerate, jump, toggleCar, interact;
@@ -100,5 +102,7 @@ public class CarStateListener : MonoBehaviour
         {
             Debug.Log("Trying to upgrade a car with no item.");
         }
+
+
     }
 }
