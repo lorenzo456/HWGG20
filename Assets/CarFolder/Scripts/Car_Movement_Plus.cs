@@ -11,6 +11,10 @@ public class Car_Movement_Plus : MonoBehaviour
     float statSpeed = 1.0f;
     float statJump = 1.0f;
 
+    public float degradibilityStatDurability = 0.2f;
+    public float degradibilityStatSpeed= 0.05f;
+    public float degradibilityStatJump = 0.05f;
+
 
 
     public enum KeyMovement { up, left, right, down };
@@ -23,7 +27,6 @@ public class Car_Movement_Plus : MonoBehaviour
 
     public float speed = 500.0f;
     public float maxJumpHeight = 7000.0f;
-    public float hazardDamage = 0.20f;
     public bool player2;
     private float jumpHeight = 0;
 
@@ -132,14 +135,14 @@ public class Car_Movement_Plus : MonoBehaviour
     void Movement()
     {
 
-        if (Input.GetKey(right) && !Input.GetKey(left))
+        if (Input.GetKey(right) && !Input.GetKey(left) && statDurability > 0)
         {
             wheelMotor1.motor = NewMotor((-0.5f * speed) + -(statSpeed * speed));
             wheelMotor2.motor = NewMotor((-0.5f * speed) + -(statSpeed * speed));
-            statSpeed = statSpeed - 0.05f * Time.deltaTime;
+            statSpeed = statSpeed - degradibilityStatSpeed * Time.deltaTime;
         }
 
-        else if (!Input.GetKey(right) && Input.GetKey(left))
+        else if (!Input.GetKey(right) && Input.GetKey(left) && statDurability > 0)
         {
             wheelMotor1.motor = NewMotor((0.5f * speed) + (statSpeed * speed));
             wheelMotor2.motor = NewMotor((0.5f * speed) + (statSpeed * speed));
@@ -171,7 +174,7 @@ public class Car_Movement_Plus : MonoBehaviour
         }
 
         float verticalVelocity = velocity.y;
-        if (Input.GetKey(up) && verticalVelocity <= (2 * (statJump * maxJumpHeight)) && jumpHeight <= 0.2)
+        if (Input.GetKey(up) && verticalVelocity <= (2 * (statJump * maxJumpHeight)) && jumpHeight <= 0.2f && statDurability > 0)
         {
             Vector2 horizontalForce = new Vector2(0.0f, (statJump * maxJumpHeight * Time.deltaTime));
             rigidBody.AddForce(horizontalForce);
@@ -180,7 +183,7 @@ public class Car_Movement_Plus : MonoBehaviour
             {
                 Debug.Log("liftoff!");
                 statLoss = false;
-                statJump = statJump - 0.05f;
+                statJump = statJump - degradibilityStatJump;
             }
 
             if (statJump < 0.0f)
@@ -233,7 +236,7 @@ public class Car_Movement_Plus : MonoBehaviour
 
     public void DurabilityDamage()
     {
-        statDurability -= hazardDamage;
+        statDurability -= degradibilityStatDurability;
         if (statDurability < 0)
         {
             statDurability = 0.0f;
