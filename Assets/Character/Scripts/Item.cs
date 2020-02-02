@@ -5,35 +5,40 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     public enum ItemType { Speed, Durability, Jump, None };
-    public ItemType itemType = ItemType.Speed;
+    public ItemType itemType = ItemType.None;
+
+    public Sprite spee, jmp, dur;
     void Start()
     {
         // Randomly choose an item type
         int t = Mathf.FloorToInt(Random.Range(0, 3));
 
         // Set colour (just for now)
-        Color c;
+        Sprite s;
         if (t == 0)
         {
             itemType = ItemType.Speed;
-            c = Color.green;
+            s = spee;
         }
         else if (t == 1)
         {
             itemType = ItemType.Durability;
-            c = Color.red;
+            s = dur;
         }
         else
         {
             itemType = ItemType.Jump;
-            c = Color.blue;
+            s = jmp;
         }
 
-        GetComponent<SpriteRenderer>().material.color = c;
+        // Set sprite
+        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = s;
     }
 
+    /*
     private void OnTriggerStay2D(Collider2D collision)
     {
+        print("item colliding with " + collision.tag);
         // Collides with either Player or Player2
         if (collision.gameObject.tag.Contains("Player"))
         {
@@ -43,9 +48,9 @@ public class Item : MonoBehaviour
                 // Remove this object
                 Destroy(gameObject);
             }
-
         }
     }
+    */
 
 
 }
