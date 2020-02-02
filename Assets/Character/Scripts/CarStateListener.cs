@@ -28,6 +28,11 @@ public class CarStateListener : MonoBehaviour
         transform.tag = playerType.ToString();
         gameObject.layer = LayerMask.NameToLayer(playerType.ToString());
 
+        SetKeys();
+    }
+
+    private void SetKeys()
+    {
         // Set the player key controls
         if (playerType == PlayerTag.Player)
         {
@@ -68,7 +73,6 @@ public class CarStateListener : MonoBehaviour
                     car.GetComponent<Car_Movement_Plus>().personInCar = false;
                 }
             }
-
         }
         ignoreGetInCar = false;
     }
@@ -85,24 +89,36 @@ public class CarStateListener : MonoBehaviour
     public void UpgradeCar(Item.ItemType item)
     {
         Car_Movement_Plus c = car.GetComponent<Car_Movement_Plus>();
+        QuickTime q = quickTime.GetComponent<QuickTime>();
 
-        if(item.Equals(Item.ItemType.Speed))
+        // Remove keys
+        accelerate = KeyCode.None; decelerate = KeyCode.None; jump = KeyCode.None; toggleCar = KeyCode.None; interact = KeyCode.None;
+
+
+        Debug.Log("Starting quick time!");
+        quickTime.transform.position = transform.position;
+        quickTime.SetActive(true);
+        q.StartGame();
+        int score = 50;
+        quickTime.SetActive(false);
+
+        if (item.Equals(Item.ItemType.Speed))
         {
-            c.repairSpeed(50);
+            c.repairSpeed(score);
         }
         else if (item.Equals(Item.ItemType.Durability))
         {
-            c.repairDurabilty(50);
+            c.repairDurabilty(score);
         }
         else if (item.Equals(Item.ItemType.Jump))
         {
-            c.repairJump(50);
+            c.repairJump(score);
         }
         else
         {
             Debug.Log("Trying to upgrade a car with no item.");
         }
-
-
+        Debug.Log("Upgraded " + item + " for " + score + " points.");
+        SetKeys();
     }
 }
