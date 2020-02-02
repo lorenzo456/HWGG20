@@ -307,6 +307,31 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 70389511}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &70389514 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 243904095068641738, guid: ce5c955a23799c34cbbc19049e9a8a8f,
+    type: 3}
+  m_PrefabInstance: {fileID: 70389511}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &70389515 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 243904095100416060, guid: ce5c955a23799c34cbbc19049e9a8a8f,
+    type: 3}
+  m_PrefabInstance: {fileID: 70389511}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &70389516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70389514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a471b4e98659de3478fcc687dc5e4af0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  car: {fileID: 70389515}
 --- !u!114 &115777164 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 64379535, guid: 703eb22ba9ddbe149b5857b97d6d24bf,
@@ -1452,6 +1477,31 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1737700472}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1737700475 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 243904095068641738, guid: ce5c955a23799c34cbbc19049e9a8a8f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1737700472}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1737700476 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 243904095100416060, guid: ce5c955a23799c34cbbc19049e9a8a8f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1737700472}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1737700477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737700475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a471b4e98659de3478fcc687dc5e4af0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  car: {fileID: 1737700476}
 --- !u!1 &1943248882
 GameObject:
   m_ObjectHideFlags: 0
