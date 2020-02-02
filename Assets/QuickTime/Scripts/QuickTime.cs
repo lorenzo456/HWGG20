@@ -85,22 +85,22 @@ public class QuickTime : MonoBehaviour
             float currentDist = Vector3.Distance(newParent.transform.GetChild(0).transform.position, newParent.transform.position);
             if(currentDist < perfectDist)
             {
-                Debug.Log("50");
+                //Debug.Log("50");
                 points += 50;
             }
             else if(currentDist < goodDist)
             {
-                Debug.Log("25");
+                //Debug.Log("25");
                 points += 25;
             }
             else if(currentDist < badDist)
             {
-                Debug.Log("10");
+                //Debug.Log("10");
                 points += 10;
             }
             else
             {
-                Debug.Log("1");
+                //Debug.Log("1");
                 points += 1;
             }
             if (points >= winPoints)
@@ -153,12 +153,14 @@ public class QuickTime : MonoBehaviour
 
     }
 
-    int StartGame()
+    public void StartGame()
     {
-        
-        newParent = Instantiate(parent, new Vector3(0f, 0f, 0f), Quaternion.identity);
+        points = 0;
+        newParent = Instantiate(parent, transform.position, Quaternion.identity);
         newParent.transform.parent = this.transform;
         newParent.transform.position += new Vector3(0f, 0f, 5f);
+        QTPlay = true;
+
         if (this.tag == "Player")
         {
             up = KeyCode.W;
@@ -176,7 +178,6 @@ public class QuickTime : MonoBehaviour
 
 
         SpawnArrow();
-        return (points);
     }
 
     void EndQt()

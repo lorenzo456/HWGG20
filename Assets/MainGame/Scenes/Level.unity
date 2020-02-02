@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -531,6 +531,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b19a7203672af734aa68edf9c4781f10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &171760559 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4098318410204966955, guid: 49c4047b275320244bf6d508699c8ced,
+    type: 3}
+  m_PrefabInstance: {fileID: 2278395315524046395}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &368693316 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 46918625, guid: 703eb22ba9ddbe149b5857b97d6d24bf,
@@ -1588,6 +1594,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4098318410204966953, guid: 49c4047b275320244bf6d508699c8ced,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 4313746948334470027}
     - target: {fileID: 4098318410204966955, guid: 49c4047b275320244bf6d508699c8ced,
         type: 3}
       propertyPath: m_Name
@@ -1637,7 +1648,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   car: {fileID: 70389513}
   player: {fileID: 4313746948334470027}
-  quickTime: {fileID: 0}
+  quickTime: {fileID: 171760559}
   isInsideCar: 0
   accelerate: 0
   decelerate: 0
