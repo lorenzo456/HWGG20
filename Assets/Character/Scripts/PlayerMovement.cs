@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject player;
 
     public Item.ItemType item = Item.ItemType.None;
-    public GameObject heldItem;
+    public GameObject held;
     public Sprite Hspd, Hdur, Hjmp;
 
     public Sprite faceLeft, faceRight, jmp, left1, left2, right1, right2;
@@ -43,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
                     transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, JUMP_POWER), ForceMode2D.Impulse);
                 }
             }
+
             UpdatePlayerSpeed();
 
             // Apply the direction
@@ -71,65 +72,6 @@ public class PlayerMovement : MonoBehaviour
             isFacingRight = false;
         }
 
-        /*
-        Sprite s = faceRight;
-        nextFrame += 1 * Time.deltaTime;
-
-        if (speed.x > 0)
-        {
-            if (nextFrame < secondsForSprite)
-            {
-                s = right1;
-
-            }
-            else
-            {
-                s = right2;
-                if (nextFrame > 2 * secondsForSprite)
-                {
-                    nextFrame = 0;
-                }
-            }
-        }
-        if (speed.x < 0)
-        {
-            if (nextFrame < secondsForSprite)
-            {
-                s = left1;
-            }
-            else
-            {
-                s = left2;
-                if (nextFrame > 2 * secondsForSprite)
-                {
-                    nextFrame = 0;
-                }
-            }
-        }
-        if (speed.x == 0)
-        {
-            if (isFacingRight)
-            {
-                s = faceRight;
-                nextFrame = 0;
-            }
-            else
-            {
-                s = faceLeft;
-                nextFrame = 0;
-            }
-        }
-        
-
-        if (!GetComponent<Rigidbody2D>().IsTouching(GameObject.FindGameObjectWithTag("Ground").GetComponent<Collider2D>()))
-        {
-            s = jmp;
-        }
-        
-
-        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = s;
-        */
-
         GetComponentInChildren<Animator>().SetBool("inAir", !GetComponent<Rigidbody2D>().IsTouching(GameObject.FindGameObjectWithTag("Ground").GetComponent<Collider2D>()));
         GetComponentInChildren<Animator>().SetBool("isLeft", movedLeft);
         GetComponentInChildren<Animator>().SetBool("isRight", movedRight);
@@ -152,12 +94,12 @@ public class PlayerMovement : MonoBehaviour
                 s = Hjmp;
             }
 
-            heldItem.GetComponent<SpriteRenderer>().sprite = s;
-            heldItem.GetComponent<SpriteRenderer>().enabled = true;
+            held.GetComponent<SpriteRenderer>().sprite = s;
+            held.GetComponent<SpriteRenderer>().enabled = true;
         }
         else
         {
-            heldItem.GetComponent<SpriteRenderer>().enabled = false;
+            held.GetComponent<SpriteRenderer>().enabled = false;
         }
 
         // Reset speed when not moving
