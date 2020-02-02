@@ -19,9 +19,9 @@ public class Car_Movement_Plus : MonoBehaviour
     KeyCode up;
 
     public float speed = 500.0f;
-    public float maxJumpHeight = 40.0f;
+    public float maxJumpHeight = 7000.0f;
     public bool player2;
-    private int jumpHeight = 0;
+    private float jumpHeight = 0;
 
     private Rigidbody2D rigidBody;
     private Vector2 velocity;
@@ -30,6 +30,7 @@ public class Car_Movement_Plus : MonoBehaviour
     private WheelJoint2D wheelMotor1;
     private WheelJoint2D wheelMotor2;
 
+    bool statLoss = false;
     bool touchingGround = false;
     public bool personInCar = true;
 
@@ -114,24 +115,29 @@ public class Car_Movement_Plus : MonoBehaviour
     {
         if (touchingGround)
         {
+            statLoss = true;
             jumpHeight = 0;
 
         }
-        else if (jumpHeight <= 21)
+        else if (jumpHeight < 1)
         {
-            jumpHeight++;
+            jumpHeight += 1*Time.deltaTime;
         }
 
         float verticalVelocity = velocity.y;
-        if (Input.GetKey(up) && verticalVelocity <= (7 * (statJump*maxJumpHeight)) && jumpHeight <= 20)
+        if (Input.GetKey(up) && verticalVelocity <= (2 * (statJump*maxJumpHeight)) && jumpHeight <= 0.2)
         {
-            Vector2 horizontalForce = new Vector2(0.0f, (statJump * maxJumpHeight));
+            Vector2 horizontalForce = new Vector2(0.0f, (statJump * maxJumpHeight * Time.deltaTime));
             rigidBody.AddForce(horizontalForce);
-            if (jumpHeight == 1)
+
+            if (!touchingGround && statLoss)
             {
+                Debug.Log("liftoff!");
+                statLoss = false;
                 statJump = statJump - 0.05f;
             }
-            if(statJump <= 0.0f)
+
+            if(statJump < 0.0f)
             {
                 statJump = 0.0f;
             }
