@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,34 +26,16 @@ public class QuickTime : MonoBehaviour
     public float goodDist;
     public float badDist;
 
+    public GameObject player;
+
     public int winPoints;
 
-    void Start()
-    {
-       
-        up = KeyCode.W;
-        down = KeyCode.S;
-        left = KeyCode.A;
-        right = KeyCode.D;
-
-        //up = KeyCode.UpArrow;
-        //down = KeyCode.DownArrow;
-        //left = KeyCode.LeftArrow;
-        //right = KeyCode.RightArrow;
-
-        
-        newParent = Instantiate(parent, new Vector3(0f,0f,0f), Quaternion.identity);
-        newParent.transform.parent = this.transform;
-        newParent.transform.position += new Vector3(0f,0f,5f);
-        SpawnArrow();
-        
-    }
 
     void SpawnArrow()
     {
         if (QTPlay)
         {
-            int arrowType = Random.Range(0, 3);
+            int arrowType = UnityEngine.Random.Range(0, 3);
             GameObject newarrow;
             Vector3 moveDirection;
 
@@ -80,7 +63,6 @@ public class QuickTime : MonoBehaviour
                 newarrow = Instantiate(arrows[3], newParent.transform);
                 newarrow.transform.position += moveDirection * -distanceFromCircle;
             }
-            newarrow.AddComponent<Animation>();
             newarrow.AddComponent<Rigidbody2D>();
             //newarrow.transform.parent = newParent.transform;
             MoveArrow(newarrow, moveDirection);
@@ -94,7 +76,6 @@ public class QuickTime : MonoBehaviour
         newarrow.GetComponent<Rigidbody2D>().AddForce(moveDirection * arrowSpeed);
         arrowMove = true;
     }
-
 
     void CheckKey(string key)
     {
@@ -124,10 +105,7 @@ public class QuickTime : MonoBehaviour
             }
             if (points >= winPoints)
             {
-                Destroy(newParent.transform.GetChild(0).gameObject);
-                points = 0;
-                QTPlay = false;
-                Destroy(newParent);
+                EndQt();
             }
             else
             {
@@ -138,12 +116,12 @@ public class QuickTime : MonoBehaviour
         }
     }
 
-
     void Update()
     {
         if (QTPlay)
+            
         {
-            arrowDist = (newParent.transform.GetChild(0).transform.position - newParent.transform.position).magnitude;
+            arrowDist = Vector3.Distance(newParent.transform.GetChild(0).transform.position, newParent.transform.position);
             if (newParent.transform.childCount == 1)
             {
                 if (arrowDist > deletedist)
@@ -170,12 +148,42 @@ public class QuickTime : MonoBehaviour
             {
                 CheckKey("right");
             }
-
-            //todo end of minigame
             
         }
 
     }
 
-    
+    int StartGame()
+    {
+        
+        newParent = Instantiate(parent, new Vector3(0f, 0f, 0f), Quaternion.identity);
+        newParent.transform.parent = this.transform;
+        newParent.transform.position += new Vector3(0f, 0f, 5f);
+        if (this.tag == "Player")
+        {
+            up = KeyCode.W;
+            down = KeyCode.S;
+            left = KeyCode.A;
+            right = KeyCode.D;
+        }
+        else if (this.tag == "Player2")
+        {
+            up = KeyCode.UpArrow;
+            down = KeyCode.DownArrow;
+            left = KeyCode.LeftArrow;
+            right = KeyCode.RightArrow;
+        }
+
+
+        SpawnArrow();
+        return (points);
+    }
+
+    void EndQt()
+    {
+        Destroy(newParent.transform.GetChild(0).gameObject);
+        points = 0;
+        QTPlay = false;
+        Destroy(newParent);
+    }
 }
