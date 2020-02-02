@@ -103,6 +103,7 @@ public class Car_Movement_Plus : MonoBehaviour
         }
         catch (NullReferenceException ex)
         {
+            String exe = ex.Message;
 
         }
 
