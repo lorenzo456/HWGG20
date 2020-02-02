@@ -873,6 +873,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   car: {fileID: 1737700473}
   player: {fileID: 1259687490}
+  quickTime: {fileID: 0}
   isInsideCar: 0
   accelerate: 0
   decelerate: 0
@@ -958,6 +959,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6816018837373347656, guid: e8be2c06e837f9f41ad1ea459908ea95,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6816018837373347656, guid: e8be2c06e837f9f41ad1ea459908ea95,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 0b1282be20c0db84296833d9520015b3, type: 2}
     - target: {fileID: 6816018837373347662, guid: e8be2c06e837f9f41ad1ea459908ea95,
         type: 3}
       propertyPath: m_TagString
@@ -1546,6 +1557,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   car: {fileID: 70389513}
   player: {fileID: 4313746948334470027}
+  quickTime: {fileID: 0}
   isInsideCar: 0
   accelerate: 0
   decelerate: 0
