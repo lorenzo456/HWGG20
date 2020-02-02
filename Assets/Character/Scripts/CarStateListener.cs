@@ -74,7 +74,6 @@ public class CarStateListener : MonoBehaviour
 
     public void GetIntoCar()
     {
-        print("getting into car");
         player.SetActive(false);
         isInsideCar = true;
         car.GetComponent<Car_Movement_Plus>().personInCar = true;
