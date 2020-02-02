@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class QuickTime : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class QuickTime : MonoBehaviour
     public float distanceFromCircle;
     public GameObject[] arrows;
     public GameObject parent;
-    
+
 
 
     GameObject newParent;
@@ -30,6 +31,9 @@ public class QuickTime : MonoBehaviour
 
     public int winPoints;
 
+    public event Action OnQuickTimeFinished;
+
+
 
     void SpawnArrow()
     {
@@ -45,7 +49,7 @@ public class QuickTime : MonoBehaviour
                 newarrow = Instantiate(arrows[0], newParent.transform);
                 newarrow.transform.position += moveDirection * -distanceFromCircle;
             }
-            else if(arrowType == 1)
+            else if (arrowType == 1)
             {
                 moveDirection = Vector3.left;
                 newarrow = Instantiate(arrows[1], newParent.transform);
@@ -67,7 +71,7 @@ public class QuickTime : MonoBehaviour
             //newarrow.transform.parent = newParent.transform;
             MoveArrow(newarrow, moveDirection);
         }
-        
+
     }
 
     void MoveArrow(GameObject newarrow, Vector3 moveDirection)
@@ -83,17 +87,17 @@ public class QuickTime : MonoBehaviour
         {
 
             float currentDist = Vector3.Distance(newParent.transform.GetChild(0).transform.position, newParent.transform.position);
-            if(currentDist < perfectDist)
+            if (currentDist < perfectDist)
             {
                 //Debug.Log("50");
                 points += 50;
             }
-            else if(currentDist < goodDist)
+            else if (currentDist < goodDist)
             {
                 //Debug.Log("25");
                 points += 25;
             }
-            else if(currentDist < badDist)
+            else if (currentDist < badDist)
             {
                 //Debug.Log("10");
                 points += 10;
@@ -112,14 +116,14 @@ public class QuickTime : MonoBehaviour
                 Destroy(newParent.transform.GetChild(0).gameObject);
                 SpawnArrow();
             }
-            
+
         }
     }
 
     void Update()
     {
         if (QTPlay)
-            
+
         {
             arrowDist = Vector3.Distance(newParent.transform.GetChild(0).transform.position, newParent.transform.position);
             if (newParent.transform.childCount == 1)
@@ -132,11 +136,11 @@ public class QuickTime : MonoBehaviour
             }
 
 
-            if(Input.GetKeyDown(up))
+            if (Input.GetKeyDown(up))
             {
                 CheckKey("up");
             }
-            if(Input.GetKeyDown(down))
+            if (Input.GetKeyDown(down))
             {
                 CheckKey("down");
             }
@@ -148,7 +152,7 @@ public class QuickTime : MonoBehaviour
             {
                 CheckKey("right");
             }
-            
+
         }
 
     }
@@ -180,11 +184,16 @@ public class QuickTime : MonoBehaviour
         SpawnArrow();
     }
 
-    void EndQt()
+    public void EndQt()
     {
         Destroy(newParent.transform.GetChild(0).gameObject);
         points = 0;
         QTPlay = false;
         Destroy(newParent);
+
+        OnQuickTimeFinished.Invoke();
     }
+
+    
+
 }
