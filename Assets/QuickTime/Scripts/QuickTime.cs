@@ -190,6 +190,8 @@ public class QuickTime : MonoBehaviour
         points = 0;
         QTPlay = false;
         Destroy(newParent);
+
+        OnQuickTimeFinished.Invoke();
     }
 
     
