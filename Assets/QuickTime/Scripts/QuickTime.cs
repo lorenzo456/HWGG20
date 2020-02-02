@@ -83,7 +83,6 @@ public class QuickTime : MonoBehaviour
             newarrow.AddComponent<Animation>();
             newarrow.AddComponent<Rigidbody2D>();
             //newarrow.transform.parent = newParent.transform;
-            Debug.Log("" + newarrow.transform.parent.name);
             MoveArrow(newarrow, moveDirection);
         }
         
