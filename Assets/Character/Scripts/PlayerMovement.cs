@@ -78,10 +78,10 @@ public class PlayerMovement : MonoBehaviour
         bool holdingItem = item != Item.ItemType.None;
         GetComponentInChildren<Animator>().SetBool("hasItem", holdingItem);
 
-        if(holdingItem)
+        if (holdingItem)
         {
             Sprite s;
-            if(item.Equals(Item.ItemType.Speed))
+            if (item.Equals(Item.ItemType.Speed))
             {
                 s = Hspd;
             }
@@ -112,34 +112,29 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        // Collides with this players vehicle
-        if (collision.gameObject.tag.Contains("Car"))
+        // Check the correct vehicle
+        if ((collision.gameObject.tag.Equals("Car") && transform.tag.Equals("Player")) || (collision.gameObject.tag.Equals("Car2") && transform.tag.Equals("Player2")))
         {
-            // Check the correct vehicle
-            if ((collision.gameObject.tag.Equals("Car") && transform.tag.Equals("Player")) || (collision.gameObject.tag.Equals("Car2") && transform.tag.Equals("Player2")))
+            if (item != Item.ItemType.None)
             {
-                if (item != Item.ItemType.None)
+                // Display car to upgrade message here
+                //print("car can be upgraded");
+                if (Input.GetKeyDown(player.GetComponent<CarStateListener>().interact))
                 {
-                    // Display car to upgrade message here
-                    //print("car can be upgraded");
+                    player.GetComponent<CarStateListener>().UpgradeCar(item);
+                    item = Item.ItemType.None;
+                }
+            }
+            else
+            {
+                // display get into car message
+                //print("get into car");
+            }
 
-                    if (Input.GetKeyDown(player.GetComponent<CarStateListener>().interact))
-                    {
-                        player.GetComponent<CarStateListener>().UpgradeCar(item);
-                        item = Item.ItemType.None;
-                    }
-                }
-                else
-                {
-                    // display get into car message
-                    //print("get into car");
-                }
-
-                // Get into it
-                if (Input.GetKeyDown(player.GetComponent<CarStateListener>().toggleCar))
-                {
-                    player.GetComponent<CarStateListener>().GetIntoCar();
-                }
+            // Get into it
+            if (Input.GetKeyDown(player.GetComponent<CarStateListener>().toggleCar))
+            {
+                player.GetComponent<CarStateListener>().GetIntoCar();
             }
         }
         if (collision.gameObject.CompareTag("Item"))

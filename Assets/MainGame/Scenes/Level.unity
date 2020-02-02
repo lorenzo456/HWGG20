@@ -154,6 +154,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 243904093992437533, guid: ce5c955a23799c34cbbc19049e9a8a8f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Car
+      objectReference: {fileID: 0}
     - target: {fileID: 243904093992437730, guid: ce5c955a23799c34cbbc19049e9a8a8f,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -163,6 +168,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 243904094198844616, guid: ce5c955a23799c34cbbc19049e9a8a8f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Car
       objectReference: {fileID: 0}
     - target: {fileID: 243904094198844617, guid: ce5c955a23799c34cbbc19049e9a8a8f,
         type: 3}
@@ -948,6 +958,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6816018837373347662, guid: e8be2c06e837f9f41ad1ea459908ea95,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6816018837783053183, guid: e8be2c06e837f9f41ad1ea459908ea95,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 7298889120618160299, guid: e8be2c06e837f9f41ad1ea459908ea95,
         type: 3}
       propertyPath: player
@@ -957,6 +977,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Movement
+      objectReference: {fileID: 0}
+    - target: {fileID: 7298889120618160303, guid: e8be2c06e837f9f41ad1ea459908ea95,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7298889120618160303, guid: e8be2c06e837f9f41ad1ea459908ea95,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8be2c06e837f9f41ad1ea459908ea95, type: 3}
@@ -1190,6 +1220,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 243904093992437533, guid: ce5c955a23799c34cbbc19049e9a8a8f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Car2
+      objectReference: {fileID: 0}
     - target: {fileID: 243904093992437730, guid: ce5c955a23799c34cbbc19049e9a8a8f,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -1199,6 +1234,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 243904094198844616, guid: ce5c955a23799c34cbbc19049e9a8a8f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Car2
       objectReference: {fileID: 0}
     - target: {fileID: 243904094198844617, guid: ce5c955a23799c34cbbc19049e9a8a8f,
         type: 3}
@@ -1299,6 +1339,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2514550366707348726, guid: ce5c955a23799c34cbbc19049e9a8a8f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 3653823170907289213, guid: ce5c955a23799c34cbbc19049e9a8a8f,
         type: 3}
