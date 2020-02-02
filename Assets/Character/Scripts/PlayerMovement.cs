@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     // Reference to the correct car
     public GameObject player;
 
-    private Item.ItemType item = Item.ItemType.Speed;
+    public Item.ItemType item = Item.ItemType.None;
 
     public Sprite faceLeft, faceRight, jmp, left1, left2, right1, right2;
     private float nextFrame = 0;
@@ -31,6 +31,35 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!player.GetComponent<CarStateListener>().isInsideCar)
         {
+            List<Collider2D> touching = new List<Collider2D>();
+            GetComponent<Rigidbody2D>().OverlapCollider(new ContactFilter2D(), touching);
+            foreach (Collider2D c in touching)
+            {
+                if (c.gameObject.CompareTag("Item"))
+                {
+                    if (item == Item.ItemType.None)
+                    {
+                        // TODO set hud display visible here
+                        Debug.Log("Press " + player.GetComponent<CarStateListener>().interact + " to pick up the scrap");
+
+                        if (Input.GetKey(player.GetComponent<CarStateListener>().interact))
+                        {
+                            GameObject g = c.gameObject;
+                            print("Picked up item " + g.GetComponent<Item>());
+                            print(g.GetComponent<Item>());
+                            item = g.GetComponent<Item>().itemType;
+
+                            Destroy(c.gameObject);
+                        }
+                    }
+                    else
+                    {
+                        // TODO set hud display visible here
+                        Debug.Log("You can't pick this up");
+                    }
+                }
+            }
+
             // Player has pressed jump
             if (Input.GetKeyDown(player.GetComponent<CarStateListener>().jump))
             {
@@ -132,33 +161,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    public bool CollectedItem(Item.ItemType type)
-    {
-        if (!player.GetComponent<CarStateListener>().isInsideCar)
-        {
-            // Called when an item has collided with this player
-            //Debug.Log(playerName + " " + player + " has collided with item " + type);
-
-            if (item == Item.ItemType.None)
-            {
-                // TODO set hud display visible here
-                //Debug.Log("Press " + interact + " to pick up the scrap");
-
-                if (Input.GetKey(player.GetComponent<CarStateListener>().interact))
-                {
-                    item = type;
-                    return true;
-                }
-            }
-            else
-            {
-                // TODO set hud display visible here
-                //Debug.Log("You can't pick this up");
-            }
-        }
-        return false;
-    }
-
     private void OnTriggerStay2D(Collider2D collision)
     {
         // Collides with this players vehicle
@@ -169,7 +171,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (item != Item.ItemType.None)
                 {
-                    // DIsplay car to upgrade message here
+                    // Display car to upgrade message here
                     //print("car can be upgraded");
 
                     if (Input.GetKeyDown(player.GetComponent<CarStateListener>().interact))
@@ -191,6 +193,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+
     }
 
 

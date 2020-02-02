@@ -5,7 +5,7 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     public enum ItemType { Speed, Durability, Jump, None };
-    public ItemType itemType = ItemType.Speed;
+    public ItemType itemType = ItemType.None;
 
     public Sprite spee, jmp, dur;
     void Start()
@@ -35,8 +35,10 @@ public class Item : MonoBehaviour
         transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = s;
     }
 
+    /*
     private void OnTriggerStay2D(Collider2D collision)
     {
+        print("item colliding with " + collision.tag);
         // Collides with either Player or Player2
         if (collision.gameObject.tag.Contains("Player"))
         {
@@ -48,6 +50,7 @@ public class Item : MonoBehaviour
             }
         }
     }
+    */
 
 
 }

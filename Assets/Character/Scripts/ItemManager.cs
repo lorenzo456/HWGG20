@@ -7,7 +7,7 @@ public class ItemManager : MonoBehaviour
     public GameObject itemPrefab;
 
     public int totalItems = 10;
-    public int minX = 0, maxX = 5;
+    public int minX = 0, maxX = 20;
 
     // Start is called before the first frame update
     private void Start()
@@ -21,7 +21,7 @@ public class ItemManager : MonoBehaviour
     private void SpawnItem()
     {
         GameObject g = Instantiate(itemPrefab) as GameObject;
-        g.transform.position = new Vector2(Random.Range(minX, maxX), 3);
+        g.transform.position = new Vector2(Random.Range(minX, maxX), 5);
         g.SetActive(true);
 
         // Check if item is touching another item, and if so move this one somewhere else 
