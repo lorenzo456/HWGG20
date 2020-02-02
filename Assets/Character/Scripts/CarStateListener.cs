@@ -17,6 +17,7 @@ public class CarStateListener : MonoBehaviour
     public PlayerTag playerType;
 
     bool ignoreGetInCar = false;
+    
 
     private Car_Movement_Plus c;
     private QuickTime q;

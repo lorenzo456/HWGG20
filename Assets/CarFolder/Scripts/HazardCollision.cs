@@ -22,13 +22,14 @@ public class HazardCollision : MonoBehaviour
     {
         if (enabled)
         {
-            if (collision.gameObject.tag == "Car" || collision.gameObject.tag == "Car2")
+            if(collision.gameObject.name == "CAR(body)")
             {
                 if (collision.gameObject.GetComponent<PolygonCollider2D>().IsTouching(gameObject.GetComponent<Collider2D>()))
                 {
                     collision.gameObject.transform.parent.GetComponent<Car_Movement_Plus>().DurabilityDamage();
                     explosion();
                 }
+
             }
         }
     }
@@ -41,7 +42,14 @@ public class HazardCollision : MonoBehaviour
 
     IEnumerator wait()
     {
-        gameObject.GetComponent<SpriteRenderer>().sprite = Boom;
+        if(gameObject.name == "Collision_Car(body)")
+        {
+            gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = Boom;
+        }
+        else
+        {
+            gameObject.GetComponent<SpriteRenderer>().sprite = Boom;
+        }
         yield return new WaitForSeconds(0.3f);
         Destroy(gameObject);
 
