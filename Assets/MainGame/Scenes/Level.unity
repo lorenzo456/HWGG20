@@ -669,12 +669,12 @@ PrefabInstance:
     - target: {fileID: 7176144670383442554, guid: d15fc0018d3c71541a6cdbd59332d630,
         type: 3}
       propertyPath: totalItems
-      value: 10
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7176144670383442554, guid: d15fc0018d3c71541a6cdbd59332d630,
         type: 3}
       propertyPath: maxX
-      value: 20
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 7176144670383442555, guid: d15fc0018d3c71541a6cdbd59332d630,
         type: 3}
