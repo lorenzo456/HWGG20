@@ -21,7 +21,6 @@ public class HazardCollision : MonoBehaviour
 
         if (collision.gameObject.tag == "Car" || collision.gameObject.tag == "Car2")
         {
-            Debug.Log("Collision");
             if (collision.gameObject.GetComponent<PolygonCollider2D>().IsTouching(gameObject.GetComponent<Collider2D>()))
             {
                 //collision.gameObject.GetComponent<Car_Movement_Plus>().DurabilityDamage();
