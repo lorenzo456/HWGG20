@@ -31,8 +31,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!player.GetComponent<CarStateListener>().isInsideCar)
         {
-            List<Collider2D> touching = new List<Collider2D>();
-            GetComponent<Rigidbody2D>().OverlapCollider(new ContactFilter2D(), touching);
+            // TODO need to get a list of colliding objects
+            List<Collider2D> touching = new List<Collider2D>(); 
             foreach (Collider2D c in touching)
             {
                 if (c.gameObject.CompareTag("Item"))
