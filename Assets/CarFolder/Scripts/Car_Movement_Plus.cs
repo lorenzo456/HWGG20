@@ -20,6 +20,7 @@ public class Car_Movement_Plus : MonoBehaviour
 
     public float speed = 500.0f;
     public float maxJumpHeight = 7000.0f;
+    public float damageTaken = 0.20f;
     public bool player2;
     private float jumpHeight = 0;
 
@@ -177,6 +178,25 @@ public class Car_Movement_Plus : MonoBehaviour
         if (statSpeed > 100)
         {
             statSpeed = 100.0f;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Hazard")
+        {
+            DurabilityDamage();
+            Destroy(collision.gameObject);
+        }
+    }
+
+
+    void DurabilityDamage()
+    {
+        statDurability -= damageTaken;
+        if (statDurability < 0)
+        {
+            statDurability = 0.0f;
         }
     }
 
