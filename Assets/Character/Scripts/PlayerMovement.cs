@@ -131,6 +131,7 @@ public class PlayerMovement : MonoBehaviour
         GetComponentInChildren<Animator>().SetBool("inAir", !GetComponent<Rigidbody2D>().IsTouching(GameObject.FindGameObjectWithTag("Ground").GetComponent<Collider2D>()));
         GetComponentInChildren<Animator>().SetBool("isLeft", movedLeft);
         GetComponentInChildren<Animator>().SetBool("isRight", movedRight);
+        GetComponentInChildren<Animator>().SetBool("hasItem", item != Item.ItemType.None);
 
         // Reset speed when not moving
         if (!(movedLeft || movedRight))
