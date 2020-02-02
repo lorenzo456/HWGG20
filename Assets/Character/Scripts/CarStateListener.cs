@@ -17,6 +17,7 @@ public class CarStateListener : MonoBehaviour
     public PlayerTag playerType;
 
     bool ignoreGetInCar = false;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -99,6 +100,8 @@ public class CarStateListener : MonoBehaviour
         quickTime.transform.position = transform.position;
         quickTime.SetActive(true);
         q.StartGame();
+        
+        
         int score = 50;
         quickTime.SetActive(false);
 
