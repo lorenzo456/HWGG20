@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4098318410204966955
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4098318410204966952}
+  - component: {fileID: 4098318410204966953}
+  m_Layer: 0
+  m_Name: QTObject
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4098318410204966952
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4098318410204966955}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4098318410204966953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4098318410204966955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3037d77b46e4bd45bd5ff8a938529d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  QTPlay: 1
+  arrowSpeed: 250
+  distanceFromCircle: 4
+  arrows:
+  - {fileID: 2735455144343718756, guid: d7c18ea18bacfca4dbee861dc8090474, type: 3}
+  - {fileID: 2872430542480761938, guid: 62b504782f6d6694c819d53159bf0f61, type: 3}
+  - {fileID: 5922922665206393204, guid: 474c59ed924d0fe4388449e5f5d862ba, type: 3}
+  - {fileID: 8348582408404642817, guid: 883b39af5d2045d4cb67117ac55f78ff, type: 3}
+  parent: {fileID: 7295039134804650691, guid: c90e91e196143194bb2a59f487ff3169, type: 3}
+  deletedist: 4.5
+  points: 0
+  perfectDist: 0.2
+  goodDist: 0.6
+  badDist: 1
+  player: {fileID: 0}
+  winPoints: 250
