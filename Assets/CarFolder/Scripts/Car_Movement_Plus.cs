@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 public class Car_Movement_Plus : MonoBehaviour
@@ -9,7 +10,7 @@ public class Car_Movement_Plus : MonoBehaviour
     float statDurability = 1.0f;
     float statSpeed = 1.0f;
     float statJump = 1.0f;
-    
+
 
 
     public enum KeyMovement { up, left, right };
@@ -37,6 +38,12 @@ public class Car_Movement_Plus : MonoBehaviour
     bool touchingGround = false;
     public bool personInCar = true;
 
+    [Header("Unity stuff")]
+    public Image BlueBar;
+    public Image GreenBar;
+    public Image RedBar;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,6 +68,27 @@ public class Car_Movement_Plus : MonoBehaviour
             up = KeyCode.UpArrow;
         }
     }
+    //Fill the UI bars for speed jump & durability
+
+    //durability, did not see anything in this script that caused durability to go down? 
+    void BlueBarFill()
+    {
+        BlueBar.fillAmount = statDurability;
+    }
+
+    //speed or fuel
+    void RedBarFill()
+    {
+        RedBar.fillAmount = statSpeed;
+    }
+
+    // Jump
+    void GreenBarFill()
+    {
+        GreenBar.fillAmount = statJump;
+    }
+
+
 
     // Update is called once per frame
     void Update()
@@ -107,7 +135,7 @@ public class Car_Movement_Plus : MonoBehaviour
         {
             wheelMotor1.motor = NewMotor((-0.5f * speed) + -(statSpeed * speed));
             wheelMotor2.motor = NewMotor((-0.5f * speed) + -(statSpeed * speed));
-            statSpeed = statSpeed - 0.05f*Time.deltaTime;
+            statSpeed = statSpeed - 0.05f * Time.deltaTime;
         }
 
         else if (!Input.GetKey(right) && Input.GetKey(left))
@@ -125,6 +153,7 @@ public class Car_Movement_Plus : MonoBehaviour
             wheelMotor1.motor = NewMotor(0);
             wheelMotor2.motor = NewMotor(0);
         }
+        RedBarFill();
     }
 
     void Jump()
@@ -137,11 +166,11 @@ public class Car_Movement_Plus : MonoBehaviour
         }
         else if (jumpHeight < 1)
         {
-            jumpHeight += 1*Time.deltaTime;
+            jumpHeight += 1 * Time.deltaTime;
         }
 
         float verticalVelocity = velocity.y;
-        if (Input.GetKey(up) && verticalVelocity <= (2 * (statJump*maxJumpHeight)) && jumpHeight <= 0.2)
+        if (Input.GetKey(up) && verticalVelocity <= (2 * (statJump * maxJumpHeight)) && jumpHeight <= 0.2)
         {
             Vector2 horizontalForce = new Vector2(0.0f, (statJump * maxJumpHeight * Time.deltaTime));
             rigidBody.AddForce(horizontalForce);
@@ -153,11 +182,12 @@ public class Car_Movement_Plus : MonoBehaviour
                 statJump = statJump - 0.05f;
             }
 
-            if(statJump < 0.0f)
+            if (statJump < 0.0f)
             {
                 statJump = 0.0f;
             }
         }
+        GreenBarFill();
     }
 
     JointMotor2D NewMotor(float mSpeed)
@@ -176,6 +206,7 @@ public class Car_Movement_Plus : MonoBehaviour
         {
             statJump = 1.0f;
         }
+        GreenBarFill();
     }
 
     public void repairDurabilty(int value)
@@ -185,6 +216,7 @@ public class Car_Movement_Plus : MonoBehaviour
         {
             statDurability = 1.0f;
         }
+        BlueBarFill();
     }
 
     public void repairSpeed(int value)
@@ -194,6 +226,7 @@ public class Car_Movement_Plus : MonoBehaviour
         {
             statSpeed = 1.0f;
         }
+        RedBar.fillAmount = statSpeed;
     }
 
 
