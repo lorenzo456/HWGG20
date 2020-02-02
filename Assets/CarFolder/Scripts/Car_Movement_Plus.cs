@@ -94,18 +94,6 @@ public class Car_Movement_Plus : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        try
-        {
-            if (bodyCollider.IsTouching(GameObject.FindGameObjectWithTag("Hazard").GetComponent<Collider2D>()))
-            {
-                DurabilityDamage();
-            }
-        }
-        catch (NullReferenceException ex)
-        {
-            String exe = ex.Message;
-
-        }
 
         if (wheelCollider.IsTouching(GameObject.Find("collider").GetComponent<Collider2D>()))
         {
