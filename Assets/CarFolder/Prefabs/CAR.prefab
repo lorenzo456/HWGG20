@@ -655,11 +655,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smoke: {fileID: 8141631502225634755, guid: 218842bb9dc20084897f1d130c968b32, type: 3}
-  degradibilityStatDurability: 0.2
-  degradibilityStatSpeed: 0.05
-  degradibilityStatJump: 0.05
+  degradibilityStatDurability: 0.35
+  degradibilityStatSpeed: 0.03
+  degradibilityStatJump: 0.2
   key: 0
-  speed: 500
+  speed: 700
   maxJumpHeight: 7000
   player2: 0
   personInCar: 1
