@@ -7,6 +7,9 @@ using System;
 public class Car_Movement_Plus : MonoBehaviour
 {
 
+    public GameObject smoke;
+
+    float smokeTimer = 0;
     float statDurability = 1.0f;
     float statSpeed = 1.0f;
     float statJump = 1.0f;
@@ -120,6 +123,12 @@ public class Car_Movement_Plus : MonoBehaviour
 
         if (personInCar)
         {
+            smokeTimer += 1f * Time.deltaTime;
+            if (smokeTimer > 0.2f)
+            {
+                CreateSmoke();
+                smokeTimer = 0;
+            }
             Movement();
             Jump();
         }
@@ -203,7 +212,7 @@ public class Car_Movement_Plus : MonoBehaviour
         return MyNewMotor;
     }
 
-    public void repairJump(int value)
+    public void repairJump(float value)
     {
         statJump = statJump + value;
         if (statJump > 1)
@@ -213,7 +222,7 @@ public class Car_Movement_Plus : MonoBehaviour
         GreenBarFill();
     }
 
-    public void repairDurabilty(int value)
+    public void repairDurabilty(float value)
     {
         statDurability = statDurability + value;
         if (statDurability > 1)
@@ -223,7 +232,7 @@ public class Car_Movement_Plus : MonoBehaviour
         BlueBarFill();
     }
 
-    public void repairSpeed(int value)
+    public void repairSpeed(float value)
     {
         statSpeed = statSpeed + value;
         if (statSpeed > 1)
@@ -242,6 +251,12 @@ public class Car_Movement_Plus : MonoBehaviour
             statDurability = 0.0f;
         }
         BlueBarFill();
+    }
+
+    void CreateSmoke()
+    {
+        Vector3 smokeLocation = new Vector3(gameObject.transform.GetChild(0).transform.position.x - 3f, gameObject.transform.GetChild(0).transform.position.y + 1.5f, 0);
+        Instantiate(smoke,smokeLocation,gameObject.transform.GetChild(0).gameObject.transform.rotation);
     }
 
     void ResetPosition()

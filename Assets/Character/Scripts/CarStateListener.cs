@@ -119,7 +119,7 @@ public class CarStateListener : MonoBehaviour
     public void QuickTimeFinished()
     {
         quickTime.SetActive(false);
-        int score = 50;
+        float score = 0.5f;
 
         if (item.Equals(Item.ItemType.Speed))
         {
