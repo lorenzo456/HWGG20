@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2411038880665605953}
   - component: {fileID: 7067486893433905839}
+  - component: {fileID: 7923751977707338746}
   m_Layer: 0
   m_Name: QT_ArrowUp
   m_TagString: up
@@ -70,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d7ba9a87367e8be47af57926260ab72b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 88abe226bed423347a88e4eb7105413d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -81,3 +82,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!111 &7923751977707338746
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2735455144343718756}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 4308655ca265c9c488a6a16deda6b2b3, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 4308655ca265c9c488a6a16deda6b2b3, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0

@@ -18,14 +18,14 @@ public class QuickTime : MonoBehaviour
 
     public float deletedist;
 
-    public enum PlayerTag { Player, Player2 };
-    public PlayerTag player;
     private KeyCode up, down, left, right;
     public int points = 0;
 
     public float perfectDist;
     public float goodDist;
     public float badDist;
+
+    public int winPoints;
 
     void Start()
     {
@@ -41,7 +41,9 @@ public class QuickTime : MonoBehaviour
         //right = KeyCode.RightArrow;
 
         
-        newParent = Instantiate(parent, this.transform);
+        newParent = Instantiate(parent, new Vector3(0f,0f,0f), Quaternion.identity);
+        newParent.transform.parent = this.transform;
+        newParent.transform.position += new Vector3(0f,0f,5f);
         SpawnArrow();
         
     }
@@ -57,29 +59,30 @@ public class QuickTime : MonoBehaviour
             if (arrowType == 0)
             {
                 moveDirection = Vector3.up;
-                newarrow = Instantiate(arrows[0], new Vector3(0f, 0f, 0f), Quaternion.Euler(0f,0f,0f));
+                newarrow = Instantiate(arrows[0], newParent.transform);
                 newarrow.transform.position += moveDirection * -distanceFromCircle;
             }
             else if(arrowType == 1)
             {
                 moveDirection = Vector3.left;
-                newarrow = Instantiate(arrows[1], new Vector3(0f, 0f, 0f), Quaternion.Euler(0f, 0f, 90f));
+                newarrow = Instantiate(arrows[1], newParent.transform);
                 newarrow.transform.position += moveDirection * -distanceFromCircle;
             }
             else if (arrowType == 2)
             {
                 moveDirection = Vector3.down;
-                newarrow = Instantiate(arrows[2], new Vector3(0f, 0f, 0f), Quaternion.Euler(0f, 0f, 180f));
+                newarrow = Instantiate(arrows[2], newParent.transform);
                 newarrow.transform.position += moveDirection * -distanceFromCircle;
             }
             else
             {
                 moveDirection = Vector3.right;
-                newarrow = Instantiate(arrows[3], new Vector3(0f, 0f, 0f), Quaternion.Euler(0f, 0f, -90f));
+                newarrow = Instantiate(arrows[3], newParent.transform);
                 newarrow.transform.position += moveDirection * -distanceFromCircle;
             }
+            newarrow.AddComponent<Animation>();
             newarrow.AddComponent<Rigidbody2D>();
-            newarrow.transform.parent = newParent.transform;
+            //newarrow.transform.parent = newParent.transform;
             Debug.Log("" + newarrow.transform.parent.name);
             MoveArrow(newarrow, moveDirection);
         }
@@ -98,6 +101,7 @@ public class QuickTime : MonoBehaviour
     {
         if (key == newParent.transform.GetChild(0).tag)
         {
+
             float currentDist = Vector3.Distance(newParent.transform.GetChild(0).transform.position, newParent.transform.position);
             if(currentDist < perfectDist)
             {
@@ -119,46 +123,59 @@ public class QuickTime : MonoBehaviour
                 Debug.Log("1");
                 points += 1;
             }
+            if (points >= winPoints)
+            {
+                Destroy(newParent.transform.GetChild(0).gameObject);
+                points = 0;
+                QTPlay = false;
+                Destroy(newParent);
+            }
+            else
+            {
+                Destroy(newParent.transform.GetChild(0).gameObject);
+                SpawnArrow();
+            }
+            
         }
     }
 
 
     void Update()
     {
-        arrowDist = (newParent.transform.GetChild(0).transform.position - newParent.transform.position).magnitude;
-        if (newParent.transform.childCount == 1)
+        if (QTPlay)
         {
-            if (arrowDist > deletedist)
+            arrowDist = (newParent.transform.GetChild(0).transform.position - newParent.transform.position).magnitude;
+            if (newParent.transform.childCount == 1)
             {
-                Destroy(newParent.transform.GetChild(0).gameObject);
-                SpawnArrow();
+                if (arrowDist > deletedist)
+                {
+                    Destroy(newParent.transform.GetChild(0).gameObject);
+                    SpawnArrow();
+                }
             }
-        }
 
 
-        if(Input.GetKeyDown(up))
-        {
-            CheckKey("up");
-        }
-        if(Input.GetKeyDown(down))
-        {
-            CheckKey("down");
-        }
-        if (Input.GetKeyDown(left))
-        {
-            CheckKey("left");
-        }
-        if (Input.GetKeyDown(right))
-        {
-            CheckKey("right");
+            if(Input.GetKeyDown(up))
+            {
+                CheckKey("up");
+            }
+            if(Input.GetKeyDown(down))
+            {
+                CheckKey("down");
+            }
+            if (Input.GetKeyDown(left))
+            {
+                CheckKey("left");
+            }
+            if (Input.GetKeyDown(right))
+            {
+                CheckKey("right");
+            }
+
+            //todo end of minigame
+            
         }
 
-        //todo end of minigame
-        if(points >= 100)
-        {
-            QTPlay = false;
-            points = 0;
-        }
     }
 
     
