@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class Car_Movement_Plus : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class Car_Movement_Plus : MonoBehaviour
     float statDurability = 1.0f;
     float statSpeed = 1.0f;
     float statJump = 1.0f;
-
+    
 
 
     public enum KeyMovement { up, left, right };
@@ -20,17 +21,20 @@ public class Car_Movement_Plus : MonoBehaviour
     KeyCode up;
 
     public float speed = 500.0f;
-    public float maxJumpHeight = 40.0f;
+    public float maxJumpHeight = 7000.0f;
+    public float hazardDamage = 0.20f;
     public bool player2;
-    private int jumpHeight = 0;
+    private float jumpHeight = 0;
 
     private Rigidbody2D rigidBody;
     private Vector2 velocity;
-    private Collider2D wheelCollider;
+    private CircleCollider2D wheelCollider;
+    private PolygonCollider2D bodyCollider;
     private WheelJoint2D[] jointMotors;
     private WheelJoint2D wheelMotor1;
     private WheelJoint2D wheelMotor2;
 
+    bool statLoss = false;
     bool touchingGround = false;
     public bool personInCar = true;
 
@@ -39,6 +43,7 @@ public class Car_Movement_Plus : MonoBehaviour
     public Image GreenBar;
     public Image RedBar;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +51,7 @@ public class Car_Movement_Plus : MonoBehaviour
         jointMotors = gameObject.GetComponentsInChildren<WheelJoint2D>();
         wheelMotor1 = jointMotors[0];
         wheelMotor2 = jointMotors[1];
+        bodyCollider = gameObject.GetComponentInChildren<PolygonCollider2D>();
         wheelCollider = gameObject.GetComponentInChildren<CircleCollider2D>();
         velocity = rigidBody.velocity;
 
@@ -62,9 +68,8 @@ public class Car_Movement_Plus : MonoBehaviour
             up = KeyCode.UpArrow;
         }
     }
-
     //Fill the UI bars for speed jump & durability
-    
+
     //durability, did not see anything in this script that caused durability to go down? 
     void BlueBarFill()
     {
@@ -84,9 +89,22 @@ public class Car_Movement_Plus : MonoBehaviour
     }
 
 
+
     // Update is called once per frame
     void Update()
     {
+        try
+        {
+            if (bodyCollider.IsTouching(GameObject.FindGameObjectWithTag("Hazard").GetComponent<Collider2D>()))
+            {
+                DurabilityDamage();
+            }
+        }
+        catch (NullReferenceException ex)
+        {
+
+        }
+
         if (wheelCollider.IsTouching(GameObject.Find("collider").GetComponent<Collider2D>()))
         {
             touchingGround = true;
@@ -117,7 +135,7 @@ public class Car_Movement_Plus : MonoBehaviour
         {
             wheelMotor1.motor = NewMotor((-0.5f * speed) + -(statSpeed * speed));
             wheelMotor2.motor = NewMotor((-0.5f * speed) + -(statSpeed * speed));
-            statSpeed = statSpeed - 0.05f * Time.deltaTime;
+            statSpeed = statSpeed - 0.05f*Time.deltaTime;
         }
 
         else if (!Input.GetKey(right) && Input.GetKey(left))
@@ -142,24 +160,29 @@ public class Car_Movement_Plus : MonoBehaviour
     {
         if (touchingGround)
         {
+            statLoss = true;
             jumpHeight = 0;
 
         }
-        else if (jumpHeight <= 21)
+        else if (jumpHeight < 1)
         {
-            jumpHeight++;
+            jumpHeight += 1*Time.deltaTime;
         }
 
         float verticalVelocity = velocity.y;
-        if (Input.GetKey(up) && verticalVelocity <= (7 * (statJump * maxJumpHeight)) && jumpHeight <= 20)
+        if (Input.GetKey(up) && verticalVelocity <= (2 * (statJump*maxJumpHeight)) && jumpHeight <= 0.2)
         {
-            Vector2 horizontalForce = new Vector2(0.0f, (statJump * maxJumpHeight));
+            Vector2 horizontalForce = new Vector2(0.0f, (statJump * maxJumpHeight * Time.deltaTime));
             rigidBody.AddForce(horizontalForce);
-            if (jumpHeight == 1)
+
+            if (!touchingGround && statLoss)
             {
+                Debug.Log("liftoff!");
+                statLoss = false;
                 statJump = statJump - 0.05f;
             }
-            if (statJump <= 0.0f)
+
+            if(statJump < 0.0f)
             {
                 statJump = 0.0f;
             }
@@ -179,38 +202,41 @@ public class Car_Movement_Plus : MonoBehaviour
     void repairJump(int value)
     {
         statJump = statJump + value;
-
         if (statJump > 1)
         {
             statJump = 1.0f;
         }
-
         GreenBarFill();
     }
 
     void repairDurabilty(int value)
     {
         statDurability = statDurability + value;
-
         if (statDurability > 1)
         {
             statDurability = 1.0f;
         }
-
         BlueBarFill();
-
     }
 
     void repairSpeed(int value)
     {
         statSpeed = statSpeed + value;
-
         if (statSpeed > 1)
         {
             statSpeed = 1.0f;
         }
-
         RedBar.fillAmount = statSpeed;
+    }
+
+
+    public void DurabilityDamage()
+    {
+        statDurability -= hazardDamage;
+        if (statDurability < 0)
+        {
+            statDurability = 0.0f;
+        }
     }
 
     void ResetPosition()
