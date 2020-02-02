@@ -654,10 +654,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6cf4c0857b8bbf49969fadf80fd41b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  smoke: {fileID: 8141631502225634755, guid: 218842bb9dc20084897f1d130c968b32, type: 3}
+  degradibilityStatDurability: 0.2
+  degradibilityStatSpeed: 0.05
+  degradibilityStatJump: 0.05
   key: 0
   speed: 500
   maxJumpHeight: 7000
-  hazardDamage: 0.2
   player2: 0
   personInCar: 1
   BlueBar: {fileID: 0}

@@ -7,6 +7,9 @@ using System;
 public class Car_Movement_Plus : MonoBehaviour
 {
 
+    public GameObject smoke;
+
+    float smokeTimer = 0;
     float statDurability = 1.0f;
     float statSpeed = 1.0f;
     float statJump = 1.0f;
@@ -120,6 +123,12 @@ public class Car_Movement_Plus : MonoBehaviour
 
         if (personInCar)
         {
+            smokeTimer += 1f * Time.deltaTime;
+            if (smokeTimer > 0.2f)
+            {
+                CreateSmoke();
+                smokeTimer = 0;
+            }
             Movement();
             Jump();
         }
@@ -242,6 +251,12 @@ public class Car_Movement_Plus : MonoBehaviour
             statDurability = 0.0f;
         }
         BlueBarFill();
+    }
+
+    void CreateSmoke()
+    {
+        Vector3 smokeLocation = new Vector3(gameObject.transform.GetChild(0).transform.position.x - 3f, gameObject.transform.GetChild(0).transform.position.y + 1.5f, 0);
+        Instantiate(smoke,smokeLocation,gameObject.transform.GetChild(0).gameObject.transform.rotation);
     }
 
     void ResetPosition()
