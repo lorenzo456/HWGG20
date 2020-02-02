@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject player;
 
     public Item.ItemType item = Item.ItemType.None;
+    public GameObject heldItem;
+    public Sprite Hspd, Hdur, Hjmp;
 
     public Sprite faceLeft, faceRight, jmp, left1, left2, right1, right2;
     private float nextFrame = 0;
@@ -131,7 +133,32 @@ public class PlayerMovement : MonoBehaviour
         GetComponentInChildren<Animator>().SetBool("inAir", !GetComponent<Rigidbody2D>().IsTouching(GameObject.FindGameObjectWithTag("Ground").GetComponent<Collider2D>()));
         GetComponentInChildren<Animator>().SetBool("isLeft", movedLeft);
         GetComponentInChildren<Animator>().SetBool("isRight", movedRight);
-        GetComponentInChildren<Animator>().SetBool("hasItem", item != Item.ItemType.None);
+        bool holdingItem = item != Item.ItemType.None;
+        GetComponentInChildren<Animator>().SetBool("hasItem", holdingItem);
+
+        if(holdingItem)
+        {
+            Sprite s;
+            if(item.Equals(Item.ItemType.Speed))
+            {
+                s = Hspd;
+            }
+            else if (item.Equals(Item.ItemType.Durability))
+            {
+                s = Hdur;
+            }
+            else
+            {
+                s = Hjmp;
+            }
+
+            heldItem.GetComponent<SpriteRenderer>().sprite = s;
+            heldItem.GetComponent<SpriteRenderer>().enabled = true;
+        }
+        else
+        {
+            heldItem.GetComponent<SpriteRenderer>().enabled = false;
+        }
 
         // Reset speed when not moving
         if (!(movedLeft || movedRight))
