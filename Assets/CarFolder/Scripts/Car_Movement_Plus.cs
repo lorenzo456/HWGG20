@@ -67,6 +67,7 @@ public class Car_Movement_Plus : MonoBehaviour
             right = KeyCode.RightArrow;
             up = KeyCode.UpArrow;
         }
+        BlueBarFill();
     }
     //Fill the UI bars for speed jump & durability
 
@@ -237,6 +238,7 @@ public class Car_Movement_Plus : MonoBehaviour
         {
             statDurability = 0.0f;
         }
+        BlueBarFill();
     }
 
     void ResetPosition()
