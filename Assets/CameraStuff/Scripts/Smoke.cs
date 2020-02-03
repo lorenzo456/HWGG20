@@ -10,6 +10,7 @@ public class Smoke : MonoBehaviour
     void Start()
     {
         StartCoroutine(wait());
+        gameObject.layer = 10;
     }
 
     // Update is called once per frame

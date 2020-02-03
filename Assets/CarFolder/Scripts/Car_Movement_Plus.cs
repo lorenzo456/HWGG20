@@ -124,7 +124,7 @@ public class Car_Movement_Plus : MonoBehaviour
         if (personInCar)
         {
             smokeTimer += 1f * Time.deltaTime;
-            if (smokeTimer > 0.2f)
+            if (smokeTimer > (0.2f + 0.15f/(statSpeed+0.01)) && statDurability != 0)
             {
                 CreateSmoke();
                 smokeTimer = 0;
