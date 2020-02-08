@@ -8,7 +8,7 @@ public class Item : MonoBehaviour
     public ItemType itemType = ItemType.None;
 
     public Sprite spee, jmp, dur;
-    void Start()
+    private void Start()
     {
         // Randomly choose an item type
         int t = Mathf.FloorToInt(Random.Range(0, 3));

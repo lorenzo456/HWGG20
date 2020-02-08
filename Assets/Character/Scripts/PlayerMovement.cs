@@ -9,8 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float JUMP_POWER = 8;
     private Vector2 speed;
 
-    // Reference to the correct car
-    public GameObject playerObject;
+    // Reference to the player script for controls etc
     private Player player;
 
     public Item.ItemType item = Item.ItemType.None;
@@ -19,11 +18,14 @@ public class PlayerMovement : MonoBehaviour
 
     public bool isFacingRight = true;
 
+    public int playerNumber;
+
     // Start is called before the first frame update
     private void Start()
     {
         speed = new Vector2();
-        player = playerObject.GetComponent<Player>();
+
+        player = transform.parent.GetComponent<Player>();
     }
 
     // Update is called once per frame

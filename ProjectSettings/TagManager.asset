@@ -14,6 +14,9 @@ TagManager:
   - down
   - up
   - right
+  - Player1
+  - Player3
+  - Player4
   layers:
   - Default
   - TransparentFX
@@ -23,7 +26,7 @@ TagManager:
   - UI
   - 
   - 
-  - Player
+  - Player1
   - Player2
   - Item
   - Car
@@ -31,8 +34,8 @@ TagManager:
   - OnlyGround
   - Hazard
   - Ground
-  - 
-  - 
+  - Player3
+  - Player4
   - 
   - 
   - 

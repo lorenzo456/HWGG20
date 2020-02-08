@@ -11,6 +11,13 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public Car_Movement_Plus carMovement;
 
+    [Space(16)]
+    [Range(1, 4)]
+    public int playerNumber;
+    [HideInInspector]
+    public string playerID;
+
+    [Space(16)]
     public bool isInsideCar;
 
     public class Controller
@@ -21,19 +28,16 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public Controller controller = new Controller();
 
-    public enum PlayerTag { Player, Player2 };
-    public PlayerTag playerType;
-
-    bool ignoreGetInCar = false;
-
-    private Item.ItemType item;
+    private float defaultInteractTimeout = 0.25f;
+    private float interactTimeout = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        // Update the player tag and layer to correspond with Player or Player2
-        transform.tag = playerType.ToString();
-        gameObject.layer = LayerMask.NameToLayer(playerType.ToString());
+        playerID = "Player" + playerNumber;
+        // Update the player tag and layer to correspond with Player1 to 4
+        transform.tag = playerID;
+        gameObject.layer = LayerMask.NameToLayer(playerID);
 
         playerMovement = player.GetComponent<PlayerMovement>();
         carMovement = car.GetComponent<Car_Movement_Plus>();
@@ -46,8 +50,6 @@ public class Player : MonoBehaviour
 
 
 
-
-
     private void OnDestroy()
     {
         //q.OnQuickTimeFinished -= QuickTimeFinished;
@@ -56,7 +58,7 @@ public class Player : MonoBehaviour
     private void SetKeys()
     {
         // Set the player key controls
-        if (playerType == PlayerTag.Player)
+        if (transform.tag.Equals("Player1"))
         {
             controller.accelerate = KeyCode.D;
             controller.decelerate = KeyCode.A;
@@ -64,7 +66,7 @@ public class Player : MonoBehaviour
             controller.toggleCar = KeyCode.Q;
             controller.interact = KeyCode.E;
         }
-        else
+        else if (transform.tag.Equals("Player2"))
         {
             controller.accelerate = KeyCode.RightArrow;
             controller.decelerate = KeyCode.LeftArrow;
@@ -77,44 +79,51 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        interactTimeout--;
+
         if (isInsideCar)
         {
-            if (!ignoreGetInCar)
+            // Get out of car
+            if (Input.GetKeyDown(controller.toggleCar))
             {
-                // Get out of car
-                if (Input.GetKeyDown(controller.toggleCar))
-                {
-                    //print("getting out of car");
-                    // Set engine to off
-                    getOutCar();
-                }
+                getOutCar();
             }
-        }
-        ignoreGetInCar = false;
-    }
 
+        }
+
+    }
 
     public void GetIntoCar()
     {
-        player.SetActive(false);
-        isInsideCar = true;
-        carMovement.personInCar = true;
-        ignoreGetInCar = true;
+        if(interactTimeout <= 0)
+        {
+            player.SetActive(false);
+            isInsideCar = true;
+            carMovement.personInCar = true;
+
+            interactTimeout = defaultInteractTimeout;
+        }
+
     }
 
     public void getOutCar()
     {
-        player.SetActive(true);
-        player.transform.position = car.transform.GetChild(0).position;
-        player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        isInsideCar = false;
+        if(interactTimeout <= 0)
+        {
+            player.SetActive(true);
+            isInsideCar = false;
+            carMovement.personInCar = false;
 
-        carMovement.personInCar = false;
+            player.transform.position = car.transform.GetChild(0).position;
+            player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+
+            interactTimeout = defaultInteractTimeout;
+        }
+
     }
 
     public void UpgradeCar(Item.ItemType item)
     {
-        this.item = item;
         // Remove keys
         //accelerate = KeyCode.None; decelerate = KeyCode.None; jump = KeyCode.None; toggleCar = KeyCode.None; interact = KeyCode.None;
 
@@ -124,10 +133,10 @@ public class Player : MonoBehaviour
         //quickTime.SetActive(true);
         //q.StartGame();
 
-        QuickTimeFinished();
+        QuickTimeFinished(item);
     }
 
-    public void QuickTimeFinished()
+    public void QuickTimeFinished(Item.ItemType item)
     {
         //quickTime.SetActive(false);
         float score = 0.5f;
@@ -149,7 +158,7 @@ public class Player : MonoBehaviour
             Debug.Log("Trying to upgrade a car with no item.");
         }
         Debug.Log("Upgraded " + item + " for " + score + " points.");
-        item = Item.ItemType.None;
+
         SetKeys();
     }
 }
