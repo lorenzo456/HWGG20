@@ -86,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Update the player sprite 
-        Animator sprite = GetComponentInChildren<Animator>();
+        Animator sprite = transform.Find("Sprite").GetComponent<Animator>();
         sprite.SetBool("inAir", !GetComponent<Rigidbody2D>().IsTouching(GameObject.FindGameObjectWithTag("Ground").GetComponent<Collider2D>()));
         sprite.SetBool("isLeft", movedLeft);
         sprite.SetBool("isRight", movedRight);
@@ -110,7 +110,9 @@ public class PlayerMovement : MonoBehaviour
                 heldItem = 3;
             }
         }
-        sprite.SetInteger("heldItem", heldItem);
+        
+        // Update the held item
+        transform.Find("Held Item").GetComponent<Animator>().SetInteger("heldItem", heldItem);
 
         // Reset speed when not moving
         if (!(movedLeft || movedRight))
