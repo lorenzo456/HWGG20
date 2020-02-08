@@ -2,48 +2,55 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarStateListener : MonoBehaviour
+public class Player : MonoBehaviour
 {
-    public GameObject car;
     public GameObject player;
-
-    public GameObject quickTime;
+    [HideInInspector]
+    public PlayerMovement playerMovement;
+    public GameObject car;
+    [HideInInspector]
+    public Car_Movement_Plus carMovement;
 
     public bool isInsideCar;
 
-    public KeyCode accelerate, decelerate, jump, toggleCar, interact;
+    public class Controller
+    {
+        public KeyCode accelerate, decelerate, jump, toggleCar, interact;
+    }
+
+    [HideInInspector]
+    public Controller controller = new Controller();
 
     public enum PlayerTag { Player, Player2 };
     public PlayerTag playerType;
 
     bool ignoreGetInCar = false;
-    
 
-    private Car_Movement_Plus c;
-    private QuickTime q;
     private Item.ItemType item;
 
     // Start is called before the first frame update
     void Start()
     {
-        isInsideCar = true;
-        player.SetActive(false);
-
         // Update the player tag and layer to correspond with Player or Player2
         transform.tag = playerType.ToString();
         gameObject.layer = LayerMask.NameToLayer(playerType.ToString());
 
+        playerMovement = player.GetComponent<PlayerMovement>();
+        carMovement = car.GetComponent<Car_Movement_Plus>();
+
+        GetIntoCar();
+
         SetKeys();
-
-        c = car.GetComponent<Car_Movement_Plus>();
-        q = quickTime.GetComponent<QuickTime>();
-
-        q.OnQuickTimeFinished += QuickTimeFinished;
+        //q.OnQuickTimeFinished += QuickTimeFinished;
     }
+
+
+
+
 
     private void OnDestroy()
     {
-        q.OnQuickTimeFinished -= QuickTimeFinished;
+        //q.OnQuickTimeFinished -= QuickTimeFinished;
     }
 
     private void SetKeys()
@@ -51,19 +58,19 @@ public class CarStateListener : MonoBehaviour
         // Set the player key controls
         if (playerType == PlayerTag.Player)
         {
-            accelerate = KeyCode.D;
-            decelerate = KeyCode.A;
-            jump = KeyCode.W;
-            toggleCar = KeyCode.Q;
-            interact = KeyCode.E;
+            controller.accelerate = KeyCode.D;
+            controller.decelerate = KeyCode.A;
+            controller.jump = KeyCode.W;
+            controller.toggleCar = KeyCode.Q;
+            controller.interact = KeyCode.E;
         }
         else
         {
-            accelerate = KeyCode.RightArrow;
-            decelerate = KeyCode.LeftArrow;
-            jump = KeyCode.UpArrow;
-            toggleCar = KeyCode.I;
-            interact = KeyCode.O;
+            controller.accelerate = KeyCode.RightArrow;
+            controller.decelerate = KeyCode.LeftArrow;
+            controller.jump = KeyCode.UpArrow;
+            controller.toggleCar = KeyCode.I;
+            controller.interact = KeyCode.O;
         }
     }
 
@@ -75,17 +82,11 @@ public class CarStateListener : MonoBehaviour
             if (!ignoreGetInCar)
             {
                 // Get out of car
-                if (Input.GetKeyDown(toggleCar))
+                if (Input.GetKeyDown(controller.toggleCar))
                 {
                     //print("getting out of car");
                     // Set engine to off
-
-                    player.SetActive(true);
-                    player.transform.position = car.transform.GetChild(0).position;
-                    player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                    isInsideCar = false;
-
-                    car.GetComponent<Car_Movement_Plus>().personInCar = false;
+                    getOutCar();
                 }
             }
         }
@@ -97,8 +98,18 @@ public class CarStateListener : MonoBehaviour
     {
         player.SetActive(false);
         isInsideCar = true;
-        car.GetComponent<Car_Movement_Plus>().personInCar = true;
+        carMovement.personInCar = true;
         ignoreGetInCar = true;
+    }
+
+    public void getOutCar()
+    {
+        player.SetActive(true);
+        player.transform.position = car.transform.GetChild(0).position;
+        player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        isInsideCar = false;
+
+        carMovement.personInCar = false;
     }
 
     public void UpgradeCar(Item.ItemType item)
@@ -118,20 +129,20 @@ public class CarStateListener : MonoBehaviour
 
     public void QuickTimeFinished()
     {
-        quickTime.SetActive(false);
+        //quickTime.SetActive(false);
         float score = 0.5f;
 
         if (item.Equals(Item.ItemType.Speed))
         {
-            c.repairSpeed(score);
+            //c.repairSpeed(score);
         }
         else if (item.Equals(Item.ItemType.Durability))
         {
-            c.repairDurabilty(score);
+            //c.repairDurabilty(score);
         }
         else if (item.Equals(Item.ItemType.Jump))
         {
-            c.repairJump(score);
+            //c.repairJump(score);
         }
         else
         {

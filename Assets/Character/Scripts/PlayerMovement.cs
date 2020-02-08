@@ -10,15 +10,12 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 speed;
 
     // Reference to the correct car
-    public GameObject player;
+    public GameObject playerObject;
+    private Player player;
 
     public Item.ItemType item = Item.ItemType.None;
     public GameObject held;
     public Sprite Hspd, Hdur, Hjmp;
-
-    public Sprite faceLeft, faceRight, jmp, left1, left2, right1, right2;
-    private float nextFrame = 0;
-    public float secondsForSprite = 0.3f;
 
     public bool isFacingRight = true;
 
@@ -26,15 +23,16 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         speed = new Vector2();
+        player = playerObject.GetComponent<Player>();
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if (!player.GetComponent<CarStateListener>().isInsideCar)
+        if (!player.isInsideCar)
         {
             // Player has pressed jump
-            if (Input.GetKeyDown(player.GetComponent<CarStateListener>().jump))
+            if (Input.GetKeyDown(player.controller.jump))
             {
                 // Check that the player is on the ground 
                 if (GetComponent<Rigidbody2D>().IsTouching(GameObject.FindGameObjectWithTag("Ground").GetComponent<Collider2D>()))
@@ -59,13 +57,13 @@ public class PlayerMovement : MonoBehaviour
         // Function that updates the players speed from user input
         bool movedRight = false, movedLeft = false;
 
-        if (Input.GetKey(player.GetComponent<CarStateListener>().accelerate))
+        if (Input.GetKey(player.controller.accelerate))
         {
             speed.x = DEFAULT_SPEED;
             movedRight = true;
             isFacingRight = true;
         }
-        if (Input.GetKey(player.GetComponent<CarStateListener>().decelerate))
+        if (Input.GetKey(player.controller.decelerate))
         {
             speed.x = -DEFAULT_SPEED;
             movedLeft = true;
@@ -119,9 +117,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 // Display car to upgrade message here
                 //print("car can be upgraded");
-                if (Input.GetKeyDown(player.GetComponent<CarStateListener>().interact))
+                if (Input.GetKeyDown(player.controller.interact))
                 {
-                    player.GetComponent<CarStateListener>().UpgradeCar(item);
+                    player.UpgradeCar(item);
                     item = Item.ItemType.None;
                 }
             }
@@ -132,9 +130,9 @@ public class PlayerMovement : MonoBehaviour
             }
 
             // Get into it
-            if (Input.GetKeyDown(player.GetComponent<CarStateListener>().toggleCar))
+            if (Input.GetKeyDown(player.GetComponent<Player>().controller.toggleCar))
             {
-                player.GetComponent<CarStateListener>().GetIntoCar();
+                player.GetIntoCar();
             }
         }
         if (collision.gameObject.CompareTag("Item"))
@@ -144,7 +142,7 @@ public class PlayerMovement : MonoBehaviour
                 // TODO set hud display visible here
                 //Debug.Log("Press " + player.GetComponent<CarStateListener>().interact + " to pick up the scrap");
 
-                if (Input.GetKey(player.GetComponent<CarStateListener>().interact))
+                if (Input.GetKey(player.controller.interact))
                 {
                     // Set item
                     GameObject g = collision.gameObject;
