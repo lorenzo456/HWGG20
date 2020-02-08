@@ -28,11 +28,12 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public Controller controller = new Controller();
 
-    private float defaultInteractTimeout = 0.25f;
-    private float interactTimeout = 0;
+    // Default interaction timeout 30 ticks
+    private int defaultInteractTimeout = 8;
+    public int interactTimeout = 0;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         playerID = "Player" + playerNumber;
         // Update the player tag and layer to correspond with Player1 to 4
@@ -79,7 +80,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        interactTimeout--;
+        if (interactTimeout > 0)
+        {
+            interactTimeout--;
+        }
 
         if (isInsideCar)
         {
@@ -95,29 +99,29 @@ public class Player : MonoBehaviour
 
     public void GetIntoCar()
     {
-        if(interactTimeout <= 0)
+        if (interactTimeout <= 0)
         {
+            interactTimeout = defaultInteractTimeout;
+
             player.SetActive(false);
             isInsideCar = true;
             carMovement.personInCar = true;
-
-            interactTimeout = defaultInteractTimeout;
         }
 
     }
 
     public void getOutCar()
     {
-        if(interactTimeout <= 0)
+        if (interactTimeout <= 0)
         {
+            interactTimeout = defaultInteractTimeout;
+
             player.SetActive(true);
             isInsideCar = false;
             carMovement.personInCar = false;
 
             player.transform.position = car.transform.GetChild(0).position;
             player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-
-            interactTimeout = defaultInteractTimeout;
         }
 
     }

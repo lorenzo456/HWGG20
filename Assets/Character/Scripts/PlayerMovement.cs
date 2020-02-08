@@ -7,29 +7,42 @@ public class PlayerMovement : MonoBehaviour
     // Movement variables
     public float DEFAULT_SPEED = 10;
     public float JUMP_POWER = 8;
-    private Vector2 speed;
 
     // Reference to the player script for controls etc
     private Player player;
 
-    public Item.ItemType item = Item.ItemType.None;
-    public GameObject held;
-    public Sprite Hspd, Hdur, Hjmp;
+    [Space(16)]
+    public Item.ItemType held = Item.ItemType.None;
 
     public bool isFacingRight = true;
-
-    public int playerNumber;
 
     // Start is called before the first frame update
     private void Start()
     {
-        speed = new Vector2();
-
         player = transform.parent.GetComponent<Player>();
+
+        gameObject.layer = LayerMask.NameToLayer(player.playerID);
+
+        // Set all children to the same layer, EXCEPT THE GROUND COLLISION
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Transform t = transform.GetChild(i);
+
+            if(t.GetComponent<BoxCollider2D>() != null)
+            {
+                // We have found the sprite 
+                // This is the ground collision 
+                t.gameObject.layer = LayerMask.NameToLayer("OnlyGround");
+            }
+            else
+            {
+                t.gameObject.layer = LayerMask.NameToLayer(player.playerID);
+            }
+        }
     }
 
     // Update is called once per frame
-    private void Update()
+    private void FixedUpdate()
     {
         if (!player.isInsideCar)
         {
@@ -39,125 +52,123 @@ public class PlayerMovement : MonoBehaviour
                 // Check that the player is on the ground 
                 if (GetComponent<Rigidbody2D>().IsTouching(GameObject.FindGameObjectWithTag("Ground").GetComponent<Collider2D>()))
                 {
-                    // Apply upward force (percentage of boost)
-                    transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, JUMP_POWER), ForceMode2D.Impulse);
+                    // Apply upward force 
+                    GetComponent<Rigidbody2D>().AddForce(new Vector2(0, JUMP_POWER), ForceMode2D.Impulse);
                 }
             }
 
-            UpdatePlayerSpeed();
-
-            // Apply the direction
+            // Move the player
+            float velocityX = GetVelocityX();
             Vector2 direction = new Vector2();
-            direction.x += speed.x * Time.deltaTime;
+            direction.x += velocityX * Time.deltaTime;
             transform.Translate(direction);
         }
     }
 
 
-    private void UpdatePlayerSpeed()
+    private float GetVelocityX()
     {
         // Function that updates the players speed from user input
         bool movedRight = false, movedLeft = false;
+        float velocityX = 0;
 
         if (Input.GetKey(player.controller.accelerate))
         {
-            speed.x = DEFAULT_SPEED;
+            velocityX = DEFAULT_SPEED;
             movedRight = true;
             isFacingRight = true;
         }
         if (Input.GetKey(player.controller.decelerate))
         {
-            speed.x = -DEFAULT_SPEED;
+            velocityX = -DEFAULT_SPEED;
             movedLeft = true;
             isFacingRight = false;
         }
 
-        GetComponentInChildren<Animator>().SetBool("inAir", !GetComponent<Rigidbody2D>().IsTouching(GameObject.FindGameObjectWithTag("Ground").GetComponent<Collider2D>()));
-        GetComponentInChildren<Animator>().SetBool("isLeft", movedLeft);
-        GetComponentInChildren<Animator>().SetBool("isRight", movedRight);
-        bool holdingItem = item != Item.ItemType.None;
-        GetComponentInChildren<Animator>().SetBool("hasItem", holdingItem);
+        // Update the player sprite 
+        Animator sprite = GetComponentInChildren<Animator>();
+        sprite.SetBool("inAir", !GetComponent<Rigidbody2D>().IsTouching(GameObject.FindGameObjectWithTag("Ground").GetComponent<Collider2D>()));
+        sprite.SetBool("isLeft", movedLeft);
+        sprite.SetBool("isRight", movedRight);
 
-        if (holdingItem)
-        {
-            Sprite s;
-            if (item.Equals(Item.ItemType.Speed))
-            {
-                s = Hspd;
-            }
-            else if (item.Equals(Item.ItemType.Durability))
-            {
-                s = Hdur;
-            }
-            else
-            {
-                s = Hjmp;
-            }
+        bool isHoldingItem = held != Item.ItemType.None;
+        sprite.SetBool("hasItem", isHoldingItem);
 
-            held.GetComponent<SpriteRenderer>().sprite = s;
-            held.GetComponent<SpriteRenderer>().enabled = true;
-        }
-        else
+        int heldItem = 0;
+        if (isHoldingItem)
         {
-            held.GetComponent<SpriteRenderer>().enabled = false;
+            if (held.Equals(Item.ItemType.Speed))
+            {
+                heldItem = 1;
+            }
+            else if (held.Equals(Item.ItemType.Durability))
+            {
+                heldItem = 2;
+            }
+            else if (held.Equals(Item.ItemType.Jump))
+            {
+                heldItem = 3;
+            }
         }
+        sprite.SetInteger("heldItem", heldItem);
 
         // Reset speed when not moving
         if (!(movedLeft || movedRight))
         {
-            speed.x = 0;
+            velocityX = 0;
         }
+
+        return velocityX;
     }
 
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         // Check the correct vehicle
-        if ((collision.gameObject.tag.Equals("Car") && transform.tag.Equals("Player")) || (collision.gameObject.tag.Equals("Car2") && transform.tag.Equals("Player2")))
+        if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Car" + player.playerNumber)))
         {
-            if (item != Item.ItemType.None)
+            // Upgrade the car here
+            if (held != Item.ItemType.None)
             {
-                // Display car to upgrade message here
-                //print("car can be upgraded");
+                // TODO Display car to upgrade message here
+
                 if (Input.GetKeyDown(player.controller.interact))
                 {
-                    player.UpgradeCar(item);
-                    item = Item.ItemType.None;
+                    player.UpgradeCar(held);
+                    held = Item.ItemType.None;
+                    return;
                 }
             }
             else
             {
-                // display get into car message
-                //print("get into car");
+                // TODO Display get into car message here
             }
 
             // Get into it
             if (Input.GetKeyDown(player.GetComponent<Player>().controller.toggleCar))
             {
                 player.GetIntoCar();
+                return;
             }
         }
+        // Check collision with an item
         if (collision.gameObject.CompareTag("Item"))
         {
-            if (item == Item.ItemType.None)
+            // Not holding an item
+            if (held == Item.ItemType.None)
             {
-                // TODO set hud display visible here
-                //Debug.Log("Press " + player.GetComponent<CarStateListener>().interact + " to pick up the scrap");
+                // TODO Display press player.controller.interact to pick up item here
 
                 if (Input.GetKey(player.controller.interact))
                 {
-                    // Set item
-                    GameObject g = collision.gameObject;
-                    //print("Picked up item " + g.GetComponent<Item>());
-                    item = g.GetComponent<Item>().itemType;
-
+                    // Pick up item and delete it off the ground
+                    held = collision.gameObject.GetComponent<Item>().itemType;
                     Destroy(collision.gameObject);
                 }
             }
             else
             {
-                // TODO set hud display visible here
-                // Debug.Log("You can't pick this up");
+                // TODO Display you can't pick up this item
             }
         }
 
