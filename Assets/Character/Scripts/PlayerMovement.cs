@@ -11,8 +11,7 @@ public class PlayerMovement : MonoBehaviour
     // Reference to the player script for controls etc
     private Player player;
 
-    [Space(16)]
-    public Item.ItemType held = Item.ItemType.None;
+    private GameObject heldItem;
 
     // Start is called before the first frame update
     private void Start()
@@ -43,6 +42,21 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!player.isInsideCar)
         {
+            // Allow player to drop held item
+            if (Input.GetKeyDown(player.controller.interact))
+            {
+                // Ensure they are not trying to upgrade the car
+                if (!GetComponent<BoxCollider2D>().IsTouchingLayers(LayerMask.NameToLayer("Car" + player.playerNumber)))
+                {
+                    if (player.IsValidInteractTime())
+                    {
+                        // Disable for now as prevents from upgrading car
+                        //DropItem();
+                    }
+                }
+
+            }
+
             // Player has pressed jump
             if (Input.GetKeyDown(player.controller.jump))
             {
@@ -79,34 +93,35 @@ public class PlayerMovement : MonoBehaviour
             movedLeft = true;
         }
 
-        // Update the player sprite 
+        // Update the player movement animator
         Animator sprite = transform.Find("Sprite").GetComponent<Animator>();
         sprite.SetBool("inAir", !GetComponent<Rigidbody2D>().IsTouching(GameObject.FindGameObjectWithTag("Ground").GetComponent<Collider2D>()));
         sprite.SetBool("isLeft", movedLeft);
         sprite.SetBool("isRight", movedRight);
-
-        bool isHoldingItem = held != Item.ItemType.None;
+        // Held item player sprite
+        bool isHoldingItem = heldItem != null;
         sprite.SetBool("hasItem", isHoldingItem);
 
-        int heldItem = 0;
+        // Update the held item animator
+        int heldItemID = 0;
         if (isHoldingItem)
         {
-            if (held.Equals(Item.ItemType.Speed))
+            Item held = heldItem.GetComponent<Item>();
+            if (held.itemType.Equals(Item.ItemType.Speed))
             {
-                heldItem = 1;
+                heldItemID = 1;
             }
-            else if (held.Equals(Item.ItemType.Durability))
+            else if (held.itemType.Equals(Item.ItemType.Durability))
             {
-                heldItem = 2;
+                heldItemID = 2;
             }
-            else if (held.Equals(Item.ItemType.Jump))
+            else if (held.itemType.Equals(Item.ItemType.Jump))
             {
-                heldItem = 3;
+                heldItemID = 3;
             }
         }
-
         // Update the held item
-        transform.Find("Held Item").GetComponent<Animator>().SetInteger("heldItem", heldItem);
+        transform.Find("Held Item").GetComponent<Animator>().SetInteger("heldItem", heldItemID);
 
         // Reset speed when not moving
         if (!(movedLeft || movedRight))
@@ -126,14 +141,16 @@ public class PlayerMovement : MonoBehaviour
             if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Car" + player.playerNumber)))
             {
                 // Upgrade the car here
-                if (held != Item.ItemType.None)
+                if (heldItem != null)
                 {
                     // TODO Display car to upgrade message here
 
                     if (Input.GetKeyDown(player.controller.interact))
                     {
-                        player.UpgradeCar(held);
-                        held = Item.ItemType.None;
+                        player.UpgradeCar(heldItem.GetComponent<Item>().itemType);
+                        Destroy(heldItem.gameObject);
+                        // Just to make sure
+                        heldItem = null;
                         player.ResetInteractTimeout();
                         return;
                     }
@@ -155,16 +172,14 @@ public class PlayerMovement : MonoBehaviour
             if (collision.gameObject.CompareTag("Item"))
             {
                 // Not holding an item
-                if (held == Item.ItemType.None)
+                if (heldItem == null)
                 {
                     // TODO Display press player.controller.interact to pick up item here
 
                     if (Input.GetKey(player.controller.interact))
                     {
-                        // Pick up item and delete it off the ground
-                        held = collision.gameObject.GetComponent<Item>().itemType;
-                        Destroy(collision.gameObject);
-                        player.ResetInteractTimeout();
+                        // Pick up item
+                        PickUpItem(collision.gameObject);
                         return;
                     }
                 }
@@ -175,9 +190,29 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-
     }
 
 
+    private void PickUpItem(GameObject item)
+    {
+        if (heldItem == null)
+        {
+            heldItem = item;
+            player.ResetInteractTimeout();
+            heldItem.SetActive(false);
+        }
+    }
+
+    private void DropItem()
+    {
+        if (heldItem != null)
+        {
+            // Set held item position to be that of the sprite above the players head
+            heldItem.transform.position = transform.Find("Held Item").position;
+            heldItem.SetActive(true);
+            player.ResetInteractTimeout();
+            heldItem = null;
+        }
+    }
 
 }
