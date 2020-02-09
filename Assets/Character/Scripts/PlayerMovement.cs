@@ -17,24 +17,11 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         player = transform.parent.GetComponent<Player>();
-
         gameObject.layer = LayerMask.NameToLayer(player.playerID);
-        // Set all children to the same layer, EXCEPT THE GROUND COLLISION
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            Transform t = transform.GetChild(i);
 
-            if (t.GetComponent<BoxCollider2D>() != null)
-            {
-                // We have found the sprite 
-                // This is the ground collision 
-                t.gameObject.layer = LayerMask.NameToLayer("OnlyGround");
-            }
-            else
-            {
-                t.gameObject.layer = LayerMask.NameToLayer(player.playerID);
-            }
-        }
+        // Set sprite to ONLY GROUND COLLISION
+        transform.Find("Sprite").gameObject.layer = LayerMask.NameToLayer("OnlyGround");
+        transform.Find("Held Item").gameObject.layer = LayerMask.NameToLayer(player.playerID);
     }
 
     // Update is called once per frame
@@ -99,12 +86,11 @@ public class PlayerMovement : MonoBehaviour
         sprite.SetBool("isLeft", movedLeft);
         sprite.SetBool("isRight", movedRight);
         // Held item player sprite
-        bool isHoldingItem = heldItem != null;
-        sprite.SetBool("hasItem", isHoldingItem);
+        sprite.SetBool("hasItem", heldItem != null);
 
         // Update the held item animator
         int heldItemID = 0;
-        if (isHoldingItem)
+        if (heldItem != null)
         {
             Item held = heldItem.GetComponent<Item>();
             if (held.itemType.Equals(Item.ItemType.Speed))

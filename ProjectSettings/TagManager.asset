@@ -28,14 +28,14 @@ TagManager:
   - 
   - Player1
   - Player2
+  - Player3
+  - Player4
   - Item
-  - Car1
-  - Car2
   - OnlyGround
   - Hazard
   - Ground
-  - Player3
-  - Player4
+  - Car1
+  - Car2
   - Car3
   - Car4
   - 

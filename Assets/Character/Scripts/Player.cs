@@ -21,52 +21,6 @@ public class Player : MonoBehaviour
 
     public Controller controller;
 
-    public class Controller
-    {
-        public KeyCode accelerate, decelerate, jump, flipCar, toggleCar, interact;
-        private string player;
-
-        public Controller(string player)
-        {
-            this.player = player;
-
-            SetKeys();
-        }
-
-        public void SetKeys()
-        {
-            // Set the player key controls
-            if (player.Equals("Player1"))
-            {
-                accelerate = KeyCode.D;
-                decelerate = KeyCode.A;
-                jump = KeyCode.W;
-                flipCar = KeyCode.S;
-                toggleCar = KeyCode.Q;
-                interact = KeyCode.E;
-            }
-            else if (player.Equals("Player2"))
-            {
-                accelerate = KeyCode.RightArrow;
-                decelerate = KeyCode.LeftArrow;
-                jump = KeyCode.UpArrow;
-                flipCar = KeyCode.DownArrow;
-                toggleCar = KeyCode.I;
-                interact = KeyCode.O;
-            }
-        }
-
-        public void DisableKeys()
-        {
-            accelerate = KeyCode.None;
-            decelerate = KeyCode.None;
-            jump = KeyCode.None;
-            flipCar = KeyCode.None;
-            toggleCar = KeyCode.None;
-            interact = KeyCode.None;
-        }
-    }
-
     // Default interaction timeout 30 ticks
     private int defaultInteractTimeout = 8;
     private int interactTimeout = 0;
@@ -95,7 +49,7 @@ public class Player : MonoBehaviour
 
         GetIntoCar();
 
-        controller = new Controller(playerID);
+        controller = new Controller(playerID, false);
         //q.OnQuickTimeFinished += QuickTimeFinished;
     }
 
@@ -199,7 +153,6 @@ public class Player : MonoBehaviour
     }
 
 
-
     public bool IsValidInteractTime()
     {
         return interactTimeout <= 0;
@@ -208,5 +161,83 @@ public class Player : MonoBehaviour
     public void ResetInteractTimeout()
     {
         interactTimeout = defaultInteractTimeout;
+    }
+
+
+
+
+
+
+
+    public class Controller
+    {
+        public KeyCode accelerate, decelerate, jump, flipCar, toggleCar, interact;
+        public bool isLeft, isRight, isUp, isDown, isToggle, isInteract;
+        private string player;
+        private bool isController;
+
+        public Controller(string player, bool isController)
+        {
+            this.player = player;
+            this.isController = isController;
+
+            SetKeys();
+        }
+
+        public void Update()
+        {
+
+        }
+
+        public void SetKeys()
+        {
+            if (isController)
+            {
+                SetKeysController();
+            }
+            else
+            {
+                SetKeysKeyboard();
+            }
+        }
+
+        private void SetKeysController()
+        {
+            // Need to use axis for this
+            // Maybe need a function for each that returns bool? easiest way?
+        }
+
+        private void SetKeysKeyboard()
+        {
+            // Set the player key controls
+            if (player.Equals("Player1"))
+            {
+                accelerate = KeyCode.D;
+                decelerate = KeyCode.A;
+                jump = KeyCode.W;
+                flipCar = KeyCode.S;
+                toggleCar = KeyCode.Q;
+                interact = KeyCode.E;
+            }
+            else if (player.Equals("Player2"))
+            {
+                accelerate = KeyCode.RightArrow;
+                decelerate = KeyCode.LeftArrow;
+                jump = KeyCode.UpArrow;
+                flipCar = KeyCode.DownArrow;
+                toggleCar = KeyCode.I;
+                interact = KeyCode.O;
+            }
+        }
+
+        public void DisableKeys()
+        {
+            accelerate = KeyCode.None;
+            decelerate = KeyCode.None;
+            jump = KeyCode.None;
+            flipCar = KeyCode.None;
+            toggleCar = KeyCode.None;
+            interact = KeyCode.None;
+        }
     }
 }

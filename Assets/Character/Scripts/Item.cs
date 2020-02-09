@@ -8,8 +8,18 @@ public class Item : MonoBehaviour
     public ItemType itemType = ItemType.None;
 
     public Sprite spee, jmp, dur;
+    private string ID = "Item";
+
     private void Start()
     {
+        transform.tag = ID;
+        gameObject.layer = LayerMask.NameToLayer(ID);
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).tag = ID;
+            transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer(ID);
+        }
+
         // Randomly choose an item type
         int t = Mathf.FloorToInt(Random.Range(0, 3));
 
@@ -32,25 +42,7 @@ public class Item : MonoBehaviour
         }
 
         // Set sprite
-        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = s;
+        transform.Find("Sprite").GetComponent<SpriteRenderer>().sprite = s;
     }
-
-    /*
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        print("item colliding with " + collision.tag);
-        // Collides with either Player or Player2
-        if (collision.gameObject.tag.Contains("Player"))
-        {
-            // Check if the player that it has collided with this object and if the player has space to pick it up
-            if (collision.GetComponent<PlayerMovement>().CollectedItem(itemType))
-            {
-                // Remove this object
-                Destroy(gameObject);
-            }
-        }
-    }
-    */
-
 
 }
