@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
 
     // Reference to the player script for controls etc
     private Player player;
-
+    // Reference to the picked up GameObject
     private GameObject heldItem;
 
     // Start is called before the first frame update
@@ -165,7 +165,7 @@ public class PlayerMovement : MonoBehaviour
                     if (Input.GetKey(player.controller.interact))
                     {
                         // Pick up item
-                        PickUpItem(collision.gameObject);
+                        PickUpItem(collision.transform.gameObject);
                         return;
                     }
                 }

@@ -14,11 +14,7 @@ public class Item : MonoBehaviour
     {
         transform.tag = ID;
         gameObject.layer = LayerMask.NameToLayer(ID);
-        for(int i = 0; i < transform.childCount; i++)
-        {
-            transform.GetChild(i).tag = ID;
-            transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer(ID);
-        }
+        transform.Find("Sprite").gameObject.layer = LayerMask.NameToLayer("OnlyGround");
 
         // Randomly choose an item type
         int t = Mathf.FloorToInt(Random.Range(0, 3));
