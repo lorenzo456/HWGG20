@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
 
     // Default interaction timeout 30 ticks
     private int defaultInteractTimeout = 8;
-    public int interactTimeout = 0;
+    private int interactTimeout = 0;
 
     // Start is called before the first frame update
     private void Start()
@@ -99,9 +99,9 @@ public class Player : MonoBehaviour
 
     public void GetIntoCar()
     {
-        if (interactTimeout <= 0)
+        if (IsValidInteractTime())
         {
-            interactTimeout = defaultInteractTimeout;
+            ResetInteractTimeout();
 
             player.SetActive(false);
             isInsideCar = true;
@@ -112,9 +112,9 @@ public class Player : MonoBehaviour
 
     public void getOutCar()
     {
-        if (interactTimeout <= 0)
+        if (IsValidInteractTime())
         {
-            interactTimeout = defaultInteractTimeout;
+            ResetInteractTimeout();
 
             player.SetActive(true);
             isInsideCar = false;
@@ -164,5 +164,17 @@ public class Player : MonoBehaviour
         Debug.Log("Upgraded " + item + " for " + score + " points.");
 
         SetKeys();
+    }
+
+
+
+    public bool IsValidInteractTime()
+    {
+        return interactTimeout <= 0;
+    }
+
+    public void ResetInteractTimeout()
+    {
+        interactTimeout = defaultInteractTimeout;
     }
 }

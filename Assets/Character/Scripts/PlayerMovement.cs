@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Transform t = transform.GetChild(i);
 
-            if(t.GetComponent<BoxCollider2D>() != null)
+            if (t.GetComponent<BoxCollider2D>() != null)
             {
                 // We have found the sprite 
                 // This is the ground collision 
@@ -110,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
                 heldItem = 3;
             }
         }
-        
+
         // Update the held item
         transform.Find("Held Item").GetComponent<Animator>().SetInteger("heldItem", heldItem);
 
@@ -126,53 +126,61 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        // Check the correct vehicle
-        if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Car" + player.playerNumber)))
+        if (player.IsValidInteractTime())
         {
-            // Upgrade the car here
-            if (held != Item.ItemType.None)
+            // Check the correct vehicle
+            if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Car" + player.playerNumber)))
             {
-                // TODO Display car to upgrade message here
-
-                if (Input.GetKeyDown(player.controller.interact))
+                // Upgrade the car here
+                if (held != Item.ItemType.None)
                 {
-                    player.UpgradeCar(held);
-                    held = Item.ItemType.None;
+                    // TODO Display car to upgrade message here
+
+                    if (Input.GetKeyDown(player.controller.interact))
+                    {
+                        player.UpgradeCar(held);
+                        held = Item.ItemType.None;
+                        player.ResetInteractTimeout();
+                        return;
+                    }
+                }
+                else
+                {
+                    // TODO Display get into car message here
+                }
+
+                // Get into it
+                if (Input.GetKeyDown(player.GetComponent<Player>().controller.toggleCar))
+                {
+                    player.GetIntoCar();
+                    player.ResetInteractTimeout();
                     return;
                 }
             }
-            else
+            // Check collision with an item
+            if (collision.gameObject.CompareTag("Item"))
             {
-                // TODO Display get into car message here
-            }
-
-            // Get into it
-            if (Input.GetKeyDown(player.GetComponent<Player>().controller.toggleCar))
-            {
-                player.GetIntoCar();
-                return;
-            }
-        }
-        // Check collision with an item
-        if (collision.gameObject.CompareTag("Item"))
-        {
-            // Not holding an item
-            if (held == Item.ItemType.None)
-            {
-                // TODO Display press player.controller.interact to pick up item here
-
-                if (Input.GetKey(player.controller.interact))
+                // Not holding an item
+                if (held == Item.ItemType.None)
                 {
-                    // Pick up item and delete it off the ground
-                    held = collision.gameObject.GetComponent<Item>().itemType;
-                    Destroy(collision.gameObject);
+                    // TODO Display press player.controller.interact to pick up item here
+
+                    if (Input.GetKey(player.controller.interact))
+                    {
+                        // Pick up item and delete it off the ground
+                        held = collision.gameObject.GetComponent<Item>().itemType;
+                        Destroy(collision.gameObject);
+                        player.ResetInteractTimeout();
+                        return;
+                    }
+                }
+                else
+                {
+                    // TODO Display you can't pick up this item
                 }
             }
-            else
-            {
-                // TODO Display you can't pick up this item
-            }
         }
+
 
     }
 
