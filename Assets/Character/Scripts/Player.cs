@@ -32,8 +32,8 @@ public class Player : MonoBehaviour
     private int defaultInteractTimeout = 8;
     private int interactTimeout = 0;
 
-    // Start is called before the first frame update
-    private void Start()
+    // Must use awake to allow other GameObjects to access the tag of this object as awake is done first
+    private void Awake()
     {
         playerID = "Player" + playerNumber;
         // Update the player tag and layer to correspond with Player1 to 4

@@ -14,15 +14,12 @@ public class PlayerMovement : MonoBehaviour
     [Space(16)]
     public Item.ItemType held = Item.ItemType.None;
 
-    public bool isFacingRight = true;
-
     // Start is called before the first frame update
     private void Start()
     {
         player = transform.parent.GetComponent<Player>();
 
         gameObject.layer = LayerMask.NameToLayer(player.playerID);
-
         // Set all children to the same layer, EXCEPT THE GROUND COLLISION
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -59,8 +56,7 @@ public class PlayerMovement : MonoBehaviour
 
             // Move the player
             float velocityX = GetVelocityX();
-            Vector2 direction = new Vector2();
-            direction.x += velocityX * Time.deltaTime;
+            Vector2 direction = new Vector2(velocityX * Time.deltaTime, 0);
             transform.Translate(direction);
         }
     }
@@ -76,13 +72,11 @@ public class PlayerMovement : MonoBehaviour
         {
             velocityX = DEFAULT_SPEED;
             movedRight = true;
-            isFacingRight = true;
         }
         if (Input.GetKey(player.controller.decelerate))
         {
             velocityX = -DEFAULT_SPEED;
             movedLeft = true;
-            isFacingRight = false;
         }
 
         // Update the player sprite 
@@ -128,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (player.IsValidInteractTime())
         {
-            // Check the correct vehicle
+            // Check the correct vehicle for this player
             if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Car" + player.playerNumber)))
             {
                 // Upgrade the car here
