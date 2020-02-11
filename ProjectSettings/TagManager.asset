@@ -4,7 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Player2
   - Ground
   - Car
   - Car2
@@ -15,6 +14,7 @@ TagManager:
   - up
   - right
   - Player1
+  - Player2
   - Player3
   - Player4
   layers:
@@ -26,18 +26,18 @@ TagManager:
   - UI
   - 
   - 
+  - Item
   - Player1
   - Player2
   - Player3
   - Player4
-  - Item
   - OnlyGround
   - Hazard
-  - Ground
   - Car1
   - Car2
   - Car3
   - Car4
+  - Ground
   - 
   - 
   - 
@@ -53,10 +53,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Item
-    uniqueID: 2261674085
-    locked: 0
-  - name: Player
-    uniqueID: 171841651
     locked: 0
